@@ -3,9 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.0.32014.148
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EnglishApiClient", "EnglishApiClient\EnglishApiClient.csproj", "{19412C5C-8032-43AD-AF24-5068C44BE995}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EnglishApiClient", "EnglishApiClient\EnglishApiClient.csproj", "{19412C5C-8032-43AD-AF24-5068C44BE995}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Models", "Models\Models.csproj", "{B5AF6958-F147-4F3F-83B5-6277D421F904}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Models", "Models\Models.csproj", "{B5AF6958-F147-4F3F-83B5-6277D421F904}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

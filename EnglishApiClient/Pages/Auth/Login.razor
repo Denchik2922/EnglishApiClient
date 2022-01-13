@@ -1,0 +1,37 @@
+﻿@page "/login"
+
+
+<div class="row justify-content-md-center">
+    <div class="col-md-7 col-sm-12">
+    <h2>Login</h2>
+    <div class="col">
+        <EditForm Model="_loginModel" OnValidSubmit="LoginUser" class="card card-body bg-light">
+            <DataAnnotationsValidator />
+            <div class="form-group row">
+                <div class="col-sm-12">
+                    <label for="Username" class="form-label">Username</label>
+                    <InputText id="name" class="form-control" @bind-Value="_loginModel.Username" />
+                    <ValidationMessage For="@(() => _loginModel.Username)" />
+                </div>
+            </div>
+            <div class="form-group row">
+                <div class="col-sm-12">
+                    <label for="Username" class="form-label">Password</label>
+                    <InputText Id="password" type="password" Class="form-control" @bind-Value="_loginModel.Password" />
+                    <ValidationMessage For="@(() => _loginModel.Password)" />
+                </div>
+            </div>
+            <hr class="my-4">
+            <div class="row">
+                <div class="col-9">
+                    <NavLink href="register">Register</NavLink>
+                </div>
+                <div class="col-3">
+                    <button class="btn btn-primary" type="submit">Login</button>
+                </div>
+              </div>
+        </EditForm>
+    </div>
+    </div>
+</div>
+

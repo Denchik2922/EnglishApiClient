@@ -4,6 +4,7 @@ using Blazored.LocalStorage;
 using System.Net.Http;
 using System.Security.Claims;
 using System.Net.Http.Headers;
+using System;
 
 namespace EnglishApiClient.Infrastructure
 {
@@ -30,7 +31,7 @@ namespace EnglishApiClient.Infrastructure
         }
         public void UserAuthentication(string token)
         {
-            var authenticatedUser = new ClaimsPrincipal(new ClaimsIdentity(JwtParser.ParseClaimsFromJwt(token), "apiAuth"));
+            var authenticatedUser = new ClaimsPrincipal(new ClaimsIdentity(JwtParser.ParseClaimsFromJwt(token), "jwt"));
             var authState = Task.FromResult(new AuthenticationState(authenticatedUser));
             NotifyAuthenticationStateChanged(authState);
         }
