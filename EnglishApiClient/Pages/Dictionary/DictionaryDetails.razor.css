@@ -1,0 +1,24 @@
+﻿.tag {
+    margin: 10px 0px 0px 0px;
+}
+.func-block div{
+    display:inline-block;
+    margin-left:10px;
+}
+
+.dictionary-func {
+    text-align: end;
+}
+
+.words{
+    overflow-y:scroll;
+}
+
+.dictionary-func, .word-audio, .search-word {
+    margin-right: 0;
+    margin-left: auto;
+}
+
+.word-img{
+    margin-right:10px;
+}

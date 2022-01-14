@@ -21,20 +21,21 @@ namespace EnglishApiClient
         public static async Task Main(string[] args)
         {
             var builder = WebAssemblyHostBuilder.CreateDefault(args);
-            
-            builder.Services.AddHttpClientInterceptor();
             builder.RootComponents.Add<App>("#app");
-            builder.Services.AddBlazoredLocalStorage();
-            builder.Services.AddAuthorizationCore();
-            builder.Services.AddScoped<HttpInterceptorService>();
-            builder.Services.AddScoped<RefreshTokenService>();
-
+           
             builder.Services.AddScoped(sp => new HttpClient
             {
                 BaseAddress = new Uri("https://localhost:5001/api/")
             }
             .EnableIntercept(sp));
-            
+
+            builder.Services.AddBlazoredLocalStorage();
+            builder.Services.AddAuthorizationCore();
+            builder.Services.AddScoped<HttpInterceptorService>();
+            builder.Services.AddScoped<RefreshTokenService>();
+
+            builder.Services.AddHttpClientInterceptor();
+
             builder.Services.AddScoped<IWordHttpService, WordHttpService>();
             builder.Services.AddScoped<IDictionaryHttpService, DictionaryHttpService>();
             builder.Services.AddScoped<IAuthService, AuthService>();

@@ -8,6 +8,8 @@ using System.Linq;
 using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Net.Http.Json;
+using System.Text;
+using System.Text.Json;
 using System.Threading.Tasks;
 
 namespace EnglishApiClient.Services
@@ -66,7 +68,7 @@ namespace EnglishApiClient.Services
         {
             var token = await _localStorage.GetItemAsync<string>("authToken");
             var refreshToken = await _localStorage.GetItemAsync<string>("refreshToken");
-            var response = await _httpClient.PostAsJsonAsync("auth/refresh", new {Token=token, RefreshToken = refreshToken});
+            var response = await _httpClient.PostAsJsonAsync("auth/refresh", new { Token = token, RefreshToken = refreshToken });
             var result = await response.Content.ReadFromJsonAsync<AuthResponse>();
             if (!response.IsSuccessStatusCode)
                 throw new ApplicationException("Something went wrong during the refresh token action");

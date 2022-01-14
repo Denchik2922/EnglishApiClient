@@ -1,0 +1,29 @@
+﻿@page "/my-dictionaries"
+
+<div class="row">
+    @if (englishDictionaries == null)
+    {
+    <span><em>Sorry you don`t have dictionary </em></span>
+    }
+    else
+    {
+        @foreach (var dict in englishDictionaries)
+        {
+            <div class="col-7 p-2">
+                <div class="card" @onclick="() => NavigateToDictionary(dict.Id)">
+                  <div class="card-body">
+                    <h5 class="card-title">@dict.Name</h5>
+                    <p class="card-text">@dict.Description</p>
+                  </div>
+                  <div>
+                      @foreach(var tag in dict.Tags)
+                        {
+                           <span class="badge rounded-pill bg-primary tag">@tag.Name</span>
+                        }
+                        
+                  </div>
+                </div>
+            </div>
+        }
+    }
+</div>

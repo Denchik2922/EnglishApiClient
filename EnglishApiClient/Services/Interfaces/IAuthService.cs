@@ -9,5 +9,6 @@ namespace EnglishApiClient.Interfaces
         Task Logout();
         Task<bool> Register(RegisterModel registerModel);
         Task<string> RefreshToken();
+
     }
 }

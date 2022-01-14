@@ -6,9 +6,9 @@ using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
-namespace EnglishApiClient.Pages.Dictionary
+namespace EnglishApiClient.Pages.PrivateDictionary
 {
-    public partial class Dictionary : IDisposable
+    public partial class PrivateDictionaries
     {
         private ICollection<EnglishDictionary> englishDictionaries;
 
@@ -17,17 +17,13 @@ namespace EnglishApiClient.Pages.Dictionary
         [Inject]
         public NavigationManager NavigationManager { get; set; }
 
-        [Inject]
-        public HttpInterceptorService Interceptor { get; set; }
         protected async override Task OnInitializedAsync()
         {
-            Interceptor.RegisterEvent();
-            englishDictionaries = await DictionaryService.GetPublicDictionaries();
+            englishDictionaries = await DictionaryService.GetPrivateDictionaries();
         }
         public void NavigateToDictionary(int id)
         {
             NavigationManager.NavigateTo($"dictionary/{id}");
         }
-        public void Dispose() => Interceptor.DisposeEvent();
     }
 }

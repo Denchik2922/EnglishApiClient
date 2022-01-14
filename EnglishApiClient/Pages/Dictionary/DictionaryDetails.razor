@@ -1,0 +1,85 @@
+﻿@page "/dictionary/{id:int}"
+
+@if (dictionary == null)
+{
+    <span><em>Loading...</em></span>
+}
+else{
+
+    <main class="container">
+      <div class="d-flex align-items-center p-3 my-3 bg-success text-white rounded shadow-sm">
+        <div class="lh-1">
+          <h1 class="h6 mb-0 text-white lh-1">@dictionary.Name</h1>
+          <small>@dictionary.Description</small>
+          <div>
+              @foreach(var tag in dictionary.Tags)
+             {
+              <span class="badge rounded-pill text-dark bg-warning tag">@tag.Name</span>
+             }
+          </div>
+        </div>
+        <div class="dictionary-func">
+            <div class="func-block">
+                <div>
+                    <p>
+                        Add word <span title="Add new word" class="oi oi-plus"></span>
+                    </p>
+                  
+                </div>
+                <div>
+                    <p>
+                        Start test <span title="Start test"  class="oi oi-task"></span>
+                    </p>
+                   
+                </div>
+                <div>
+                    <span data-bs-toggle="dropdown" aria-expanded="false" class="oi oi-menu"></span>
+                      <ul class="dropdown-menu">
+                        <li><a class="dropdown-item" href="#">Edit</a></li>
+                        <li><a class="dropdown-item" href="#">Delete</a></li>
+                      </ul>
+                    
+                </div>
+            </div>
+             <small>Count words: @dictionary.Words.Count()</small>
+        </div>
+      </div>
+
+        @if(dictionary.Words.Count() < 1)
+        {
+            <div class="alert alert-warning" role="alert">
+                This dictionary doesn't have any words.
+            </div>
+        }
+        else
+        {
+          <form class="col-md-3 col-sm-12 search-word">
+              <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+          </form>
+          <div class="words">
+              @foreach(var word in dictionary.Words)
+              {
+                 <div class="my-3 p-3 bg-body rounded shadow-sm">
+                    <div class="d-flex text-muted pt-3">
+                      <img class="word-img" src="@word.Picture" alt="" width="32" height="32">
+
+                      <p class="pb-3 mb-0 small lh-sm border-bottom">
+                        <strong class="d-block text-gray-dark">@word.Name [@word.Transcription]</strong>
+                        @foreach(var translate in word.Translates)
+                        {
+                           <strong class="d-block text-gray-dark">@translate.Name</strong>
+                        }
+                      </p>
+                      <div class="word-audio">
+                          <span @onclick="PlaySound" id="soundButton" class="oi oi-volume-high"></span>
+                          <audio id="roar" src="@word.Audio" />
+                      </div>
+                    </div>
+                </div>
+              }
+          </div>
+        }
+    </main>
+}
+
+

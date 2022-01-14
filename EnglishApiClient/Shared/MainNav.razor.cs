@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace EnglishApiClient.Shared
 {
-    public partial class MainNav : IDisposable
+    public partial class MainNav
     {
         [Inject]
         public IAuthService AuthenticationService { get; set; }
@@ -16,19 +16,10 @@ namespace EnglishApiClient.Shared
         public NavigationManager NavigationManager { get; set; }
         [Inject]
         public AuthenticationStateProvider GetAuthenticationStateAsync { get; set; }
-
-        [Inject]
-        public HttpInterceptorService Interceptor { get; set; }
-        protected async override Task OnInitializedAsync()
-        {
-            Interceptor.RegisterEvent();
-        }
-
         public async Task LogoutUser()
         {
             await AuthenticationService.Logout();
             NavigationManager.NavigateTo("/login");
         }
-        public void Dispose() => Interceptor.DisposeEvent();
     }
 }
