@@ -1,4 +1,4 @@
-﻿using EnglishApiClient.Interfaces;
+﻿using EnglishApiClient.Services.Interfaces;
 using System.Collections.Generic;
 using System.Net.Http;
 using System.Net.Http.Json;
@@ -21,12 +21,12 @@ namespace EnglishApiClient.Services
                 return await httpClient.GetFromJsonAsync<T>($"{requestString}/{id}");
             }
 
-            public async Task<IEnumerable<T>> GetAll()
+            public async Task<ICollection<T>> GetAll()
             {
                 return await httpClient.GetFromJsonAsync<List<T>>(requestString);
             }
 
-            public async Task<bool> Create(T entity)
+            public virtual async Task<bool> Create(T entity)
             {
                 var response = await httpClient.PostAsJsonAsync(requestString, entity);
                 return response.IsSuccessStatusCode;

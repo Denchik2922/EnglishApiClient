@@ -1,9 +1,7 @@
 ﻿using EnglishApiClient.Infrastructure;
-using EnglishApiClient.Interfaces;
+using EnglishApiClient.Services.Interfaces;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Authorization;
-using Microsoft.AspNetCore.Http;
-using System;
 using System.Threading.Tasks;
 
 namespace EnglishApiClient.Shared

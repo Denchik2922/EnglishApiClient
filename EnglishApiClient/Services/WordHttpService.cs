@@ -1,4 +1,4 @@
-﻿using EnglishApiClient.Interfaces;
+﻿using EnglishApiClient.Services.Interfaces;
 using Models;
 using System.Collections.Generic;
 using System.Net.Http;
@@ -11,11 +11,9 @@ namespace EnglishApiClient.Services
     public class WordHttpService : IWordHttpService
     {
         private readonly HttpClient _client;
-        private readonly JsonSerializerOptions _options;
         public WordHttpService(HttpClient client)
         {
             _client = client;
-            _options = new JsonSerializerOptions { PropertyNameCaseInsensitive = true };
         }
         public async Task<List<Word>> GetWords()
         {

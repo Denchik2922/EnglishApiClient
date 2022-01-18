@@ -1,5 +1,5 @@
 ﻿using EnglishApiClient.Infrastructure;
-using EnglishApiClient.Interfaces;
+using EnglishApiClient.Services.Interfaces;
 using Microsoft.AspNetCore.Components;
 using Models;
 using System;
@@ -12,6 +12,10 @@ namespace EnglishApiClient.Pages.Dictionary
     {
         private ICollection<EnglishDictionary> englishDictionaries;
 
+        private ICollection<Tag> tags;
+
+        [Inject]
+        public ITagHttpService TagService { get; set; }
         [Inject]
         public IDictionaryHttpService DictionaryService { get; set; }
         [Inject]
@@ -22,7 +26,18 @@ namespace EnglishApiClient.Pages.Dictionary
         protected async override Task OnInitializedAsync()
         {
             Interceptor.RegisterEvent();
+            await GetDictionaries();
+            await GetTags();
+        }
+
+        private async Task GetDictionaries()
+        {
             englishDictionaries = await DictionaryService.GetPublicDictionaries();
+        }
+
+        private async Task GetTags()
+        {
+            tags = await TagService.GetAll();
         }
         public void NavigateToDictionary(int id)
         {

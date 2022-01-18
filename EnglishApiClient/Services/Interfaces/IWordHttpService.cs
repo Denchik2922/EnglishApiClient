@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
-namespace EnglishApiClient.Interfaces
+namespace EnglishApiClient.Services.Interfaces
 {
     public interface IWordHttpService
     {

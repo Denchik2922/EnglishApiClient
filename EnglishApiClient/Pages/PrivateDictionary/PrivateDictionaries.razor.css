@@ -1,3 +1,13 @@
 ﻿.tag {
     margin: 0px 0px 10px 10px;
 }
+
+.func-block div {
+    display: inline-block;
+    margin-left: 10px;
+}
+
+.filter-item {
+    margin-top: 10px;
+    margin-bottom: 10px;
+}

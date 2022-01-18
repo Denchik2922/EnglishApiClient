@@ -1,16 +1,13 @@
 using Blazored.LocalStorage;
 using EnglishApiClient.Infrastructure;
-using EnglishApiClient.Interfaces;
 using EnglishApiClient.Services;
+using EnglishApiClient.Services.Interfaces;
 using Microsoft.AspNetCore.Components.Authorization;
+using Microsoft.AspNetCore.Components.Web;
 using Microsoft.AspNetCore.Components.WebAssembly.Hosting;
-using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Logging;
 using System;
-using System.Collections.Generic;
 using System.Net.Http;
-using System.Text;
 using System.Threading.Tasks;
 using Toolbelt.Blazor.Extensions.DependencyInjection;
 
@@ -35,7 +32,9 @@ namespace EnglishApiClient
             builder.Services.AddScoped<RefreshTokenService>();
 
             builder.Services.AddHttpClientInterceptor();
+           
 
+            builder.Services.AddScoped<ITagHttpService, TagHttpService>();
             builder.Services.AddScoped<IWordHttpService, WordHttpService>();
             builder.Services.AddScoped<IDictionaryHttpService, DictionaryHttpService>();
             builder.Services.AddScoped<IAuthService, AuthService>();

@@ -1,10 +1,6 @@
-﻿using EnglishApiClient.Infrastructure;
-using EnglishApiClient.Interfaces;
+﻿using EnglishApiClient.Services.Interfaces;
 using Microsoft.AspNetCore.Components;
 using Models;
-using System;
-using System.Collections.Generic;
-using System.Threading.Tasks;
 
 namespace EnglishApiClient.Pages.PrivateDictionary
 {
@@ -12,6 +8,10 @@ namespace EnglishApiClient.Pages.PrivateDictionary
     {
         private ICollection<EnglishDictionary> englishDictionaries;
 
+        private ICollection<Tag> tags;
+
+        [Inject]
+        public ITagHttpService TagService { get; set; }
         [Inject]
         public IDictionaryHttpService DictionaryService { get; set; }
         [Inject]
@@ -19,7 +19,18 @@ namespace EnglishApiClient.Pages.PrivateDictionary
 
         protected async override Task OnInitializedAsync()
         {
+            await GetDictionaries();
+            await GetTags();
+        }
+
+        private async Task GetDictionaries()
+        {
             englishDictionaries = await DictionaryService.GetPrivateDictionaries();
+        }
+
+        private async Task GetTags()
+        {
+            tags = await TagService.GetAll();
         }
         public void NavigateToDictionary(int id)
         {

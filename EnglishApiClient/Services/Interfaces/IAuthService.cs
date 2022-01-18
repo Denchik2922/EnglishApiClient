@@ -1,7 +1,7 @@
 ﻿using Models;
 using System.Threading.Tasks;
 
-namespace EnglishApiClient.Interfaces
+namespace EnglishApiClient.Services.Interfaces
 {
     public interface IAuthService
     {

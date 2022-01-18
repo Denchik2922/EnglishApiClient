@@ -1,32 +1,77 @@
 ﻿@page "/dictionaries"
 @page "/"
+@using Microsoft.AspNetCore.Authorization
+@using Microsoft.AspNetCore.Components.Authorization
+@attribute [Authorize]
 
 <div class="row">
     @if (englishDictionaries == null)
     {
-        <span><em>Sorry you don`t have dictionary </em></span> 
+        <span><em>Sorry you don`t have dictionaries </em></span> 
     }
     else
     {
+            <div class="func-block">
+            <AuthorizeView Roles="Admin">
+                <Authorized>
+                        <div>
+                            <NavLink href="dictionary-add">
+                                <p>Add dictionary <span title="Add new dictionary" class="oi oi-plus"></span></p>
+                            </NavLink>
+                        </div>
+                </Authorized>
+            </AuthorizeView>
+                 <div class="d-md-none d-lg-none" style="float:right"> 
+                      <label class="btn-menu" for="hmt">
+                        <p> Filters <span class="oi oi-magnifying-glass"></span></p> 
+                     </label>
+                 </div>
+            </div>
+            <input type="checkbox" id="hmt" class="hidden-menu-ticker">
+
+            <div class="hidden-menu">
+                 <div class="filter-item">
+                        <form class="filter-item d-flex">
+                             <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+                        </form>
+                    </div>
+                    <div class="filter-item">
+                        <p>Tags</p>
+                        @foreach (var tag in tags)
+                         {
+                           <span class="badge rounded-pill bg-primary tag">@tag.Name</span>
+                         }
+                    </div>
+
+                    <div class="filter-item">
+                       <button type="button" class="btn btn-info">Search</button>
+                    </div>
+            </div>
+
+            <div class="col-md-7 col-sm-12">
             @foreach (var dict in englishDictionaries)
             {
-                <div class="col-7">
-                    <div class="card" @onclick="() => NavigateToDictionary(dict.Id)">
-                        <div class="card-body">
-                            <h5 class="card-title">@dict.Name</h5>
-                            <p class="card-text">@dict.Description</p>
-                        </div>
-                        <div>
-                            @foreach (var tag in dict.Tags)
-                            {
-                                <span class="badge rounded-pill bg-primary tag">@tag.Name</span>
-                            }
+                    <div class="row">
+                         <div class="col-12 mb-2">
+                            <div class="card" @onclick="() => NavigateToDictionary(dict.Id)">
+                                <div class="card-body">
+                                    <h5 class="card-title">@dict.Name</h5>
+                                    <p class="card-text">@dict.Description</p>
+                                </div>
+                                <div>
+                                    @foreach (var tag in dict.Tags)
+                                    {
+                                        <span class="badge rounded-pill bg-primary tag">@tag.Name</span>
+                                    }
 
+                                </div>
+                            </div>
                         </div>
                     </div>
-                </div>
+              
             }
-            <div class="col-5">
+            </div>
+            <div class="col-md-5 d-none d-sm-none d-md-block">
                 <div class="card" style="padding: 20px;">
                     
                     <div class="filter-item">
@@ -36,10 +81,19 @@
                     </div>
                     <div class="filter-item">
                         <p>Tags</p>
-                        <hr>
+                        @foreach (var tag in tags)
+                         {
+                           <span class="badge rounded-pill bg-primary tag">@tag.Name</span>
+                         }
                     </div>
+
+                    <div class="filter-item">
+                       <button type="button" class="btn btn-info">Search</button>
+                    </div>
+
                 </div>
 
             </div>
+
     }
 </div>

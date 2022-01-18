@@ -1,15 +1,12 @@
 ﻿using Blazored.LocalStorage;
 using EnglishApiClient.Infrastructure;
-using EnglishApiClient.Interfaces;
+using EnglishApiClient.Services.Interfaces;
 using Microsoft.AspNetCore.Components.Authorization;
 using Models;
 using System;
-using System.Linq;
 using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Net.Http.Json;
-using System.Text;
-using System.Text.Json;
 using System.Threading.Tasks;
 
 namespace EnglishApiClient.Services

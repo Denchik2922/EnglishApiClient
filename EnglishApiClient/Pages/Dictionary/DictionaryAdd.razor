@@ -1,0 +1,67 @@
+﻿@page "/dictionary-add"
+@using Microsoft.AspNetCore.Authorization
+@using Microsoft.AspNetCore.Components.Authorization
+@attribute [Authorize]
+
+<div class="row justify-content-md-center">
+    <div class="col-md-7 col-sm-12">
+    <h2>Add new dictionary</h2>
+    @if (tags==null)
+    {
+            <span><em>Loading...</em></span>
+    }
+    else
+    {
+        <div class="col">
+            <EditForm Model="_dictionary" OnValidSubmit="AddDictionary" class="card card-body bg-light">
+                <DataAnnotationsValidator />
+                <div class="form-group row">
+                    <div class="col-sm-12">
+                        <label for="anem" class="form-label">Name</label>
+                        <InputText id="name" class="form-control" @bind-Value="_dictionary.Name" />
+                        <ValidationMessage For="@(() => _dictionary.Name)" />
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <div class="col-sm-12">
+                        <label for="discription" class="form-label">Discription</label>
+                        <InputText Id="discription" Class="form-control" @bind-Value="_dictionary.Description" />
+                        <ValidationMessage For="@(() => _dictionary.Description)" />
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <div class="col-sm-12">
+                        <label for="discription" class="form-label">Tags</label>
+                        <select class="form-control" @bind="SelectedTags" multiple>
+                               @foreach (var tag in tags)
+                                 {
+                                   <option value="@tag.Id">@tag.Name</option>
+                                 }
+                        </select>
+                    </div>
+                </div>
+                <AuthorizeView Roles="Admin">
+                    <Authorized Context="userAuth">
+                       <div class="form-group row">
+                            <div class="col-sm-12">
+                                <label for="is-private" class="form-label">Is private</label>
+                                <InputCheckbox Id="is-private" @bind-Value="_dictionary.IsPrivate" />
+                                <ValidationMessage For="@(() => _dictionary.IsPrivate)" />
+                            </div>
+                       </div>
+                    </Authorized>
+                </AuthorizeView>
+
+                
+                
+                <hr class="my-4">
+                <div class="row">
+                    <div class="col-3">
+                        <button class="btn btn-primary" type="submit">Add</button>
+                    </div>
+                  </div>
+            </EditForm>
+        </div>
+    }
+    </div>
+</div>

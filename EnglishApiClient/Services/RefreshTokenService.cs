@@ -1,4 +1,4 @@
-﻿using EnglishApiClient.Interfaces;
+﻿using EnglishApiClient.Services.Interfaces;
 using Microsoft.AspNetCore.Components.Authorization;
 using System;
 using System.Threading.Tasks;
