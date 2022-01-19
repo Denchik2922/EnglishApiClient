@@ -1,0 +1,21 @@
+﻿.translate {
+    margin: 5px;
+    padding: 7px;
+    cursor: pointer;
+}
+.translate span {
+    margin-left: 3px;
+}
+
+.icon {
+    top: 3px;
+}
+
+.translate-group div {
+    margin-bottom: 5px;
+}
+
+
+trans-inp:valid {
+    border: 2px solid black;
+}

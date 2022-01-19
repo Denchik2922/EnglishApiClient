@@ -1,11 +1,11 @@
-﻿@page "/dictionary-add"
+﻿@page "/dictionary-update/{id:int}"
 @using Microsoft.AspNetCore.Authorization
 @using Microsoft.AspNetCore.Components.Authorization
 @attribute [Authorize]
 
 <div class="row justify-content-md-center">
     <div class="col-md-7 col-sm-12">
-    <h2>Add new dictionary</h2>
+    <h2>Edit dictionary</h2>
     @if (_tags==null)
     {
             <span><em>Loading...</em></span>
@@ -13,7 +13,7 @@
     else
     {
         <div class="col">
-            <EditForm Model="_dictionary" OnValidSubmit="AddDictionary" class="card card-body bg-light">
+            <EditForm Model="_dictionary" OnValidSubmit="UpdateDictionary" class="card card-body bg-light">
                 <DataAnnotationsValidator />
                 <div class="form-group row">
                     <div class="col-sm-12">
@@ -57,7 +57,7 @@
                 <hr class="my-4">
                 <div class="row">
                     <div class="col-3">
-                        <button class="btn btn-primary" type="submit">Add</button>
+                        <button class="btn btn-primary" type="submit">Edit</button>
                     </div>
                   </div>
             </EditForm>

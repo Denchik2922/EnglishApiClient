@@ -1,11 +1,9 @@
 ﻿using Models;
-using System.Collections.Generic;
-using System.Threading.Tasks;
 
 namespace EnglishApiClient.Services.Interfaces
 {
-    public interface IWordHttpService
+    public interface IWordHttpService : IGenericHttpService<WordModel>
     {
-        Task<List<Word>> GetWords();
+        Task<WordInformation> GenerateWordInformation(string wordName);
     }
 }

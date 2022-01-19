@@ -1,4 +1,5 @@
 using Blazored.LocalStorage;
+using Blazored.Toast;
 using EnglishApiClient.Infrastructure;
 using EnglishApiClient.Services;
 using EnglishApiClient.Services.Interfaces;
@@ -31,6 +32,7 @@ namespace EnglishApiClient
             builder.Services.AddScoped<HttpInterceptorService>();
             builder.Services.AddScoped<RefreshTokenService>();
 
+            builder.Services.AddBlazoredToast();
             builder.Services.AddHttpClientInterceptor();
            
 

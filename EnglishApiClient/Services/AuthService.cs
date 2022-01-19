@@ -3,11 +3,8 @@ using EnglishApiClient.Infrastructure;
 using EnglishApiClient.Services.Interfaces;
 using Microsoft.AspNetCore.Components.Authorization;
 using Models;
-using System;
-using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Net.Http.Json;
-using System.Threading.Tasks;
 
 namespace EnglishApiClient.Services
 {

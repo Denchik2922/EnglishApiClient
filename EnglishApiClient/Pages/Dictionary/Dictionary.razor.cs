@@ -2,47 +2,47 @@
 using EnglishApiClient.Services.Interfaces;
 using Microsoft.AspNetCore.Components;
 using Models;
-using System;
-using System.Collections.Generic;
-using System.Threading.Tasks;
 
 namespace EnglishApiClient.Pages.Dictionary
 {
     public partial class Dictionary : IDisposable
     {
-        private ICollection<EnglishDictionary> englishDictionaries;
+        private ICollection<EnglishDictionary> _englishDictionaries = new List<EnglishDictionary>();
 
-        private ICollection<Tag> tags;
-
-        [Inject]
-        public ITagHttpService TagService { get; set; }
-        [Inject]
-        public IDictionaryHttpService DictionaryService { get; set; }
-        [Inject]
-        public NavigationManager NavigationManager { get; set; }
+        private ICollection<Tag> _tags = new List<Tag>();
 
         [Inject]
-        public HttpInterceptorService Interceptor { get; set; }
+        private ITagHttpService _tagService { get; set; }
+
+        [Inject]
+        private IDictionaryHttpService _dictionaryService { get; set; }
+
+        [Inject]
+        private NavigationManager _navigation { get; set; }
+
+        [Inject]
+        private HttpInterceptorService _interceptor { get; set; }
+
         protected async override Task OnInitializedAsync()
         {
-            Interceptor.RegisterEvent();
+            _interceptor.RegisterEvent();
             await GetDictionaries();
             await GetTags();
         }
 
         private async Task GetDictionaries()
         {
-            englishDictionaries = await DictionaryService.GetPublicDictionaries();
+            _englishDictionaries = await _dictionaryService.GetPublicDictionaries();
         }
 
         private async Task GetTags()
         {
-            tags = await TagService.GetAll();
+            _tags = await _tagService.GetAll();
         }
-        public void NavigateToDictionary(int id)
+        private void NavigateToDictionary(int id)
         {
-            NavigationManager.NavigateTo($"dictionary/{id}");
+            _navigation.NavigateTo($"dictionary/{id}");
         }
-        public void Dispose() => Interceptor.DisposeEvent();
+        public void Dispose() => _interceptor.DisposeEvent();
     }
 }

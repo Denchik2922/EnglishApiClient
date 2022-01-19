@@ -40,7 +40,7 @@ namespace EnglishApiClient.Services
 
             public async Task<bool> Delete(int id)
             {
-                var response = await httpClient.DeleteAsync($"{requestString}/{id}");
+                var response = await httpClient.DeleteAsync($"{requestString}/?id={id}");
                 return response.IsSuccessStatusCode;
             }
         }

@@ -1,23 +1,16 @@
 ﻿using EnglishApiClient.Services.Interfaces;
 using Models;
-using System.Collections.Generic;
-using System.Net.Http;
 using System.Net.Http.Json;
-using System.Text.Json;
-using System.Threading.Tasks;
 
 namespace EnglishApiClient.Services
 {
-    public class WordHttpService : IWordHttpService
+    public class WordHttpService : GenericHttpService<WordModel>, IWordHttpService
     {
-        private readonly HttpClient _client;
-        public WordHttpService(HttpClient client)
+        public WordHttpService(HttpClient httpClient) : base(httpClient, "word") { }
+
+        public async Task<WordInformation> GenerateWordInformation(string wordName)
         {
-            _client = client;
-        }
-        public async Task<List<Word>> GetWords()
-        {
-            return await _client.GetFromJsonAsync<List<Word>>("word");
+            return await httpClient.GetFromJsonAsync<WordInformation>($"{requestString}/generate-word/{wordName}");            
         }
     }
 }

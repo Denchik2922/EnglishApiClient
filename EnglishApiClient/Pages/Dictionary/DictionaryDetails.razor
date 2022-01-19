@@ -1,6 +1,6 @@
 ﻿@page "/dictionary/{id:int}"
 
-@if (dictionary == null)
+@if (_dictionary == null)
 {
     <span><em>Loading...</em></span>
 }
@@ -9,10 +9,10 @@ else{
     <main class="container">
       <div class="d-flex align-items-center p-3 my-3 bg-success text-white rounded shadow-sm">
         <div class="lh-1">
-          <h1 class="h6 mb-0 text-white lh-1">@dictionary.Name</h1>
-          <small>@dictionary.Description</small>
+          <h1 class="h6 mb-0 text-white lh-1">@_dictionary.Name</h1>
+          <small>@_dictionary.Description</small>
           <div>
-              @foreach(var tag in dictionary.Tags)
+              @foreach(var tag in _dictionary.Tags)
              {
               <span class="badge rounded-pill text-dark bg-warning tag">@tag.Name</span>
              }
@@ -21,10 +21,7 @@ else{
         <div class="dictionary-func">
             <div class="func-block">
                 <div>
-                    <p>
-                        Add word <span title="Add new word" class="oi oi-plus"></span>
-                    </p>
-                  
+                     <p @onclick="AddNewWord">Add word <span title="Add new word" class="oi oi-plus"></span></p>
                 </div>
                 <div>
                     <p>
@@ -35,17 +32,17 @@ else{
                 <div>
                     <span data-bs-toggle="dropdown" aria-expanded="false" class="oi oi-menu"></span>
                       <ul class="dropdown-menu">
-                        <li><a class="dropdown-item" href="#">Edit</a></li>
-                        <li><a class="dropdown-item" href="#">Delete</a></li>
+                        <li><p class="dropdown-item" @onclick="UpdateDictionary">Edit</p></li>
+                        <li><p class="dropdown-item" @onclick="DeleteDictionary">Delete</p></li>
                       </ul>
                     
                 </div>
             </div>
-             <small>Count words: @dictionary.Words.Count()</small>
+             <small>Count words: @_dictionary.Words.Count()</small>
         </div>
       </div>
 
-        @if(dictionary.Words.Count() < 1)
+        @if(_dictionary.Words.Count() < 1)
         {
             <div class="alert alert-warning" role="alert">
                 This dictionary doesn't have any words.
@@ -57,7 +54,7 @@ else{
               <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
           </form>
           <div class="words">
-              @foreach(var word in dictionary.Words)
+              @foreach(var word in _dictionary.Words)
               {
                  <div class="my-3 p-3 bg-body rounded shadow-sm">
                     <div class="d-flex text-muted pt-3">

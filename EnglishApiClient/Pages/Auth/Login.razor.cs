@@ -9,9 +9,10 @@ namespace EnglishApiClient.Pages.Auth
         private LoginModel _loginModel = new LoginModel();
 
         [Inject]
-        public IAuthService AuthService { get; set; }
+        private IAuthService AuthService { get; set; }
+
         [Inject]
-        public NavigationManager NavigationManager { get; set; }
+        private NavigationManager NavigationManager { get; set; }
         private async void LoginUser()
         {
             var result = await AuthService.Login(_loginModel);
