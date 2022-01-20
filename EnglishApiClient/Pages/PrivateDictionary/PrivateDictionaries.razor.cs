@@ -1,6 +1,6 @@
-﻿using EnglishApiClient.Services.Interfaces;
+﻿using EnglishApiClient.Dtos.Entity;
+using EnglishApiClient.HttpServices.Interfaces;
 using Microsoft.AspNetCore.Components;
-using Models;
 
 namespace EnglishApiClient.Pages.PrivateDictionary
 {

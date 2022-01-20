@@ -12,13 +12,13 @@
     margin-left: 10px;
 }
 
-@media (min-width: 1200px) {
+@media (min-width: 768px) {
     .hidden-menu {
+        padding: 20px;
         display: block;
-        width: 250px;
-        background-color: #eee;
         height: 100%;
-        top: 0;
+        border-radius: 10px;
+        border: 1px solid #d1d1cf;
     }
 }
 
@@ -40,16 +40,6 @@
         z-index: 2;
         -webkit-transform: translateZ(0);
         -webkit-backface-visibility: hidden;
-    }
-}
-
-@media (min-width: 768px) and (max-width: 1200px) {
-    .hidden-menu {
-        display: block;
-        width: 250px;
-        background-color: #eee;
-        height: 100%;
-        top: 0;
     }
 }
 

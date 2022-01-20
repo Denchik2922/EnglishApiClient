@@ -1,6 +1,5 @@
-﻿using EnglishApiClient.Services;
+﻿using EnglishApiClient.HttpServices;
 using System.Net.Http.Headers;
-using System.Threading.Tasks;
 using Toolbelt.Blazor;
 
 namespace EnglishApiClient.Infrastructure

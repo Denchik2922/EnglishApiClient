@@ -1,8 +1,10 @@
 ﻿using Blazored.Toast.Services;
-using EnglishApiClient.Services.Interfaces;
+using EnglishApiClient.Dtos.Entity;
+using EnglishApiClient.HttpServices.Interfaces;
 using Microsoft.AspNetCore.Components;
+using Microsoft.AspNetCore.Components.Authorization;
 using Microsoft.JSInterop;
-using Models;
+using System.Security.Claims;
 
 namespace EnglishApiClient.Pages.Dictionary
 {
@@ -11,6 +13,9 @@ namespace EnglishApiClient.Pages.Dictionary
         [Parameter]
         public int Id { get; set; }
 
+        private string CurrentUser = "";
+        private EnglishDictionary _dictionary = new EnglishDictionary();
+
         [Inject]
         private IToastService _toastService { get; set; }
 
@@ -18,21 +23,37 @@ namespace EnglishApiClient.Pages.Dictionary
         private IJSRuntime _jsRuntime { get; set; }
 
         [Inject]
+        private AuthenticationStateProvider _authProvider { get; set; }
+
+        [Inject]
         private NavigationManager _navigation { get; set; }
 
         [Inject]
         private IDictionaryHttpService _dictionaryService { get; set; }
 
-        private EnglishDictionary _dictionary = new EnglishDictionary();
-
         protected override async Task OnInitializedAsync()
         {
             await GetDictionary();
+            await GetCurrentUser();
+        }
+
+        private async Task GetCurrentUser()
+        {
+            var authState = await _authProvider.GetAuthenticationStateAsync();
+            CurrentUser = authState.User.FindFirst(ClaimTypes.NameIdentifier).Value;
         }
 
         private async Task GetDictionary()
         {
             _dictionary = await _dictionaryService.GetById(Id);
+        }
+
+        private void RouteEditWord(int wordId)
+        {
+            if (_dictionary.UserId.Contains(CurrentUser))
+            {
+                _navigation.NavigateTo($"edit-word/{wordId}");
+            }
         }
 
         private async Task DeleteDictionary()
@@ -54,19 +75,9 @@ namespace EnglishApiClient.Pages.Dictionary
             }
         }
 
-        private void AddNewWord()
+        private async Task PlaySound(int id)
         {
-            _navigation.NavigateTo($"/add-word/{Id}");
-        }
-
-        private void UpdateDictionary()
-        {
-            _navigation.NavigateTo($"/dictionary-update/{Id}");
-        }
-
-        private async Task PlaySound()
-        {
-            await _jsRuntime.InvokeAsync<string>("PlayAudio", "roar");
+            await _jsRuntime.InvokeAsync<string>("PlayAudio", $"sound-{id}");
         }
     }
 }

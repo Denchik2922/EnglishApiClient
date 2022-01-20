@@ -38,6 +38,7 @@
                                    <option value="@tag.Id">@tag.Name</option>
                                  }
                         </select>
+                        <ValidationMessage For="@(() => _dictionary.Tags)" />
                     </div>
                 </div>
                 <AuthorizeView Roles="Admin">

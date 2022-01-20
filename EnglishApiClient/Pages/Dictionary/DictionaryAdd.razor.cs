@@ -1,8 +1,8 @@
 ﻿using Blazored.Toast.Services;
-using EnglishApiClient.Services.Interfaces;
+using EnglishApiClient.Dtos.Entity;
+using EnglishApiClient.HttpServices.Interfaces;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Authorization;
-using Models;
 using System.Security.Claims;
 
 namespace EnglishApiClient.Pages.Dictionary

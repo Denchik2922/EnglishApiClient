@@ -3,12 +3,27 @@
     padding: 7px;
     cursor: pointer;
 }
+
 .translate span {
     margin-left: 3px;
 }
 
-.word-img {
-    margin-right: 10px;
+.word-img{
+    margin-right:10px;
+}
+
+.func-block div {
+    display: inline-block;
+    margin-left: 10px;
+}
+
+.word-func {
+    text-align: end;
+}
+
+.word-func {
+    margin-right: 0;
+    margin-left: auto;
 }
 
 .icon {

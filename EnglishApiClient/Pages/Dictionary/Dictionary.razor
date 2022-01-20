@@ -34,7 +34,7 @@
             {
                     <div class="row">
                          <div class="col-12 mb-2">
-                            <div class="card" @onclick="() => NavigateToDictionary(dict.Id)">
+                            <div class="card" @onclick="@(() => _navigation.NavigateTo($"dictionary/{dict.Id}"))">
                                 <div class="card-body">
                                     <h5 class="card-title">@dict.Name</h5>
                                     <p class="card-text">@dict.Description</p>

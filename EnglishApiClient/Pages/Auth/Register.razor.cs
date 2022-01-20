@@ -1,6 +1,6 @@
-﻿using EnglishApiClient.Services.Interfaces;
+﻿using EnglishApiClient.Dtos.Auth;
+using EnglishApiClient.HttpServices.Interfaces;
 using Microsoft.AspNetCore.Components;
-using Models;
 
 namespace EnglishApiClient.Pages.Auth
 {

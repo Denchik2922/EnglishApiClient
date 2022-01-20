@@ -1,31 +1,19 @@
-﻿@page "/add-word/{DictionaryId:int}"
+﻿@page "/edit-word/{WordId:int}"
 @using Microsoft.AspNetCore.Authorization
 @using Microsoft.AspNetCore.Components.Authorization
 @attribute [Authorize]
 
-
 <div class="row justify-content-md-center">
     <div class="col-md-7 col-sm-12">
-    <h2>Add new word</h2>
+    <h2>Edit word</h2>
     <div class="col">
-        <AuthorizeView Policy="Owner-dictionary" Resource="@DictionaryId">
-            <NotAuthorized>
-               <h2 class="mt-5">You are not authorized to view this page</h2>
-            </NotAuthorized>
-            <Authorized>
-                <div class="container my-profile">
-                    <h2>My Profile</h2>
-                    --- Place here all the content you want your user to view ----
-                </div>
-             </Authorized>
-        </AuthorizeView>
-        <EditForm Model="_word" OnValidSubmit="CreateWord" class="card card-body bg-light">
+        <EditForm Model="_word" OnValidSubmit="UpdateWord" class="card card-body bg-light">
                 <DataAnnotationsValidator />
                 <div class="form-group row">
                     <div class="col-sm-12">
                         <label for="anem" class="form-label">Name</label>
                         <div class="input-group">
-                            <InputText id="name" @onblur="() => GenerateWordInfo(_word.Name)" placeholder="Enter english word" class="form-control" aria-describedby="button-sound" @bind-Value="_word.Name" />
+                            <InputText id="name" placeholder="Enter english word" class="form-control" aria-describedby="button-sound" @bind-Value="_word.Name" />
                             @if(_word.AudioUrl != null)
                             {
                              <button type=button id="button-sound" @onclick="PlaySound" class="btn btn-primary">
@@ -34,7 +22,6 @@
                              </button>
                             }
                         </div>
-
                         <ValidationMessage For="@(() => _word.Name)" />
                     </div>
                 </div>
@@ -93,21 +80,25 @@
                         else{
                             <h5>Sorry, but this word doesn`t have any pictures</h5>
                         }
-                        
-                       
+
                     </div>
                 </div>
-
-                
-                
                 <hr class="my-4">
-                <div class="row">
-                    <div class="col-3">
-                        <button class="btn btn-primary" type="submit">Add</button>
+                <div class="word-func">
+                    <div class="func-block">
+                        <div>
+                            <button class="btn btn-primary" type="submit">Edit</button>
+                        </div>
+                        <div>
+                            <p>
+                                <button type="button" @onclick="DeleteWord" class="btn btn-danger">Delete</button>
+                            </p>
+                   
+                        </div>
                     </div>
-                  </div>
+                </div>
+                
             </EditForm>
-    </div>
-
+        </div>
     </div>
 </div>

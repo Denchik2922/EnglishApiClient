@@ -1,8 +1,10 @@
 ﻿using Blazored.Toast.Services;
-using EnglishApiClient.Services.Interfaces;
+using EnglishApiClient.Dtos.Entity;
+using EnglishApiClient.HttpServices.Interfaces;
 using Microsoft.AspNetCore.Components;
+using Microsoft.AspNetCore.Components.Authorization;
 using Microsoft.JSInterop;
-using Models;
+using System.Security.Claims;
 
 namespace EnglishApiClient.Pages.Word
 {
@@ -53,10 +55,10 @@ namespace EnglishApiClient.Pages.Word
             if(wordName != null)
             {
                  WordInformation wordInfo = await _wordService.GenerateWordInformation(wordName);
-                 _word.Audio = wordInfo.AudioUrl;
+                 _word.AudioUrl = wordInfo.AudioUrl;
                  _word.Translates = new List<TranslatedWord>() { new TranslatedWord() { Name = wordInfo.Translate } };
                  _word.Transcription = wordInfo.Transcription;
-                 _word.Picture = null;
+                 _word.PictureUrl = null;
                  pictures = wordInfo.PictureUrls;
                  StateHasChanged();
             }
@@ -75,12 +77,12 @@ namespace EnglishApiClient.Pages.Word
 
         private void SelectPicture(string picture)
         {
-            _word.Picture = picture;
+            _word.PictureUrl = picture;
         }
 
         private async Task PlaySound()
         {
-            await _jsRuntime.InvokeAsync<string>("PlayAudio", "roar");
+            await _jsRuntime.InvokeAsync<string>("PlayAudio", "sound");
         }
     }
 }

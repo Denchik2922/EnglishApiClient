@@ -1,7 +1,7 @@
-﻿using EnglishApiClient.Infrastructure;
-using EnglishApiClient.Services.Interfaces;
+﻿using EnglishApiClient.Dtos.Entity;
+using EnglishApiClient.HttpServices.Interfaces;
+using EnglishApiClient.Infrastructure;
 using Microsoft.AspNetCore.Components;
-using Models;
 
 namespace EnglishApiClient.Pages.Dictionary
 {
@@ -38,10 +38,6 @@ namespace EnglishApiClient.Pages.Dictionary
         private async Task GetTags()
         {
             _tags = await _tagService.GetAll();
-        }
-        private void NavigateToDictionary(int id)
-        {
-            _navigation.NavigateTo($"dictionary/{id}");
         }
         public void Dispose() => _interceptor.DisposeEvent();
     }

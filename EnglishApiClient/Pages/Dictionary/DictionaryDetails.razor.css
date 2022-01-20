@@ -10,8 +10,13 @@
     text-align: end;
 }
 
-.words{
-    overflow-y:scroll;
+.add-word{
+    cursor:pointer;
+}
+
+.words {
+    overflow-y: scroll;
+    height: 700px;
 }
 
 .dictionary-func, .word-audio, .search-word {

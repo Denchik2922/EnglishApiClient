@@ -1,15 +1,10 @@
 using Blazored.LocalStorage;
 using Blazored.Toast;
+using EnglishApiClient.HttpServices;
+using EnglishApiClient.HttpServices.Interfaces;
 using EnglishApiClient.Infrastructure;
-using EnglishApiClient.Services;
-using EnglishApiClient.Services.Interfaces;
 using Microsoft.AspNetCore.Components.Authorization;
-using Microsoft.AspNetCore.Components.Web;
 using Microsoft.AspNetCore.Components.WebAssembly.Hosting;
-using Microsoft.Extensions.DependencyInjection;
-using System;
-using System.Net.Http;
-using System.Threading.Tasks;
 using Toolbelt.Blazor.Extensions.DependencyInjection;
 
 namespace EnglishApiClient

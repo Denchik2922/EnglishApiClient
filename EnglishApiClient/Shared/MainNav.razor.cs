@@ -1,4 +1,4 @@
-﻿using EnglishApiClient.Services.Interfaces;
+﻿using EnglishApiClient.HttpServices.Interfaces;
 using Microsoft.AspNetCore.Components;
 
 namespace EnglishApiClient.Shared

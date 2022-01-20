@@ -1,4 +1,7 @@
 ﻿@page "/dictionary/{id:int}"
+@using Microsoft.AspNetCore.Authorization
+@using Microsoft.AspNetCore.Components.Authorization
+@attribute [Authorize]
 
 @if (_dictionary == null)
 {
@@ -20,23 +23,29 @@ else{
         </div>
         <div class="dictionary-func">
             <div class="func-block">
-                <div>
-                     <p @onclick="AddNewWord">Add word <span title="Add new word" class="oi oi-plus"></span></p>
-                </div>
-                <div>
+                 <div>
                     <p>
                         Start test <span title="Start test"  class="oi oi-task"></span>
                     </p>
-                   
                 </div>
-                <div>
-                    <span data-bs-toggle="dropdown" aria-expanded="false" class="oi oi-menu"></span>
-                      <ul class="dropdown-menu">
-                        <li><p class="dropdown-item" @onclick="UpdateDictionary">Edit</p></li>
-                        <li><p class="dropdown-item" @onclick="DeleteDictionary">Delete</p></li>
-                      </ul>
-                    
-                </div>
+
+                @if (_dictionary.UserId.Contains(CurrentUser))
+                {
+                    <div>
+                         <p class="add-word" @onclick="@(() => _navigation.NavigateTo($"add-word/{_dictionary.Id}"))">
+                             Add word <span title="Add new word" class="oi oi-plus"></span>
+                         </p>
+                    </div>
+               
+                    <div>
+                        <span data-bs-toggle="dropdown" aria-expanded="false" class="oi oi-menu"></span>
+                          <ul class="dropdown-menu">
+                            <li><p class="dropdown-item" @onclick="@(() => _navigation.NavigateTo($"dictionary-update/{_dictionary.Id}"))" >Edit</p></li>
+                            <li><p class="dropdown-item" @onclick="DeleteDictionary">Delete</p></li>
+                          </ul>
+                    </div>
+                }
+                
             </div>
              <small>Count words: @_dictionary.Words.Count()</small>
         </div>
@@ -56,22 +65,27 @@ else{
           <div class="words">
               @foreach(var word in _dictionary.Words)
               {
-                 <div class="my-3 p-3 bg-body rounded shadow-sm">
-                    <div class="d-flex text-muted pt-3">
-                      <img class="word-img" src="@word.Picture" alt="" width="32" height="32">
-
-                      <p class="pb-3 mb-0 small lh-sm border-bottom">
+                    
+                    <div @onclick="() => RouteEditWord(word.Id)" class="my-3 p-3 bg-body rounded shadow-sm">
+                       <div class="d-flex text-muted pt-3">
+                       @if (word.PictureUrl != null)
+                       {
+                           <img class="word-img" src="@word.PictureUrl" alt="" width="32" height="32">
+                       }
+                       <p class="pb-3 mb-0 small lh-sm border-bottom">
                         <strong class="d-block text-gray-dark">@word.Name [@word.Transcription]</strong>
                         @foreach(var translate in word.Translates)
                         {
                            <strong class="d-block text-gray-dark">@translate.Name</strong>
                         }
-                      </p>
-                      <div class="word-audio">
-                          <span @onclick="PlaySound" id="soundButton" class="oi oi-volume-high"></span>
-                          <audio id="roar" src="@word.Audio" />
-                      </div>
-                    </div>
+                       </p>
+                      @if(word.AudioUrl != null){
+                           <div class="word-audio">
+                                <span @onclick="() => PlaySound(word.Id)" id="soundButton" class="oi oi-volume-high"></span>
+                                <audio id="sound-@word.Id" src="@word.AudioUrl" />
+                           </div>
+                      }
+                     </div>
                 </div>
               }
           </div>
