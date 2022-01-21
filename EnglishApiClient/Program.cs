@@ -22,14 +22,13 @@ namespace EnglishApiClient
             }
             .EnableIntercept(sp));
 
-            builder.Services.AddBlazoredLocalStorage();
-            builder.Services.AddAuthorizationCore();
-            builder.Services.AddScoped<HttpInterceptorService>();
-            builder.Services.AddScoped<RefreshTokenService>();
-
-            builder.Services.AddBlazoredToast();
             builder.Services.AddHttpClientInterceptor();
-           
+            builder.Services.AddScoped<HttpInterceptorService>();
+
+            builder.Services.AddBlazoredLocalStorage();
+            builder.Services.AddBlazoredToast();
+            builder.Services.AddAuthorizationCore();
+            builder.Services.AddScoped<RefreshTokenService>();
 
             builder.Services.AddScoped<ITagHttpService, TagHttpService>();
             builder.Services.AddScoped<IWordHttpService, WordHttpService>();

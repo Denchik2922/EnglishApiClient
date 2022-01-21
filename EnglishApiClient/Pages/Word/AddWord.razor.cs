@@ -1,10 +1,9 @@
 ﻿using Blazored.Toast.Services;
 using EnglishApiClient.Dtos.Entity;
 using EnglishApiClient.HttpServices.Interfaces;
+using EnglishApiClient.Infrastructure;
 using Microsoft.AspNetCore.Components;
-using Microsoft.AspNetCore.Components.Authorization;
 using Microsoft.JSInterop;
-using System.Security.Claims;
 
 namespace EnglishApiClient.Pages.Word
 {
@@ -27,6 +26,7 @@ namespace EnglishApiClient.Pages.Word
 
         [Inject]
         private IToastService _toastService { get; set; }
+
 
         public void AddTranslate()
         {

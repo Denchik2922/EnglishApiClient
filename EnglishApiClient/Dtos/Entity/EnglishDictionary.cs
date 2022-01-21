@@ -16,8 +16,8 @@ namespace EnglishApiClient.Dtos.Entity
         public string Description { get; set; }
         public string UserId { get; set; }
 
-        [Required(ErrorMessage = "Tags is required")]
-        [EnsureMinimumElements(1, ErrorMessage = "At least one tag is required")]
+        /*[Required(ErrorMessage = "Tags is required")]
+        [EnsureMinimumElements(1, ErrorMessage = "At least one tag is required")]*/
         public ICollection<Tag> Tags { get; set; } = new List<Tag>();
         public ICollection<WordModel> Words { get; set; } = new List<WordModel>();
         public ICollection<TestUserResult> SpellingTestResults { get; set; } = new List<TestUserResult>();

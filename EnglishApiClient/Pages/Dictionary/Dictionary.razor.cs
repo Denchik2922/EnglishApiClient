@@ -5,7 +5,7 @@ using Microsoft.AspNetCore.Components;
 
 namespace EnglishApiClient.Pages.Dictionary
 {
-    public partial class Dictionary : IDisposable
+    public partial class Dictionary
     {
         private ICollection<EnglishDictionary> _englishDictionaries = new List<EnglishDictionary>();
 
@@ -20,12 +20,9 @@ namespace EnglishApiClient.Pages.Dictionary
         [Inject]
         private NavigationManager _navigation { get; set; }
 
-        [Inject]
-        private HttpInterceptorService _interceptor { get; set; }
 
         protected async override Task OnInitializedAsync()
         {
-            _interceptor.RegisterEvent();
             await GetDictionaries();
             await GetTags();
         }
@@ -39,6 +36,5 @@ namespace EnglishApiClient.Pages.Dictionary
         {
             _tags = await _tagService.GetAll();
         }
-        public void Dispose() => _interceptor.DisposeEvent();
     }
 }

@@ -10,8 +10,8 @@ namespace EnglishApiClient.Pages.Word
     {
         [Parameter]
         public int WordId { get; set; }
+        private WordModel? _word { get; set; }
 
-        private WordModel _word = new WordModel();
         private string _newTranslate = "";
         private ICollection<WordPhoto> pictures = new List<WordPhoto>();
 
@@ -99,7 +99,7 @@ namespace EnglishApiClient.Pages.Word
             var result = await _wordService.Update(_word);
             if (result)
             {
-                _toastService.ShowSuccess("Dictionary edited successfully!");
+                _toastService.ShowSuccess("Word edited successfully!");
                 _navigation.NavigateTo("/");
             }
         }

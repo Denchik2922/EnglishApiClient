@@ -15,9 +15,19 @@
             </li>
             <li class="nav-item">
                <NavLink class="nav-link" href="my-dictionaries">
-                    <span class="oi oi-home" aria-hidden="true"></span> My Dictionaries
+                    <span class="oi oi-book"></span> My Dictionaries
                 </NavLink>
             </li>
+            <AuthorizeView Roles="Admin">
+                <Authorized>
+                  <li class="nav-item">
+                       <NavLink class="nav-link" href="tags">
+                            <span class="oi oi-tags"></span> Tags
+                        </NavLink>
+                  </li>
+                  
+                </Authorized>
+            </AuthorizeView>
           </ul>
             <div class="d-flex">
             <AuthorizeView>

@@ -1,0 +1,13 @@
+﻿.func-block div {
+    display: inline-block;
+    margin-left: 10px;
+}
+
+.tag-func {
+    text-align: end;
+}
+
+.tag-func {
+    margin-right: 0;
+    margin-left: auto;
+}
