@@ -1,5 +1,6 @@
 using Blazored.LocalStorage;
 using Blazored.Toast;
+using EnglishApiClient.Dtos.Test;
 using EnglishApiClient.HttpServices;
 using EnglishApiClient.HttpServices.Interfaces;
 using EnglishApiClient.Infrastructure;
@@ -30,6 +31,8 @@ namespace EnglishApiClient
             builder.Services.AddAuthorizationCore();
             builder.Services.AddScoped<RefreshTokenService>();
 
+            builder.Services.AddScoped<ISpellingTestHttpService, SpellingTestHttpService>();
+            builder.Services.AddScoped<IMatchingTestHttpService, MatchingTestHttpService>();
             builder.Services.AddScoped<ITagHttpService, TagHttpService>();
             builder.Services.AddScoped<IWordHttpService, WordHttpService>();
             builder.Services.AddScoped<IDictionaryHttpService, DictionaryHttpService>();

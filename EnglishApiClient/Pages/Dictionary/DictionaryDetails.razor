@@ -23,11 +23,14 @@ else{
         </div>
         <div class="dictionary-func">
             <div class="func-block">
-                 <div>
-                    <p>
-                        Start test <span title="Start test"  class="oi oi-task"></span>
-                    </p>
-                </div>
+                    <div>
+                          <span data-bs-toggle="dropdown" aria-expanded="false">Start test <span class="oi oi-task"></span></span>
+                          <ul class="dropdown-menu">
+                            <li><p class="dropdown-item" @onclick="@(() => _navigation.NavigateTo($"matching-test/{_dictionary.Id}"))" >Matching</p></li>
+                            <li><p class="dropdown-item" @onclick="@(() => _navigation.NavigateTo($"spelling-test/{_dictionary.Id}"))">Spelling</p></li>
+                          </ul>
+                    </div>
+
 
                 @if (_dictionary.UserId.Contains(CurrentUser))
                 {

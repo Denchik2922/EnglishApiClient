@@ -1,0 +1,61 @@
+﻿@page "/matching-test/{DictionaryId:int}"
+
+<div class="test">
+    <div class="score">
+       <p>Score: @_parameters.Score</p>
+    </div>
+    <div class="row">
+        <div class="question">
+            <h5>@_paramsForTest.WordName</h5>
+        </div>
+        <div class="answers">
+            @foreach(var answer in _paramsForTest.Translates)
+            {
+                <div @onclick="@(() => SetAnswer(answer))" class="answer" style="@StyleForAnswer(answer)">
+                    <input id="ra-@answer"   
+                           class="form-radio-input"
+                           type="radio" 
+                           name="answer"
+                           disabled="@IsDisabledAnswers"
+                           checked="@(UserAnswer == answer)"
+                           />
+                    <label for="ra-@answer" class="form-radio-label">
+                             @answer
+                    </label>
+                </div>
+            }
+        </div>
+        <div class="buttons">
+            @if(IsShowCheck)
+            {
+             <button type="button" class="btn btn-success" @onclick="() => CheckTest()" >
+                 Check
+             </button>
+            }
+            @if(_paramsCheck != null)
+            {
+                @if (_paramsCheck.HasNextQuestion)
+                {
+                    <button class="btn btn-primary" type="button" @onclick="() => NextQuestion()" >
+                        Next
+                    </button>
+                }
+                else if (_paramsCheck.NextQuestion == _parameters.CurrentQuestion)
+                {
+                   <button class="btn btn-danger" type="button" @onclick="() => FinishTest()" >
+                       Finish
+                   </button>
+                }
+                  
+            }
+
+            <p class="count">@_parameters.CurrentQuestion of @_parameters.CountQuestion </p>
+            
+        </div>
+    </div>
+</div>
+
+
+
+
+

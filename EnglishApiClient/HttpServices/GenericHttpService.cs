@@ -1,6 +1,4 @@
 ﻿using EnglishApiClient.HttpServices.Interfaces;
-using Microsoft.AspNetCore.Components;
-using System.Net;
 using System.Net.Http.Json;
 
 namespace EnglishApiClient.HttpServices
@@ -17,10 +15,8 @@ namespace EnglishApiClient.HttpServices
 
             public async Task<T> GetById(int id)
             {
-                var response = await httpClient.GetAsync($"{requestString}/{id}");
-                return await response.Content.ReadFromJsonAsync<T>();
-                
-        }
+                return await httpClient.GetFromJsonAsync<T>($"{requestString}/{id}");
+            }
 
             public async Task<ICollection<T>> GetAll()
             {

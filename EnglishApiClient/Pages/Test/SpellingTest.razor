@@ -1,0 +1,47 @@
+﻿@page "/spelling-test/{DictionaryId:int}"
+
+<div class="test">
+    <div class="score">
+       <p>Score: @_parameters.Score</p>
+    </div>
+    <div class="row">
+        <div class="question">
+            <h5>@_paramsForTest.WordName</h5>
+        </div>
+        <div class="answers">
+            <input class="form-control" style="@StyleForAnswer()" type="text" disabled="@IsDisabledAnswers" @bind="_answerForQuestion" />
+            @if(_paramsCheck != null){
+                <div class="alert alert-info" role="alert">
+                     Current answer - @_paramsCheck.TrueAnswer !
+                </div>
+            }
+        </div>
+        <div class="buttons">
+            @if(IsShowCheck && _answerForQuestion.Length >= 1)
+            {
+             <button type="button" class="btn btn-success" @onclick="() => CheckTest()" >
+                 Check
+             </button>
+            }
+            @if(_paramsCheck != null)
+            {
+                @if (_paramsCheck.HasNextQuestion)
+                {
+                    <button class="btn btn-primary" type="button" @onclick="() => NextQuestion()" >
+                        Next
+                    </button>
+                }
+                else if (_paramsCheck.NextQuestion == _parameters.CurrentQuestion)
+                {
+                   <button class="btn btn-danger" type="button" @onclick="() => FinishTest()" >
+                       Finish
+                   </button>
+                }
+                  
+            }
+            <p class="count">@_parameters.CurrentQuestion of @_parameters.CountQuestion </p>
+            
+        </div>
+    </div>
+</div>
+
