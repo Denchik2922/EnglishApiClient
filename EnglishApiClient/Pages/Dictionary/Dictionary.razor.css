@@ -1,10 +1,14 @@
 ﻿.tag {
-    margin: 0px 0px 10px 10px;
+    margin-right: 7px;
 }
 
-.filter-item{
-    margin-top:10px;
-    margin-bottom:10px;
+.tags {
+    padding: 0px 20px 10px 20px;
+}
+
+.filter-item {
+    margin-top: 10px;
+    margin-bottom: 10px;
 }
 
 .func-block div {

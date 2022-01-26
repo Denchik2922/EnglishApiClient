@@ -62,16 +62,23 @@ namespace EnglishApiClient.HttpServices
         {
             var token = await _localStorage.GetItemAsync<string>("authToken");
             var refreshToken = await _localStorage.GetItemAsync<string>("refreshToken");
-            var response = await _httpClient.PostAsJsonAsync("auth/refresh", new { Token = token, RefreshToken = refreshToken });
-            var result = await response.Content.ReadFromJsonAsync<AuthResponse>();
-            if (!response.IsSuccessStatusCode)
-                throw new ApplicationException("Something went wrong during the refresh token action");
+            try
+            {
+                var response = await _httpClient.PostAsJsonAsync("auth/refresh", new { Token = token, RefreshToken = refreshToken });
+                var result = await response.Content.ReadFromJsonAsync<AuthResponse>();                    
+                await _localStorage.SetItemAsync("authToken", result.Token);
+                await _localStorage.SetItemAsync("refreshToken", result.RefreshToken);
 
-            await _localStorage.SetItemAsync("authToken", result.Token);
-            await _localStorage.SetItemAsync("refreshToken", result.RefreshToken);
-
-            _httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("bearer", result.Token);
-            return result.Token;
+                _httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("bearer", result.Token);
+                return result.Token;
+            }
+            catch (HttpResponseException)
+            {
+                await Logout();
+                throw;
+            }
+            
+            
         }
 
     }

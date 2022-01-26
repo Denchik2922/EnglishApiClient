@@ -1,7 +1,6 @@
 ﻿using Blazored.Toast.Services;
 using EnglishApiClient.Dtos.Entity;
 using EnglishApiClient.HttpServices.Interfaces;
-using EnglishApiClient.Infrastructure;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Authorization;
 using Microsoft.JSInterop;
@@ -15,7 +14,24 @@ namespace EnglishApiClient.Pages.Dictionary
         public int Id { get; set; }
 
         private string CurrentUser = "";
-        private EnglishDictionary _dictionary = new EnglishDictionary();
+        private EnglishDictionary _dictionary;
+
+        private string SpellingTest
+        {
+            get
+            {
+                return _dictionary.SpellingTestUsers.FirstOrDefault(t => t.UserId == CurrentUser)?.Score.ToString();
+            }
+        }
+
+        private string MatchingTest
+        {
+            get
+            {
+                return _dictionary.MatchingTestUsers.FirstOrDefault(t => t.UserId == CurrentUser)?.Score.ToString();
+            }
+        }
+
 
         [Inject]
         private IToastService _toastService { get; set; }
@@ -31,6 +47,18 @@ namespace EnglishApiClient.Pages.Dictionary
 
         [Inject]
         private IDictionaryHttpService _dictionaryService { get; set; }
+
+        private string IsDisabledTest()
+        {
+            if (_dictionary.Words.Count() < 4)
+            {
+                return "disabled";
+            }
+            else
+            {
+                return "";
+            }
+        }
 
         protected override async Task OnInitializedAsync()
         {

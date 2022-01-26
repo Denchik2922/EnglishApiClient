@@ -9,9 +9,9 @@ namespace EnglishApiClient.Pages.Dictionary
     {
         [Parameter]
         public int Id { get; set; }
+
         private ICollection<Tag> _tags = new List<Tag>();
         private EnglishDictionary _dictionary = new EnglishDictionary();
-        private int[] _selectedTags { get; set; } = new int[] { };
 
         [Inject]
         private IToastService _toastService { get; set; }
@@ -29,12 +29,31 @@ namespace EnglishApiClient.Pages.Dictionary
         {
             await GetDictionaries();
             await GetTags();
-            SetTags();
         }
 
-        private void SetTags()
+        private string StyleTag(Tag tag)
         {
-            _selectedTags = _dictionary.Tags.Select(x => x.Id).ToArray();
+            if (_dictionary.Tags.Any(t => t.Name == tag.Name))
+            {
+                return "btn-warning text-dark";
+            }
+            else
+            {
+                return "btn-primary text-white";
+            }
+        }
+
+        private void SetOrRemoveTag(Tag tag)
+        {
+            if (_dictionary.Tags.Any(t => t.Name == tag.Name))
+            {
+                var itemToRemove = _dictionary.Tags.Single(t => t.Id == tag.Id);
+                _dictionary.Tags.Remove(itemToRemove);
+            }
+            else
+            {
+                _dictionary.Tags.Add(tag);
+            }
         }
 
         private async Task GetDictionaries()
@@ -49,7 +68,6 @@ namespace EnglishApiClient.Pages.Dictionary
 
         private async void UpdateDictionary()
         {
-            _dictionary.Tags = _selectedTags.Select(t => new Tag() { Id = t }).ToList();
             var result = await _dictionaryService.Update(_dictionary);
             if (result)
             {

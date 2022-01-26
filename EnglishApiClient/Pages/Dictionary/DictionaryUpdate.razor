@@ -6,9 +6,9 @@
 <div class="row justify-content-md-center">
     <div class="col-md-7 col-sm-12">
     <h2>Edit dictionary</h2>
-    @if (_tags==null)
+    @if (_tags==null || _dictionary == null)
     {
-            <span><em>Loading...</em></span>
+        <span><em>Loading...</em></span>
     }
     else
     {
@@ -32,12 +32,15 @@
                 <div class="form-group row">
                     <div class="col-sm-12">
                         <label for="discription" class="form-label">Tags</label>
-                        <select class="form-control" @bind="_selectedTags" multiple>
-                               @foreach (var tag in _tags)
-                                 {
-                                   <option value="@tag.Id">@tag.Name</option>
-                                 }
-                        </select>
+                        <div>
+                            @foreach (var tag in _tags)
+                            {
+                            <span @onclick="() => SetOrRemoveTag(tag)" class="badge rounded-pill tag @StyleTag(tag)">
+                                 @tag.Name 
+                            </span>
+                            }
+                        </div>
+                        <ValidationMessage For="@(() => _dictionary.Tags)" />
                     </div>
                 </div>
                 <AuthorizeView Roles="Admin">

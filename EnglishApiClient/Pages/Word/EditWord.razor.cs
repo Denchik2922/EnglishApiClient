@@ -10,7 +10,7 @@ namespace EnglishApiClient.Pages.Word
     {
         [Parameter]
         public int WordId { get; set; }
-        private WordModel? _word { get; set; }
+        private WordModel _word { get; set; }
 
         private string _newTranslate = "";
         private ICollection<WordPhoto> pictures = new List<WordPhoto>();

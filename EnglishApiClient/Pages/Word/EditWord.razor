@@ -8,9 +8,11 @@
     <h2>Edit word</h2>
     <div class="col">
     @if(_word == null){
-        <p>Lodding...</p>
+         <p>Lodding...</p>
     }
-        <EditForm Model="_word" OnValidSubmit="UpdateWord" class="card card-body bg-light">
+    else
+    {
+         <EditForm Model="_word" OnValidSubmit="UpdateWord" class="card card-body bg-light">
                 <DataAnnotationsValidator />
                 <div class="form-group row">
                     <div class="col-sm-12">
@@ -101,7 +103,8 @@
                     </div>
                 </div>
                 
-            </EditForm>
+            </EditForm>       
+    }
         </div>
     </div>
 </div>

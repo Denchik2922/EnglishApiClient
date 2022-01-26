@@ -23,15 +23,18 @@ else{
         </div>
         <div class="dictionary-func">
             <div class="func-block">
-                    <div>
-                          <span data-bs-toggle="dropdown" aria-expanded="false">Start test <span class="oi oi-task"></span></span>
+                     <div>
+                          <span title="The dictionary must contain at least 4 words." 
+                                class="start-test @IsDisabledTest()" 
+                                data-bs-toggle="dropdown" 
+                                aria-expanded="false">Start test 
+                                <span class="oi oi-task"></span>
+                          </span>
                           <ul class="dropdown-menu">
-                            <li><p class="dropdown-item" @onclick="@(() => _navigation.NavigateTo($"matching-test/{_dictionary.Id}"))" >Matching</p></li>
-                            <li><p class="dropdown-item" @onclick="@(() => _navigation.NavigateTo($"spelling-test/{_dictionary.Id}"))">Spelling</p></li>
+                            <li><p class="dropdown-item" @onclick="@(() => _navigation.NavigateTo($"matching-test/{_dictionary.Id}"))" >Matching ( @MatchingTest %)</p></li>
+                            <li><p class="dropdown-item" @onclick="@(() => _navigation.NavigateTo($"spelling-test/{_dictionary.Id}"))">Spelling ( @SpellingTest %)</p></li>
                           </ul>
                     </div>
-
-
                 @if (_dictionary.UserId.Contains(CurrentUser))
                 {
                     <div>

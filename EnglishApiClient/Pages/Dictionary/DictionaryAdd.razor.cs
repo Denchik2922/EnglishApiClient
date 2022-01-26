@@ -11,7 +11,6 @@ namespace EnglishApiClient.Pages.Dictionary
     {
         private EnglishDictionary _dictionary = new EnglishDictionary();
         private ICollection<Tag> _tags = new List<Tag>();
-        private int[] _selectedTags { get; set; } = new int[] {};
 
         [Inject]
         private IDictionaryHttpService _dictionaryService { get; set; }
@@ -33,6 +32,31 @@ namespace EnglishApiClient.Pages.Dictionary
             await GetTags();
         }
 
+        private string StyleTag(Tag tag)
+        {
+            if (_dictionary.Tags.Any(t => t.Name == tag.Name))
+            {
+                return "btn-warning text-dark";
+                
+            }
+            else
+            {
+                return "btn-primary text-white";
+            }
+        }
+
+        private void SetOrRemoveTag(Tag tag)
+        {
+            if (_dictionary.Tags.Any(t => t.Name == tag.Name))
+            {
+                _dictionary.Tags.Remove(tag);
+            }
+            else
+            {
+                _dictionary.Tags.Add(tag);
+            }
+        }
+
         private async Task GetTags()
         {
             _tags = await _tagService.GetAll();
@@ -42,9 +66,8 @@ namespace EnglishApiClient.Pages.Dictionary
         {
             var authState = await _authProvider.GetAuthenticationStateAsync();
             var userId = authState.User.FindFirst(ClaimTypes.NameIdentifier).Value;
-            
-            _dictionary.UserId= userId;
-            _dictionary.Tags = _selectedTags.Select(t => new Tag() { Id = t }).ToList();
+            _dictionary.UserId = userId;
+
             var result = await _dictionaryService.Create(_dictionary);
             if (result)
             {

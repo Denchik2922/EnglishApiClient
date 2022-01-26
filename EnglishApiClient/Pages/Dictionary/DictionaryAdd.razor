@@ -31,13 +31,15 @@
                 </div>
                 <div class="form-group row">
                     <div class="col-sm-12">
-                        <label for="discription" class="form-label">Tags</label>
-                        <select class="form-control" @bind="_selectedTags" multiple>
-                               @foreach (var tag in _tags)
-                                 {
-                                   <option value="@tag.Id">@tag.Name</option>
-                                 }
-                        </select>
+                         <label for="discription" class="form-label">Tags</label>
+                        <div>
+                            @foreach (var tag in _tags)
+                            {
+                            <span @onclick="() => SetOrRemoveTag(tag)" class="badge rounded-pill tag @StyleTag(tag)">
+                                 @tag.Name 
+                            </span>
+                            }
+                        </div>
                         <ValidationMessage For="@(() => _dictionary.Tags)" />
                     </div>
                 </div>

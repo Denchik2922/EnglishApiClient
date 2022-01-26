@@ -1,5 +1,5 @@
 ﻿.tag {
-    margin: 10px 0px 0px 0px;
+    margin: 10px 5px 0px 0px;
 }
 .func-block div{
     display:inline-block;
@@ -10,8 +10,13 @@
     text-align: end;
 }
 
-.add-word{
-    cursor:pointer;
+.add-word, .start-test {
+    cursor: pointer;
+}
+
+.disabled {
+    color: darkgreen;
+    cursor: default;
 }
 
 .words {
