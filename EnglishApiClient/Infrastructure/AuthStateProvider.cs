@@ -1,10 +1,7 @@
 ﻿using Microsoft.AspNetCore.Components.Authorization;
-using System.Threading.Tasks;
 using Blazored.LocalStorage;
-using System.Net.Http;
 using System.Security.Claims;
 using System.Net.Http.Headers;
-using System;
 
 namespace EnglishApiClient.Infrastructure
 {

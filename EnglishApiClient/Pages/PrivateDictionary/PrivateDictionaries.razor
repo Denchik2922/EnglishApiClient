@@ -1,4 +1,5 @@
 ﻿@page "/my-dictionaries"
+@using EnglishApiClient.Components
 @using Microsoft.AspNetCore.Authorization
 @using Microsoft.AspNetCore.Components.Authorization
 @attribute [Authorize]
@@ -10,63 +11,35 @@
     }
     else
     {
-            <AuthorizeView>
-                <Authorized>
-                   <div class="func-block">
-                        <div>
-                            <NavLink href="dictionary-add">
-                                <p>Add dictionary <span title="Add new dictionary" class="oi oi-plus"></span></p>
-                            </NavLink>
-                        </div>
-                    </div>
-                </Authorized>
-            </AuthorizeView>
-            <div class="col-7">
-            @foreach (var dict in englishDictionaries)
-            {
-                    <div class="row">
-                         <div class="col-12 mb-2">
-                            <div class="card" @onclick="() => NavigateToDictionary(dict.Id)">
-                                <div class="card-body">
-                                    <h5 class="card-title">@dict.Name</h5>
-                                    <p class="card-text">@dict.Description</p>
-                                </div>
-                                <div>
-                                    @foreach (var tag in dict.Tags)
-                                    {
-                                        <span class="badge rounded-pill bg-primary tag">@tag.Name</span>
-                                    }
-
-                                </div>
+            <div class="func-block">
+                <AuthorizeView>
+                    <Authorized>
+                       <div class="func-block">
+                            <div>
+                                <NavLink href="dictionary-add">
+                                    <p>Add dictionary <span title="Add new dictionary" class="oi oi-plus"></span></p>
+                                </NavLink>
                             </div>
                         </div>
-                    </div>
-              
-            }
+                    </Authorized>
+                </AuthorizeView>
+                 <div class="d-md-none d-lg-none" style="float:right"> 
+                      <label class="btn-menu" for="hmt">
+                        <p> Filters <span class="oi oi-magnifying-glass"></span></p> 
+                     </label>
+                 </div>
             </div>
-            <div class="col-5">
-                <div class="card" style="padding: 20px;">
-                    
-                    <div class="filter-item">
-                        <form class="filter-item d-flex">
-                             <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-                        </form>
-                    </div>
-                    <div class="filter-item">
-                        <p>Tags</p>
-                        @foreach (var tag in tags)
-                         {
-                           <span class="badge rounded-pill bg-primary tag">@tag.Name</span>
-                         }
-                    </div>
 
-                    <div class="filter-item">
-                       <button type="button" class="btn btn-info">Search</button>
+            <div class="col-md-7 col-sm-12">
+                <ListDictionary Dictionaries="englishDictionaries" />
+                <div class="row">
+                    <div class="col">
+                        <Pagination MetaData="MetaData" Spread="2" SelectedPage="SelectedPage" />
                     </div>
-
                 </div>
-
             </div>
-
+            <div class="col-md-5">
+               <DictionaryFilters />
+            </div>
     }
 </div>

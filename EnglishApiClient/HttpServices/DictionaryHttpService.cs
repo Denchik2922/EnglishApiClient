@@ -1,6 +1,9 @@
 ﻿using EnglishApiClient.Dtos.Entity;
 using EnglishApiClient.HttpServices.Interfaces;
+using EnglishApiClient.Infrastructure.RequestFeatures;
+using Microsoft.AspNetCore.WebUtilities;
 using System.Net.Http.Json;
+using System.Text.Json;
 
 namespace EnglishApiClient.HttpServices
 {
@@ -8,14 +11,35 @@ namespace EnglishApiClient.HttpServices
     {
         public DictionaryHttpService(HttpClient httpClient) : base(httpClient, "dictionary") { }
 
-        public async Task<ICollection<EnglishDictionary>> GetPublicDictionaries()
+        public async Task<PagingResponse<EnglishDictionary>> GetPublicDictionaries(PaginationParameters parameters)
         {
-            return await httpClient.GetFromJsonAsync<List<EnglishDictionary>>($"{requestString}/public-dictionaries");
+
+            var queryStringParam = new Dictionary<string, string>
+            {
+                ["pageNumber"] = parameters.PageNumber.ToString()
+            };
+            var response = await httpClient.GetAsync(QueryHelpers.AddQueryString($"{requestString}/public-dictionaries", queryStringParam));
+            var pagingResponse = new PagingResponse<EnglishDictionary>
+            {
+                Items = await response.Content.ReadFromJsonAsync<List<EnglishDictionary>>(),
+                MetaData = JsonSerializer.Deserialize<MetaData>(response.Headers.GetValues("X-Pagination").First())
+            };
+            return pagingResponse;
         }
 
-        public async Task<ICollection<EnglishDictionary>> GetPrivateDictionaries()
+        public async Task<PagingResponse<EnglishDictionary>> GetPrivateDictionaries(PaginationParameters parameters)
         {
-            return await httpClient.GetFromJsonAsync<List<EnglishDictionary>>($"{requestString}/private-dictionaries");
+            var queryStringParam = new Dictionary<string, string>
+            {
+                ["pageNumber"] = parameters.PageNumber.ToString()
+            };
+            var response = await httpClient.GetAsync(QueryHelpers.AddQueryString($"{requestString}/private-dictionaries", queryStringParam));
+            var pagingResponse = new PagingResponse<EnglishDictionary>
+            {
+                Items = await response.Content.ReadFromJsonAsync<List<EnglishDictionary>>(),
+                MetaData = JsonSerializer.Deserialize<MetaData>(response.Headers.GetValues("X-Pagination").First())
+            };
+            return pagingResponse;
         }
 
     }

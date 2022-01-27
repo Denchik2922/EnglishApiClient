@@ -1,5 +1,6 @@
 ﻿@page "/tags"
 @using Microsoft.AspNetCore.Authorization
+@using EnglishApiClient.Components
 @inject NavigationManager NavigationManager
 @attribute [Authorize(Roles = "Admin")]
 
@@ -10,29 +11,35 @@
 }
 else
 {
-
-    <div>
-        <NavLink href="create-tag">
-             <p>Create tag <span title="Add new tag" class="oi oi-plus"></span></p>
-        </NavLink> 
-    </div>
-    <table class="table table-hover">
-        <thead>
-            <tr>
-                <th>Id</th>
-                <th>Name</th>
-                <th>Description</th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach (var tag in _tags)
-            {
-                <tr @onclick="@(()=>NavigationManager.NavigateTo($"/edit-tag/{tag.Id}"))">
-                    <td>@tag.Id</td>
-                    <td>@tag.Name</td>
-                    <td>@tag.Description</td>
+    <div class="tags">
+        <div>
+            <NavLink href="create-tag">
+                 <p>Create tag <span title="Add new tag" class="oi oi-plus"></span></p>
+            </NavLink> 
+        </div>
+        <table class="table table-hover">
+            <thead>
+                <tr>
+                    <th>Id</th>
+                    <th>Name</th>
+                    <th>Description</th>
                 </tr>
-            }
-        </tbody>
-    </table>
+            </thead>
+            <tbody>
+                @foreach (var tag in _tags)
+                {
+                    <tr @onclick="@(()=>NavigationManager.NavigateTo($"/edit-tag/{tag.Id}"))">
+                        <td>@tag.Id</td>
+                        <td>@tag.Name</td>
+                        <td>@tag.Description</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+    <div class="row">
+         <div class="col">
+             <Pagination MetaData="MetaData" Spread="2" SelectedPage="SelectedPage" />
+         </div>
+    </div>
 }

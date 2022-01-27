@@ -59,7 +59,7 @@ namespace EnglishApiClient.Pages.Dictionary
 
         private async Task GetTags()
         {
-            _tags = await _tagService.GetAll();
+            _tags = await _tagService.GetAllWithoutPage();
         }
 
         private async void AddDictionary()

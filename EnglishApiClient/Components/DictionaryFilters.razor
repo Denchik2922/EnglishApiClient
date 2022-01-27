@@ -1,0 +1,26 @@
+﻿<input type="checkbox" id="hmt" class="hidden-menu-ticker">
+<div class="hidden-menu">
+    <div class="filter-item">
+        <form class="filter-item d-flex">
+            <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+        </form>
+    </div>
+    @if(Tags == null)
+    {
+        <p>Loading...</p>
+    }
+    else
+    {
+         <div class="filter-item">
+            <p>Tags</p>
+            @foreach (var tag in Tags)
+            {
+                <span class="badge rounded-pill bg-primary tag">@tag.Name</span>
+            }
+        </div>
+    }
+    <div class="filter-item">
+        <button type="button" class="btn btn-info">Search</button>
+    </div>
+</div>
+

@@ -1,5 +1,6 @@
 ﻿@page "/dictionaries"
 @page "/"
+@using EnglishApiClient.Components
 @using Microsoft.AspNetCore.Authorization
 @using Microsoft.AspNetCore.Components.Authorization
 @attribute [Authorize]
@@ -27,52 +28,18 @@
                      </label>
                  </div>
             </div>
-           
-
             <div class="col-md-7 col-sm-12">
-            @foreach (var dict in _englishDictionaries)
-            {
-                    <div class="row">
-                         <div class="col-12 mb-2">
-                            <div class="card" @onclick="@(() => _navigation.NavigateTo($"dictionary/{dict.Id}"))">
-                                <div class="card-body">
-                                    <h5 class="card-title">@dict.Name</h5>
-                                    <p class="card-text">@dict.Description</p>
-                                </div>
-                                <div class="tags">
-                                    @foreach (var tag in dict.Tags)
-                                    {
-                                        <span class="badge rounded-pill bg-primary tag">@tag.Name</span>
-                                    }
-
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-            }
-            </div>
-            <div class="col-md-5">
-                <input type="checkbox" id="hmt" class="hidden-menu-ticker">
-                <div class="hidden-menu">
-                 <div class="filter-item">
-                        <form class="filter-item d-flex">
-                             <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-                        </form>
-                    </div>
-                    <div class="filter-item">
-                        <p>Tags</p>
-                        @foreach (var tag in _tags)
-                         {
-                           <span class="badge rounded-pill bg-primary tag">@tag.Name</span>
-                         }
-                    </div>
-
-                    <div class="filter-item">
-                       <button type="button" class="btn btn-info">Search</button>
+                <ListDictionary Dictionaries="_englishDictionaries" />
+                <div class="row">
+                    <div class="col">
+                        <Pagination MetaData="MetaData" Spread="2" SelectedPage="SelectedPage" />
                     </div>
                 </div>
-
+            </div>
+            <div class="col-md-5">
+               <DictionaryFilters />
             </div>
 
     }
 </div>
+

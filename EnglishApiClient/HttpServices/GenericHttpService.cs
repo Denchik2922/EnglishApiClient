@@ -1,5 +1,8 @@
 ﻿using EnglishApiClient.HttpServices.Interfaces;
+using EnglishApiClient.Infrastructure.RequestFeatures;
+using Microsoft.AspNetCore.WebUtilities;
 using System.Net.Http.Json;
+using System.Text.Json;
 
 namespace EnglishApiClient.HttpServices
 {
@@ -18,9 +21,21 @@ namespace EnglishApiClient.HttpServices
                 return await httpClient.GetFromJsonAsync<T>($"{requestString}/{id}");
             }
 
-            public async Task<ICollection<T>> GetAll()
+            public async Task<PagingResponse<T>> GetAll(PaginationParameters parameters)
             {
-                return await httpClient.GetFromJsonAsync<List<T>>(requestString);
+                var queryStringParam = new Dictionary<string, string>
+                {
+                    ["pageNumber"] = parameters.PageNumber.ToString(),
+                    ["pageSize"] = parameters.PageSize.ToString()
+                };
+                var response = await httpClient.GetAsync(QueryHelpers.AddQueryString(requestString, queryStringParam));
+
+                var pagingResponse = new PagingResponse<T>
+                {
+                    Items = await response.Content.ReadFromJsonAsync<List<T>>(),
+                    MetaData = JsonSerializer.Deserialize<MetaData>(response.Headers.GetValues("X-Pagination").First())
+                };
+                return pagingResponse;
             }
 
             public virtual async Task<bool> Create(T entity)

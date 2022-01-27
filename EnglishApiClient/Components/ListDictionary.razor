@@ -1,0 +1,28 @@
+﻿@inject NavigationManager NavigationManager
+
+@if(Dictionaries == null){
+    <p>Loading...</p>
+}
+else{
+    <div class="dictionaries">
+        @foreach (var dict in Dictionaries)
+        {
+        <div class="row">
+            <div class="col-12 mb-2">
+                <div class="card" @onclick="@(() => NavigationManager.NavigateTo($"dictionary/{dict.Id}"))">
+                    <div class="card-body">
+                        <h5 class="card-title">@dict.Name</h5>
+                        <p class="card-text">@dict.Description</p>
+                    </div>
+                    <div class="tags">
+                        @foreach (var tag in dict.Tags)
+                        {
+                            <span class="badge rounded-pill bg-primary tag">@tag.Name</span>
+                        }
+                    </div>
+                </div>
+            </div>
+        </div>
+        }
+    </div>
+}
