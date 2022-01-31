@@ -3,6 +3,9 @@
 @if(Dictionaries == null){
     <p>Loading...</p>
 }
+else if(Dictionaries.Count() < 0){
+    <p>You don`t have dictionaries</p>
+}
 else{
     <div class="dictionaries">
         @foreach (var dict in Dictionaries)

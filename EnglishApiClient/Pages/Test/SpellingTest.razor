@@ -10,8 +10,8 @@
         </div>
         <div class="answers">
             <input class="form-control" style="@StyleForAnswer()" type="text" disabled="@IsDisabledAnswers" @bind="_answerForQuestion" />
-            @if(_paramsCheck != null){
-                <div class="alert alert-info" role="alert">
+            @if(_paramsCheck != null && _paramsCheck.IsTrueAnswer == false){
+                <div class="alert alert-success" role="alert">
                      Current answer - @_paramsCheck.TrueAnswer !
                 </div>
             }

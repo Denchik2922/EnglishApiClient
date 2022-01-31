@@ -38,11 +38,11 @@ namespace EnglishApiClient.Pages.Test
 
         private string StyleForAnswer()
         {
-            if (_paramsCheck != null && _paramsCheck.TrueAnswer.ToLower() == _answerForQuestion.ToLower())
+            if (_paramsCheck != null && _paramsCheck.IsTrueAnswer == true)
             {
                 return "background:lightgreen";
             }
-            else if (_paramsCheck != null && _paramsCheck.TrueAnswer.ToLower() != _answerForQuestion.ToLower())
+            else if (_paramsCheck != null && _paramsCheck.IsTrueAnswer == false)
             {
                 return "background:red;color:white;";
             }

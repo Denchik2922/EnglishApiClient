@@ -5,12 +5,7 @@
 @attribute [Authorize]
 
 <div class="row">
-    @if (englishDictionaries == null)
-    {
-        <span><em>Sorry you don`t have dictionaries </em></span> 
-    }
-    else
-    {
+
             <div class="func-block">
                 <AuthorizeView>
                     <Authorized>
@@ -39,7 +34,6 @@
                 </div>
             </div>
             <div class="col-md-5">
-               <DictionaryFilters />
+               <DictionaryFilters OnSearchChanged="SearchChanged" />
             </div>
-    }
 </div>

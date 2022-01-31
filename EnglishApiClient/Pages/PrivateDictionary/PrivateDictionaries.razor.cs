@@ -9,7 +9,7 @@ namespace EnglishApiClient.Pages.PrivateDictionary
     {
         private ICollection<EnglishDictionary> englishDictionaries;
         public MetaData MetaData { get; set; } = new MetaData();
-        private PaginationParameters parameters = new PaginationParameters();
+        private PaginationParameters parameters = new PaginationParameters() { PageSize = 5 };
 
         [Inject]
         public IDictionaryHttpService DictionaryService { get; set; }
@@ -24,6 +24,14 @@ namespace EnglishApiClient.Pages.PrivateDictionary
             englishDictionaries = pagingResponse.Items;
             MetaData = pagingResponse.MetaData;
         }
+
+        private async Task SearchChanged(SearchParameters searchParameters)
+        {
+            parameters.PageNumber = 1;
+            parameters.SearchParameters = searchParameters;
+            await GetDictionaries();
+        }
+
 
         private async Task SelectedPage(int page)
         {

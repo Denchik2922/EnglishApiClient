@@ -2,7 +2,8 @@
 <div class="hidden-menu">
     <div class="filter-item">
         <form class="filter-item d-flex">
-            <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+            <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search"
+             @bind-value="@SearchParam.SearchTerm" @bind-value:event="oninput" @onkeyup="SearchChanged">
         </form>
     </div>
     @if(Tags == null)
@@ -15,12 +16,11 @@
             <p>Tags</p>
             @foreach (var tag in Tags)
             {
-                <span class="badge rounded-pill bg-primary tag">@tag.Name</span>
+                <span @onclick="() => SetOrRemoveTag(tag.Name)" class="badge rounded-pill tag @StyleTag(tag.Name)">
+                      @tag.Name 
+                </span>
             }
         </div>
     }
-    <div class="filter-item">
-        <button type="button" class="btn btn-info">Search</button>
-    </div>
 </div>
 

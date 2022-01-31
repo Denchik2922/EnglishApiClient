@@ -13,34 +13,20 @@ namespace EnglishApiClient.HttpServices
 
         public async Task<PagingResponse<EnglishDictionary>> GetPublicDictionaries(PaginationParameters parameters)
         {
+            var queryStringParam = GetQueryString(parameters);
 
-            var queryStringParam = new Dictionary<string, string>
-            {
-                ["pageNumber"] = parameters.PageNumber.ToString()
-            };
             var response = await httpClient.GetAsync(QueryHelpers.AddQueryString($"{requestString}/public-dictionaries", queryStringParam));
-            var pagingResponse = new PagingResponse<EnglishDictionary>
-            {
-                Items = await response.Content.ReadFromJsonAsync<List<EnglishDictionary>>(),
-                MetaData = JsonSerializer.Deserialize<MetaData>(response.Headers.GetValues("X-Pagination").First())
-            };
-            return pagingResponse;
+            
+            return await GetPaginationResponse(response);
         }
 
         public async Task<PagingResponse<EnglishDictionary>> GetPrivateDictionaries(PaginationParameters parameters)
         {
-            var queryStringParam = new Dictionary<string, string>
-            {
-                ["pageNumber"] = parameters.PageNumber.ToString()
-            };
-            var response = await httpClient.GetAsync(QueryHelpers.AddQueryString($"{requestString}/private-dictionaries", queryStringParam));
-            var pagingResponse = new PagingResponse<EnglishDictionary>
-            {
-                Items = await response.Content.ReadFromJsonAsync<List<EnglishDictionary>>(),
-                MetaData = JsonSerializer.Deserialize<MetaData>(response.Headers.GetValues("X-Pagination").First())
-            };
-            return pagingResponse;
-        }
+            var queryStringParam = GetQueryString(parameters);
 
+            var response = await httpClient.GetAsync(QueryHelpers.AddQueryString($"{requestString}/private-dictionaries", queryStringParam));
+            
+            return await GetPaginationResponse(response);
+        }
     }
 }

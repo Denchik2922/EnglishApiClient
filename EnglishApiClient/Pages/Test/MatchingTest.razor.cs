@@ -43,8 +43,36 @@ namespace EnglishApiClient.Pages.Test
         }
 
         private string StyleForAnswer(string answer)
-        {
-            if(_paramsCheck != null && _paramsCheck.TrueAnswer == answer)
+        {   
+            if (_paramsCheck != null && answer == UserAnswer)
+            {
+                if (_paramsCheck.IsTrueAnswer == true )
+                {
+                    return "background:lightgreen";
+                }
+                else
+                {
+                    return "background:red";
+                }
+            }
+            else if (_paramsCheck != null && answer == _paramsCheck.TrueAnswer)
+            {
+                if (_paramsCheck.IsTrueAnswer == false)
+                {
+                    return "background:lightgreen";
+                }
+                return "";
+            }
+            else if (UserAnswer == answer)
+            {
+                return "background:lightblue";
+            }
+            else
+            {
+                return "";
+            }
+
+            /*if(_paramsCheck != null && _paramsCheck.TrueAnswer == answer)
             {
                 return "background:lightgreen";
             }
@@ -54,7 +82,7 @@ namespace EnglishApiClient.Pages.Test
             }
             else {
                 return "";
-            }
+            }*/
         }
 
         public void SetAnswer(string answer)

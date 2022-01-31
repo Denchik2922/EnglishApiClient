@@ -16,5 +16,8 @@
                 _pageSize = (value > maxPageSize) ? maxPageSize : value;
             }
         }
+
+        public SearchParameters SearchParameters { get; set; } = new SearchParameters();
+
     }
 }
