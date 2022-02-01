@@ -1,6 +1,7 @@
 ﻿using Blazored.Toast.Services;
 using EnglishApiClient.Dtos.Entity;
 using EnglishApiClient.HttpServices.Interfaces;
+using EnglishApiClient.Infrastructure.RequestFeatures;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Authorization;
 using Microsoft.JSInterop;
@@ -32,12 +33,12 @@ namespace EnglishApiClient.Pages.Dictionary
             }
         }
 
+        [Inject]
+        private IJSRuntime _jsRuntime { get; set; }
 
         [Inject]
         private IToastService _toastService { get; set; }
 
-        [Inject]
-        private IJSRuntime _jsRuntime { get; set; }
 
         [Inject]
         private AuthenticationStateProvider _authProvider { get; set; }
@@ -47,6 +48,7 @@ namespace EnglishApiClient.Pages.Dictionary
 
         [Inject]
         private IDictionaryHttpService _dictionaryService { get; set; }
+
 
         private string IsDisabledTest()
         {
@@ -66,6 +68,14 @@ namespace EnglishApiClient.Pages.Dictionary
             await GetCurrentUser();
         }
 
+        private void RouteEditWord(int wordId)
+        {
+            if (_dictionary.UserId.Contains(CurrentUser))
+            {
+                _navigation.NavigateTo($"edit-word/{wordId}");
+            }
+        }
+
         private async Task GetCurrentUser()
         {
             var authState = await _authProvider.GetAuthenticationStateAsync();
@@ -75,14 +85,6 @@ namespace EnglishApiClient.Pages.Dictionary
         private async Task GetDictionary()
         {
             _dictionary = await _dictionaryService.GetById(Id);
-        }
-
-        private void RouteEditWord(int wordId)
-        {
-            if (_dictionary.UserId.Contains(CurrentUser))
-            {
-                _navigation.NavigateTo($"edit-word/{wordId}");
-            }
         }
 
         private async Task DeleteDictionary()
@@ -102,11 +104,6 @@ namespace EnglishApiClient.Pages.Dictionary
                     _toastService.ShowError("Dictionary deleted failed!");
                 }
             }
-        }
-
-        private async Task PlaySound(int id)
-        {
-            await _jsRuntime.InvokeAsync<string>("PlayAudio", $"sound-{id}");
         }
     }
 }

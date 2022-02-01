@@ -1,5 +1,6 @@
 ﻿using Blazored.LocalStorage;
 using EnglishApiClient.Dtos.Auth;
+using EnglishApiClient.Dtos.Entity;
 using EnglishApiClient.HttpServices.Interfaces;
 using EnglishApiClient.Infrastructure;
 using Microsoft.AspNetCore.Components.Authorization;
@@ -64,11 +65,13 @@ namespace EnglishApiClient.HttpServices
             var refreshToken = await _localStorage.GetItemAsync<string>("refreshToken");
             try
             {
-                var response = await _httpClient.PostAsJsonAsync("auth/refresh", new { Token = token, RefreshToken = refreshToken });
-                var result = await response.Content.ReadFromJsonAsync<AuthResponse>();                    
+                var response = await _httpClient.PostAsJsonAsync("auth/refresh", new RefreshTokenDto { Token = token, RefreshToken = refreshToken });
+                var result = await response.Content.ReadFromJsonAsync<AuthResponse>();  
+                
                 await _localStorage.SetItemAsync("authToken", result.Token);
                 await _localStorage.SetItemAsync("refreshToken", result.RefreshToken);
 
+                Console.WriteLine(result.RefreshToken);
                 _httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("bearer", result.Token);
                 return result.Token;
             }

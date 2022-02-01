@@ -1,4 +1,5 @@
 ﻿@page "/dictionary/{id:int}"
+@using EnglishApiClient.Components
 @using Microsoft.AspNetCore.Authorization
 @using Microsoft.AspNetCore.Components.Authorization
 @attribute [Authorize]
@@ -56,46 +57,7 @@ else{
              <small>Count words: @_dictionary.Words.Count()</small>
         </div>
       </div>
-
-        @if(_dictionary.Words.Count() < 1)
-        {
-            <div class="alert alert-warning" role="alert">
-                This dictionary doesn't have any words.
-            </div>
-        }
-        else
-        {
-          <form class="col-md-3 col-sm-12 search-word">
-              <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-          </form>
-          <div class="words">
-              @foreach(var word in _dictionary.Words)
-              {
-                    
-                    <div @onclick="() => RouteEditWord(word.Id)" class="my-3 p-3 bg-body rounded shadow-sm">
-                       <div class="d-flex text-muted pt-3">
-                       @if (word.PictureUrl != null)
-                       {
-                           <img class="word-img" src="@word.PictureUrl" alt="" width="32" height="32">
-                       }
-                       <p class="pb-3 mb-0 small lh-sm border-bottom">
-                        <strong class="d-block text-gray-dark">@word.Name [@word.Transcription]</strong>
-                        @foreach(var translate in word.Translates)
-                        {
-                           <strong class="d-block text-gray-dark">@translate.Name</strong>
-                        }
-                       </p>
-                      @if(word.AudioUrl != null){
-                           <div class="word-audio">
-                                <span @onclick="() => PlaySound(word.Id)" id="soundButton" class="oi oi-volume-high"></span>
-                                <audio id="sound-@word.Id" src="@word.AudioUrl" />
-                           </div>
-                      }
-                     </div>
-                </div>
-              }
-          </div>
-        }
+      <ListWords OnEditWord="RouteEditWord" DictionaryId="Id" />
     </main>
 }
 

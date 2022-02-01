@@ -1,0 +1,29 @@
+﻿.word-audio {
+    margin: auto 0px auto auto;
+}
+
+
+.words {
+    min-height: 550px;
+    margin-bottom: 30px;
+}
+
+.translates {
+    font-size: 12px;
+    margin: 4px 7px 0px 0px;
+}
+
+.word-img {
+    margin-right: 10px;
+    margin-top: auto;
+    margin-bottom: auto;
+}
+
+.word-block {
+    padding: 15px;
+    margin: 10px 0px 10px 0px;
+}
+
+.word-p{
+    margin:0;
+}

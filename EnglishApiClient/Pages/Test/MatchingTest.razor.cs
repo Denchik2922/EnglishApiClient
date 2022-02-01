@@ -72,17 +72,6 @@ namespace EnglishApiClient.Pages.Test
                 return "";
             }
 
-            /*if(_paramsCheck != null && _paramsCheck.TrueAnswer == answer)
-            {
-                return "background:lightgreen";
-            }
-            else if (UserAnswer == answer)
-            {
-                return "background:lightblue";
-            }
-            else {
-                return "";
-            }*/
         }
 
         public void SetAnswer(string answer)

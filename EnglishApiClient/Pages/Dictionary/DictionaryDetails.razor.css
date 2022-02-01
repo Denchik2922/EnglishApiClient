@@ -19,16 +19,7 @@
     cursor: default;
 }
 
-.words {
-    overflow-y: scroll;
-    height: 700px;
-}
-
-.dictionary-func, .word-audio, .search-word {
+.dictionary-func {
     margin-right: 0;
     margin-left: auto;
-}
-
-.word-img{
-    margin-right:10px;
 }
