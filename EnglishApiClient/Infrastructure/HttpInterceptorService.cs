@@ -28,7 +28,7 @@ namespace EnglishApiClient.Infrastructure
         public async Task InterceptBeforeHttpAsync(object sender, HttpClientInterceptorEventArgs e)
         {
             var absPath = e.Request.RequestUri.AbsolutePath;
-            if (!absPath.Contains("refresh") && !absPath.Contains("auth"))
+            if (!absPath.Contains("refresh") && !absPath.Contains("auth") && !absPath.Contains("AuthExternal"))
             {
                 var token = await _refreshTokenService.TryRefreshToken();
                 if (!string.IsNullOrEmpty(token))

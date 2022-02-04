@@ -12,7 +12,7 @@ namespace EnglishApiClient.Pages.Word
         public int DictionaryId { get; set; }
         private string _newTranslate = "";
         private WordModel _word = new WordModel();
-        private ICollection<WordPhoto> pictures = new List<WordPhoto>();
+        private ICollection<WordPhoto> pictures;
 
         [Inject]
         private IJSRuntime _jsRuntime { get; set; }
@@ -26,6 +26,7 @@ namespace EnglishApiClient.Pages.Word
         [Inject]
         private IToastService _toastService { get; set; }
 
+        private void AssignImageUrl(string imgUrl) => _word.PictureUrl = imgUrl;
 
         public void AddTranslate()
         {

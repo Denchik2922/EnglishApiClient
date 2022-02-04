@@ -27,6 +27,8 @@ namespace EnglishApiClient.Pages.Word
         [Inject]
         private IWordHttpService _wordService { get; set; }
 
+        private void AssignImageUrl(string imgUrl) => _word.PictureUrl = imgUrl;
+
         protected override async Task OnInitializedAsync()
         {
             await GetWord();

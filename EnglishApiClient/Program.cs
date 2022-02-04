@@ -6,6 +6,7 @@ using EnglishApiClient.HttpServices.Interfaces;
 using EnglishApiClient.Infrastructure;
 using Microsoft.AspNetCore.Components.Authorization;
 using Microsoft.AspNetCore.Components.WebAssembly.Hosting;
+using Tewr.Blazor.FileReader;
 using Toolbelt.Blazor.Extensions.DependencyInjection;
 
 namespace EnglishApiClient
@@ -28,6 +29,8 @@ namespace EnglishApiClient
 
             builder.Services.AddBlazoredLocalStorage();
             builder.Services.AddBlazoredToast();
+            builder.Services.AddFileReaderService(o => o.UseWasmSharedBuffer = true);
+
             builder.Services.AddAuthorizationCore();
             builder.Services.AddScoped<RefreshTokenService>();
 

@@ -1,4 +1,5 @@
 ﻿@page "/edit-word/{WordId:int}"
+@using EnglishApiClient.Components
 @using Microsoft.AspNetCore.Authorization
 @using Microsoft.AspNetCore.Components.Authorization
 @attribute [Authorize]
@@ -62,6 +63,7 @@
                 <div class="form-group row">
                     <div class="col-sm-12 translate-group">
                         <label for="photo" class="form-label">Picture</label>
+                        <ImageUpload OnChange="AssignImageUrl" />
                         @if(_word.PictureUrl != null)
                         {
                           <div>

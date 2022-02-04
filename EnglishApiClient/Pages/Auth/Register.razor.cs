@@ -13,7 +13,8 @@ namespace EnglishApiClient.Pages.Auth
 
         [Inject]
         private NavigationManager NavigationManager { get; set; }
-        private async void RegisterUser()
+
+        private async Task RegisterUser()
         {
             var result = await AuthService.Register(_registerModel);
             if (result)

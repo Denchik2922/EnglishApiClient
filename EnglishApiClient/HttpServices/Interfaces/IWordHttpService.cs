@@ -8,5 +8,6 @@ namespace EnglishApiClient.HttpServices.Interfaces
         Task<PagingResponse<WordModel>> GetWordsForDictionary(int dictionaryId, PaginationParameters parameters);
         Task<WordInformation> GenerateWordInformation(string wordName);
         Task<ICollection<WordPhoto>> GetWordPictures(string wordName);
+        Task<string> UploadWordImage(MultipartFormDataContent content);
     }
 }

@@ -9,6 +9,7 @@ namespace EnglishApiClient.Shared
         private IAuthService AuthenticationService { get; set; }
         [Inject]
         private NavigationManager NavigationManager { get; set; }
+
         public async Task LogoutUser()
         {
             await AuthenticationService.Logout();

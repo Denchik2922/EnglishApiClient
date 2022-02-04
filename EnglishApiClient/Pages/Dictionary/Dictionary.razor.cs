@@ -17,7 +17,6 @@ namespace EnglishApiClient.Pages.Dictionary
         protected async override Task OnInitializedAsync()
         {
             await GetDictionaries();
-
         }
 
         private async Task GetDictionaries()
