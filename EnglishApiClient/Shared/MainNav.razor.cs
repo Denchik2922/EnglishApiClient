@@ -1,5 +1,6 @@
 ﻿using EnglishApiClient.HttpServices.Interfaces;
 using Microsoft.AspNetCore.Components;
+using Microsoft.AspNetCore.Components.WebAssembly.Authentication;
 
 namespace EnglishApiClient.Shared
 {

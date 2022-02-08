@@ -28,7 +28,25 @@ namespace EnglishApiClient.HttpServices
         {
             var response = await _httpClient.PostAsJsonAsync("auth/register", registerModel);
             return response.IsSuccessStatusCode;
+        }
 
+        public async Task<bool> LoginGoogle(ExternalAuthModel externalAuthModel)
+        {
+            var response = await _httpClient.PostAsJsonAsync("auth/external-login", externalAuthModel);
+            var result = await response.Content.ReadFromJsonAsync<AuthResponse>();
+
+            if (!response.IsSuccessStatusCode)
+            {
+                return response.IsSuccessStatusCode;
+            }
+
+            await _localStorage.SetItemAsync("authToken", result.Token);
+            await _localStorage.SetItemAsync("refreshToken", result.RefreshToken);
+
+            ((AuthStateProvider)_authenticationStateProvider).UserAuthentication(result.Token);
+            _httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("bearer", result.Token);
+
+            return response.IsSuccessStatusCode;
         }
 
         public async Task<bool> Login(LoginModel loginModel)

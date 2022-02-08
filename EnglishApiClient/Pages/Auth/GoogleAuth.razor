@@ -1,0 +1,50 @@
+﻿@page "/google-auth"
+
+@using Blazored.SessionStorage
+@using EnglishApiClient.Dtos.Auth
+@using EnglishApiClient.HttpServices
+@using EnglishApiClient.HttpServices.Interfaces
+@using Microsoft.AspNetCore.Http
+@using Microsoft.AspNetCore.WebUtilities
+
+@inject ISessionStorageService sessionStorage
+@inject IAuthService AuthService
+@inject IGoogleOAuthService googleOAuth
+@inject NavigationManager NavManager
+@inject IConfiguration Configuration
+
+@code {
+    string code = "";
+    string codeVerifier;
+    private string? PkceSessionKey;
+    private string? RedirectUrl;
+
+
+    protected override async Task OnInitializedAsync()
+    {
+        PkceSessionKey = Configuration.GetSection("GoogleAuth")["PkceSessionKey"]; 
+        RedirectUrl =  Configuration.GetSection("GoogleAuth")["RedirectUrl"];
+
+        var uri = NavManager.ToAbsoluteUri(NavManager.Uri);
+        if (QueryHelpers.ParseQuery(uri.Query).TryGetValue("code", out var code))
+        {
+            code = Convert.ToString(code);
+        }
+        codeVerifier = await sessionStorage.GetItemAsStringAsync(PkceSessionKey);
+
+        var tokenResult = await googleOAuth.ExchangeCodeOnTokenAsync(code, codeVerifier, RedirectUrl);
+
+        var result = await AuthService.LoginGoogle(new ExternalAuthModel() { Provider = "google", Token = tokenResult.TokenId });
+        if (result)
+        {
+            NavManager.NavigateTo("/");
+        }
+        else
+        {
+            NavManager.NavigateTo("/login");
+        }
+    }
+
+}
+
+
