@@ -1,6 +1,6 @@
 ﻿namespace EnglishApiClient.Dtos.Auth
 {
-    public class AuthResponse
+    public class UserTokens
     {
         public string RefreshToken { get; set; }
         public string Token { get; set; }

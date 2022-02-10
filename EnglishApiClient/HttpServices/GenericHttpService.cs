@@ -52,7 +52,8 @@ namespace EnglishApiClient.HttpServices
                     ["pageNumber"] = parameters.PageNumber.ToString(),
                     ["pageSize"] = parameters.PageSize.ToString(),
                     ["searchTerm"] = parameters.SearchParameters.SearchTerm == null ? "" : parameters.SearchParameters.SearchTerm,
-                    ["searchTags"] = tags == null ? "" : tags
+                    ["searchTags"] = tags == null ? "" : tags,
+                    ["orderBy"] = parameters.OrderBy
                 };
 
             return queryStringParam;

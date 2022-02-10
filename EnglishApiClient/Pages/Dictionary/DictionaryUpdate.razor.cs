@@ -2,6 +2,7 @@
 using EnglishApiClient.Dtos.Entity;
 using EnglishApiClient.HttpServices.Interfaces;
 using Microsoft.AspNetCore.Components;
+using Microsoft.JSInterop;
 
 namespace EnglishApiClient.Pages.Dictionary
 {
@@ -17,13 +18,13 @@ namespace EnglishApiClient.Pages.Dictionary
         private IToastService _toastService { get; set; }
 
         [Inject]
-        private NavigationManager _navigation { get; set; }
-
-        [Inject]
         private IDictionaryHttpService _dictionaryService { get; set; }
 
         [Inject]
         private ITagHttpService _tagService { get; set; }
+
+        [Inject]
+        private IJSRuntime JSRuntime { get; set; }
 
         protected override async Task OnInitializedAsync()
         {
@@ -72,7 +73,7 @@ namespace EnglishApiClient.Pages.Dictionary
             if (result)
             {
                 _toastService.ShowSuccess("Dictionary edited successfully!");
-                _navigation.NavigateTo("/");
+                await JSRuntime.InvokeVoidAsync("history.back");
             }
         }
     }

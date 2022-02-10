@@ -1,13 +1,13 @@
 ﻿using EnglishApiClient.HttpServices.Interfaces;
 using Microsoft.AspNetCore.Components.Authorization;
 
-namespace EnglishApiClient.HttpServices
+namespace EnglishApiClient.Infrastructure.Helpers
 {
-    public class RefreshTokenService
+    public class RefreshTokenHelper
     {
         private readonly AuthenticationStateProvider _authProvider;
         private readonly IAuthService _authService;
-        public RefreshTokenService(AuthenticationStateProvider authProvider, IAuthService authService)
+        public RefreshTokenHelper(AuthenticationStateProvider authProvider, IAuthService authService)
         {
             _authProvider = authProvider;
             _authService = authService;

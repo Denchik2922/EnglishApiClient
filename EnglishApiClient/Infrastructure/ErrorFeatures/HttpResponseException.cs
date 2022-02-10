@@ -1,6 +1,6 @@
 ﻿using System.Runtime.Serialization;
 
-namespace EnglishApiClient.Infrastructure
+namespace EnglishApiClient.Infrastructure.ErrorFeatures
 {
     [Serializable]
     internal class HttpResponseException : Exception

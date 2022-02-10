@@ -11,6 +11,14 @@ namespace EnglishApiClient.Pages.TagPage
         public MetaData MetaData { get; set; } = new MetaData();
         private PaginationParameters parameters = new PaginationParameters() { PageSize = 10 };
 
+        private Dictionary<string, string> _sortTypes = new Dictionary<string, string>()
+        {
+            {"Name", "name" },
+            {"Name DESC", "name desc" },
+            {"Id", "id" },
+            {"Id DESC", "id desc" }
+        };
+
         [Inject]
         private ITagHttpService _tagService { get; set; }
 
@@ -23,6 +31,20 @@ namespace EnglishApiClient.Pages.TagPage
             var pagingResponse = await _tagService.GetAll(parameters);
             _tags = pagingResponse.Items;
             MetaData = pagingResponse.MetaData;
+        }
+
+        private async Task SearchChanged(string searchTerm)
+        {
+            parameters.PageNumber = 1;
+            parameters.SearchParameters.SearchTerm = searchTerm;
+            await GetTags();
+        }
+
+        private async Task SortChanged(string orderBy)
+        {
+            Console.WriteLine(orderBy);
+            parameters.OrderBy = orderBy;
+            await GetTags();
         }
 
         private async Task SelectedPage(int page)

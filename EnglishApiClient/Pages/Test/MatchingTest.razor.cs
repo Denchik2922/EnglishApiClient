@@ -4,6 +4,7 @@ using EnglishApiClient.Dtos.Test;
 using EnglishApiClient.HttpServices.Interfaces;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Authorization;
+using Microsoft.JSInterop;
 using System.Security.Claims;
 
 namespace EnglishApiClient.Pages.Test
@@ -32,7 +33,7 @@ namespace EnglishApiClient.Pages.Test
         private IToastService _toastService { get; set; }
 
         [Inject]
-        private NavigationManager _navigation { get; set; }
+        private IJSRuntime JSRuntime { get; set; }
 
         [Inject]
         private AuthenticationStateProvider _authProvider { get; set; }
@@ -119,7 +120,7 @@ namespace EnglishApiClient.Pages.Test
             if (result)
             {
                 _toastService.ShowSuccess("Test finished successfully!");
-                _navigation.NavigateTo("/");
+                await JSRuntime.InvokeVoidAsync("history.back");
             }
         }
 

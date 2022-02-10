@@ -12,10 +12,18 @@
 else
 {
     <div class="tags">
-        <div>
+        <div class="func-block">
             <NavLink href="create-tag">
                  <p>Create tag <span title="Add new tag" class="oi oi-plus"></span></p>
             </NavLink> 
+            <div class="row">
+                <div class="col-md-6">
+                    <SortForm SortTypes="_sortTypes" OnSortChanged="SortChanged" />
+                </div>
+                <div class="col-md-6">
+                    <SearchForm OnSearchChanged="SearchChanged" />
+                </div>
+            </div>
         </div>
         <table class="table table-hover">
             <thead>

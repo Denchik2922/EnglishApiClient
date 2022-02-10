@@ -3,7 +3,7 @@ using EnglishApiClient.Dtos.Auth;
 using EnglishApiClient.HttpServices.Interfaces;
 using Microsoft.AspNetCore.Components;
 using Microsoft.JSInterop;
-using EnglishApiClient.Infrastructure;
+using EnglishApiClient.Infrastructure.Helpers;
 
 namespace EnglishApiClient.Pages.Auth
 {

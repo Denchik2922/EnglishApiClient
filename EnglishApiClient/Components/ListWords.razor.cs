@@ -15,6 +15,12 @@ namespace EnglishApiClient.Components
         public MetaData MetaData { get; set; } = new MetaData();
         private PaginationParameters parameters = new PaginationParameters() { PageSize = 7 };
 
+        private Dictionary<string, string> _sortTypes = new Dictionary<string, string>()
+        {
+            {"Name", "name" },
+            {"Name DESC", "name desc" }
+        };
+
         [Inject]
         private IWordHttpService _wordService { get; set; }
 
@@ -40,6 +46,13 @@ namespace EnglishApiClient.Components
         {
             parameters.PageNumber = 1;
             parameters.SearchParameters.SearchTerm = searchTerm;
+            await GetWords();
+        }
+
+        private async Task SortChanged(string orderBy)
+        {
+            Console.WriteLine(orderBy);
+            parameters.OrderBy = orderBy;
             await GetWords();
         }
 

@@ -22,9 +22,6 @@ namespace EnglishApiClient.Pages.Word
         private IJSRuntime _jsRuntime { get; set; }
 
         [Inject]
-        private NavigationManager _navigation { get; set; }
-
-        [Inject]
         private IWordHttpService _wordService { get; set; }
 
         private void AssignImageUrl(string imgUrl) => _word.PictureUrl = imgUrl;
@@ -87,7 +84,7 @@ namespace EnglishApiClient.Pages.Word
                 if (result)
                 {
                     _toastService.ShowSuccess($"Word with name {_word.Name} deleted successfully!");
-                    _navigation.NavigateTo("/");
+                    await _jsRuntime.InvokeVoidAsync("history.back");
                 }
                 else
                 {
@@ -102,7 +99,7 @@ namespace EnglishApiClient.Pages.Word
             if (result)
             {
                 _toastService.ShowSuccess("Word edited successfully!");
-                _navigation.NavigateTo("/");
+                await _jsRuntime.InvokeVoidAsync("history.back");
             }
         }
     }

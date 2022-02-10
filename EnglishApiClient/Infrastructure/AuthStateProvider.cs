@@ -2,6 +2,7 @@
 using Blazored.LocalStorage;
 using System.Security.Claims;
 using System.Net.Http.Headers;
+using EnglishApiClient.Infrastructure.Helpers;
 
 namespace EnglishApiClient.Infrastructure
 {
@@ -23,12 +24,12 @@ namespace EnglishApiClient.Infrastructure
             }
 
             _httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
-            return new AuthenticationState(new ClaimsPrincipal(new ClaimsIdentity(JwtParser.ParseClaimsFromJwt(token),
+            return new AuthenticationState(new ClaimsPrincipal(new ClaimsIdentity(JwtParserHelper.ParseClaimsFromJwt(token),
                                                                                   "jwt")));
         }
         public void UserAuthentication(string token)
         {
-            var authenticatedUser = new ClaimsPrincipal(new ClaimsIdentity(JwtParser.ParseClaimsFromJwt(token), "jwt"));
+            var authenticatedUser = new ClaimsPrincipal(new ClaimsIdentity(JwtParserHelper.ParseClaimsFromJwt(token), "jwt"));
             var authState = Task.FromResult(new AuthenticationState(authenticatedUser));
             NotifyAuthenticationStateChanged(authState);
         }

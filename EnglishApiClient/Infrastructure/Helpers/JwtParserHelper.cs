@@ -1,9 +1,9 @@
 ﻿using System.Security.Claims;
 using System.Text.Json;
 
-namespace EnglishApiClient.Infrastructure
+namespace EnglishApiClient.Infrastructure.Helpers
 {
-    public static class JwtParser
+    public static class JwtParserHelper
     {
         public static IEnumerable<Claim> ParseClaimsFromJwt(string jwt)
         {

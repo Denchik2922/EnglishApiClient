@@ -1,27 +1,35 @@
-﻿@if(Words == null)
+﻿<div class="row">
+    <div class="col-md-6">
+        <SortForm SortTypes="_sortTypes" OnSortChanged="SortChanged" />
+    </div>
+    <div class="col-md-6">
+        <SearchForm OnSearchChanged="SearchChanged" />
+    </div>
+</div>
+
+@if(Words == null)
 {
     <p>Loading...</p>
 }
 else if(Words.Count() < 1)
 {
-    <div class="alert alert-warning" role="alert">
+    <div style="margin: 15px;" class="alert alert-warning" role="alert">
         This dictionary doesn't have any words.
     </div>
 }
 else
 {
-    <SearchForm OnSearchChanged="SearchChanged" />
     <div class="words">
         @foreach(var word in Words)
         {
-            <div @onclick="() => OnEditWord.InvokeAsync(word.Id)" class="word-block shadow-sm">
+            <div class="word-block shadow-sm">
                 <div class="d-flex text-muted">
                     @if (word.PictureUrl != null)
                     {
                         <img class="word-img" src="@word.PictureUrl" alt="" width="40" height="40">
                     }
 
-                    <p class="word-p">
+                    <p @onclick="() => OnEditWord.InvokeAsync(word.Id)" class="word-p">
                         <strong class="d-block text-gray-dark">@word.Name [@word.Transcription]</strong>
                         @foreach(var translate in word.Translates)
                         {

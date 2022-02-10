@@ -2,7 +2,7 @@
 using System.Security.Cryptography;
 using System.Text;
 
-namespace EnglishApiClient.Infrastructure
+namespace EnglishApiClient.Infrastructure.Helpers
 {
     public static class HashHelper
     {

@@ -4,9 +4,8 @@ using Blazored.Toast;
 using EnglishApiClient.HttpServices;
 using EnglishApiClient.HttpServices.Interfaces;
 using EnglishApiClient.Infrastructure;
+using EnglishApiClient.Infrastructure.Helpers;
 using Microsoft.AspNetCore.Components.Authorization;
-using Microsoft.AspNetCore.Components.Web;
-using Microsoft.AspNetCore.Components.WebAssembly.Authentication;
 using Microsoft.AspNetCore.Components.WebAssembly.Hosting;
 using Tewr.Blazor.FileReader;
 using Toolbelt.Blazor.Extensions.DependencyInjection;
@@ -35,7 +34,7 @@ namespace EnglishApiClient
             builder.Services.AddFileReaderService(o => o.UseWasmSharedBuffer = true);
 
             builder.Services.AddAuthorizationCore();
-            builder.Services.AddScoped<RefreshTokenService>();
+            builder.Services.AddScoped<RefreshTokenHelper>();
 
             builder.Services.AddScoped<IGoogleOAuthService, GoogleOAuthService>();
 

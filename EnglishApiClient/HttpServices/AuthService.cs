@@ -3,6 +3,7 @@ using EnglishApiClient.Dtos.Auth;
 using EnglishApiClient.Dtos.Entity;
 using EnglishApiClient.HttpServices.Interfaces;
 using EnglishApiClient.Infrastructure;
+using EnglishApiClient.Infrastructure.ErrorFeatures;
 using Microsoft.AspNetCore.Components.Authorization;
 using System.Net.Http.Headers;
 using System.Net.Http.Json;
@@ -33,7 +34,7 @@ namespace EnglishApiClient.HttpServices
         public async Task<bool> LoginGoogle(ExternalAuthModel externalAuthModel)
         {
             var response = await _httpClient.PostAsJsonAsync("auth/external-login", externalAuthModel);
-            var result = await response.Content.ReadFromJsonAsync<AuthResponse>();
+            var result = await response.Content.ReadFromJsonAsync<UserTokens>();
 
             if (!response.IsSuccessStatusCode)
             {
@@ -53,7 +54,7 @@ namespace EnglishApiClient.HttpServices
         {
 
             var response = await _httpClient.PostAsJsonAsync("auth/login", loginModel);
-            var result = await response.Content.ReadFromJsonAsync<AuthResponse>();
+            var result = await response.Content.ReadFromJsonAsync<UserTokens>();
 
             if (!response.IsSuccessStatusCode)
             {
@@ -84,7 +85,7 @@ namespace EnglishApiClient.HttpServices
             try
             {
                 var response = await _httpClient.PostAsJsonAsync("auth/refresh", new RefreshTokenDto { Token = token, RefreshToken = refreshToken });
-                var result = await response.Content.ReadFromJsonAsync<AuthResponse>();  
+                var result = await response.Content.ReadFromJsonAsync<UserTokens>();  
                 
                 await _localStorage.SetItemAsync("authToken", result.Token);
                 await _localStorage.SetItemAsync("refreshToken", result.RefreshToken);

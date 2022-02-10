@@ -21,9 +21,6 @@ namespace EnglishApiClient.Pages.Word
         private IWordHttpService _wordService { get; set; }
 
         [Inject]
-        private NavigationManager _navigation { get; set; }
-
-        [Inject]
         private IToastService _toastService { get; set; }
 
         private void AssignImageUrl(string imgUrl) => _word.PictureUrl = imgUrl;
@@ -71,7 +68,7 @@ namespace EnglishApiClient.Pages.Word
             if (result)
             {
                 _toastService.ShowSuccess($"Word with name {_word.Name} added successfully!");
-                _navigation.NavigateTo("/");
+                await _jsRuntime.InvokeVoidAsync("history.back");
             }
         }
 

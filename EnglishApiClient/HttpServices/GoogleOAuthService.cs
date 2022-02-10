@@ -1,6 +1,6 @@
 ﻿using EnglishApiClient.Dtos.Auth;
 using EnglishApiClient.HttpServices.Interfaces;
-using EnglishApiClient.Infrastructure;
+using EnglishApiClient.Infrastructure.Helpers;
 using Microsoft.AspNetCore.WebUtilities;
 
 namespace EnglishApiClient.HttpServices

@@ -1,7 +1,10 @@
-﻿using EnglishApiClient.HttpServices;
+﻿using Blazored.Toast.Services;
+using EnglishApiClient.Infrastructure.ErrorFeatures;
+using EnglishApiClient.Infrastructure.Helpers;
 using Microsoft.AspNetCore.Components;
 using System.Net;
 using System.Net.Http.Headers;
+using System.Net.Http.Json;
 using Toolbelt.Blazor;
 
 namespace EnglishApiClient.Infrastructure
@@ -10,25 +13,29 @@ namespace EnglishApiClient.Infrastructure
     {
         private readonly HttpClientInterceptor _interceptor;
         private readonly NavigationManager _navManager;
-        private readonly RefreshTokenService _refreshTokenService;
+        private readonly RefreshTokenHelper _refreshTokenService;
+        private IToastService _toastService;
+
         public HttpInterceptorService(HttpClientInterceptor interceptor,
                                       NavigationManager navigationManager,
-                                      RefreshTokenService refreshTokenService)
+                                      RefreshTokenHelper refreshTokenService,
+                                      IToastService toastService)
         {
             _interceptor = interceptor;
             _navManager = navigationManager;
             _refreshTokenService = refreshTokenService;
+            _toastService = toastService;
         }
 
         public void RegisterEvent()
         {
-            _interceptor.AfterSend += InterceptResponse;
+            _interceptor.AfterSendAsync += InterceptResponse;
             _interceptor.BeforeSendAsync += InterceptBeforeHttpAsync;
         } 
         public async Task InterceptBeforeHttpAsync(object sender, HttpClientInterceptorEventArgs e)
         {
             var absPath = e.Request.RequestUri.AbsolutePath;
-            if (!absPath.Contains("refresh") && !absPath.Contains("auth") && !absPath.Contains("AuthExternal"))
+            if (!absPath.Contains("auth") && !absPath.Contains("tag/all"))
             {
                 var token = await _refreshTokenService.TryRefreshToken();
                 if (!string.IsNullOrEmpty(token))
@@ -38,37 +45,34 @@ namespace EnglishApiClient.Infrastructure
             }
         }
 
-        public void InterceptResponse(object sender, HttpClientInterceptorEventArgs e)
+        public async Task InterceptResponse(object sender, HttpClientInterceptorEventArgs e)
         {
-            string message = string.Empty;
             if (!e.Response.IsSuccessStatusCode)
             {
                 var statusCode = e.Response.StatusCode;
+                var content = await e.Response.Content.ReadFromJsonAsync<ErrorResponse>();
+
                 switch (statusCode)
                 {
                     case HttpStatusCode.NotFound:
                         _navManager.NavigateTo("/404");
-                        message = "The requested resorce was not found.";
                         break;
                     case HttpStatusCode.Forbidden:
                         _navManager.NavigateTo("/403");
-                        message = "You don`t have permission to access on this server.";
                         break;
                     case HttpStatusCode.Unauthorized:
                         _navManager.NavigateTo("/login");
-                        message = "User is not authorized";
-                        break;
-                    default:
-                        message = "Something went wrong, please contact Administrator";
                         break;
                 }
-                throw new HttpResponseException(message);
+
+                _toastService.ShowError(content.Message);
+                throw new HttpResponseException(content.Message);
             }
         }
 
         public void DisposeEvent()
         {
-            _interceptor.AfterSend += InterceptResponse;
+            _interceptor.AfterSendAsync += InterceptResponse;
             _interceptor.BeforeSendAsync -= InterceptBeforeHttpAsync;
         } 
     }

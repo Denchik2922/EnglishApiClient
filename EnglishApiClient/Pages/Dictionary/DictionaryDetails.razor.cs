@@ -21,7 +21,12 @@ namespace EnglishApiClient.Pages.Dictionary
         {
             get
             {
-                return _dictionary.SpellingTestUsers.FirstOrDefault(t => t.UserId == CurrentUser)?.Score.ToString();
+                var score = _dictionary.SpellingTestUsers.FirstOrDefault(t => t.UserId == CurrentUser)?.Score;
+                if (score > 0)
+                {
+                    return score.ToString();
+                }
+                return "0";
             }
         }
 
@@ -29,7 +34,12 @@ namespace EnglishApiClient.Pages.Dictionary
         {
             get
             {
-                return _dictionary.MatchingTestUsers.FirstOrDefault(t => t.UserId == CurrentUser)?.Score.ToString();
+                var score = _dictionary.MatchingTestUsers.FirstOrDefault(t => t.UserId == CurrentUser)?.Score;
+                if (score > 0)
+                {
+                    return score.ToString();
+                }
+                return "0";
             }
         }
 

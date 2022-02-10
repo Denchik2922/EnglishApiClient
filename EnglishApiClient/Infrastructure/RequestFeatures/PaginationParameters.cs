@@ -19,5 +19,7 @@
 
         public SearchParameters SearchParameters { get; set; } = new SearchParameters();
 
+        public string OrderBy { get; set; } = "name";
+
     }
 }

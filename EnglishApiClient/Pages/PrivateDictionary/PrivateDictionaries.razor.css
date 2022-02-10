@@ -1,9 +1,7 @@
-﻿.func-block div {
-    display: inline-block;
-    margin-left: 10px;
-}
-
-.btn-menu {
+﻿.btn-menu {
     cursor: pointer;
     -webkit-backface-visibility: hidden;
 }
+
+
+

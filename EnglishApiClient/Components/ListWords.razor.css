@@ -1,7 +1,7 @@
 ﻿.word-audio {
     margin: auto 0px auto auto;
+    cursor: pointer;
 }
-
 
 .words {
     min-height: 550px;

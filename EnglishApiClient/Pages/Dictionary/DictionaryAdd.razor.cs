@@ -3,6 +3,7 @@ using EnglishApiClient.Dtos.Entity;
 using EnglishApiClient.HttpServices.Interfaces;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Authorization;
+using Microsoft.JSInterop;
 using System.Security.Claims;
 
 namespace EnglishApiClient.Pages.Dictionary
@@ -16,7 +17,7 @@ namespace EnglishApiClient.Pages.Dictionary
         private IDictionaryHttpService _dictionaryService { get; set; }
 
         [Inject]
-        private NavigationManager _navigation { get; set; }
+        private IJSRuntime JSRuntime { get; set; }
 
         [Inject]
         private ITagHttpService _tagService { get; set; }
@@ -72,7 +73,7 @@ namespace EnglishApiClient.Pages.Dictionary
             if (result)
             {
                 _toastService.ShowSuccess($"Dictionary with name {_dictionary.Name} added successfully!");
-                _navigation.NavigateTo("/");
+                await JSRuntime.InvokeVoidAsync("history.back");
             }
         }
     }

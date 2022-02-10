@@ -11,6 +11,12 @@ namespace EnglishApiClient.Pages.Dictionary
         public MetaData MetaData { get; set; } = new MetaData();
         private PaginationParameters parameters = new PaginationParameters() { PageSize = 5 };
 
+        private Dictionary<string, string> _sortTypes = new Dictionary<string, string>()
+        {
+            {"Name", "name" },
+            {"Name DESC", "name desc" }
+        };
+
         [Inject]
         private IDictionaryHttpService _dictionaryService { get; set; }
 
@@ -31,6 +37,13 @@ namespace EnglishApiClient.Pages.Dictionary
         {
             parameters.PageNumber = 1;
             parameters.SearchParameters = searchParameters;
+            await GetDictionaries();
+        }
+
+        private async Task SortChanged(string orderBy)
+        {
+            Console.WriteLine(orderBy);
+            parameters.OrderBy = orderBy;
             await GetDictionaries();
         }
 
