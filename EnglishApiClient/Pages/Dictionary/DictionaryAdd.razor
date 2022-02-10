@@ -1,17 +1,18 @@
 ﻿@page "/dictionary-add"
+@using EnglishApiClient.Components
 @using Microsoft.AspNetCore.Authorization
 @using Microsoft.AspNetCore.Components.Authorization
 @attribute [Authorize]
 
-<div class="row justify-content-md-center">
+@if (_tags==null)
+{
+    <LoadingIndicator/>
+}
+else
+{
+    <div class="row justify-content-md-center">
     <div class="col-md-7 col-sm-12">
     <h2>Add new dictionary</h2>
-    @if (_tags==null)
-    {
-            <span><em>Loading...</em></span>
-    }
-    else
-    {
         <div class="col">
             <EditForm Model="_dictionary" OnValidSubmit="AddDictionary" class="card card-body bg-light">
                 <DataAnnotationsValidator />
@@ -65,6 +66,7 @@
                   </div>
             </EditForm>
         </div>
-    }
     </div>
 </div>
+    
+}

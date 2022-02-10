@@ -18,25 +18,6 @@
                         </div>
                     </Authorized>
                 </AuthorizeView>
-
-                <SortForm SortTypes="_sortTypes" OnSortChanged="SortChanged" />
-
-                 <div class="d-md-none d-lg-none" style="float:right"> 
-                      <label class="btn-menu" for="hmt">
-                        <p> Filters <span class="oi oi-magnifying-glass"></span></p> 
-                     </label>
-                 </div>
             </div>
-
-            <div class="col-md-7 col-sm-12">
-                <ListDictionary Dictionaries="englishDictionaries" />
-                <div class="row">
-                    <div class="col">
-                        <Pagination MetaData="MetaData" Spread="2" SelectedPage="SelectedPage" />
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-5">
-               <DictionaryFilters OnSearchChanged="SearchChanged" />
-            </div>
+            <ListDictionary IsPrivateDictionaries="true" />
 </div>

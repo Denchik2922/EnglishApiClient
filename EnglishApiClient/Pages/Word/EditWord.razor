@@ -4,15 +4,16 @@
 @using Microsoft.AspNetCore.Components.Authorization
 @attribute [Authorize]
 
-<div class="row justify-content-md-center">
+
+@if(_word == null){
+    <LoadingIndicator/>
+}
+else
+{
+    <div class="row justify-content-md-center">
     <div class="col-md-7 col-sm-12">
     <h2>Edit word</h2>
     <div class="col">
-    @if(_word == null){
-         <p>Lodding...</p>
-    }
-    else
-    {
          <EditForm Model="_word" OnValidSubmit="UpdateWord" class="card card-body bg-light">
                 <DataAnnotationsValidator />
                 <div class="form-group row">
@@ -106,7 +107,8 @@
                 </div>
                 
             </EditForm>       
-    }
         </div>
     </div>
 </div>
+    
+}

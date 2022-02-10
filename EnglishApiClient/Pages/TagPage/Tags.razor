@@ -4,13 +4,13 @@
 @inject NavigationManager NavigationManager
 @attribute [Authorize(Roles = "Admin")]
 
-<h3>Tags</h3>
 @if (_tags == null)
 {
-    <span><em>Loading...</em></span>
+    <LoadingIndicator/>
 }
 else
 {
+    <h3>Tags</h3>
     <div class="tags">
         <div class="func-block">
             <NavLink href="create-tag">

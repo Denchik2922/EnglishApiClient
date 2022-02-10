@@ -9,3 +9,8 @@
 .dictionaries{
     height:740px;
 }
+
+.btn-menu {
+    cursor: pointer;
+    -webkit-backface-visibility: hidden;
+}
