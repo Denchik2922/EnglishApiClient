@@ -15,7 +15,9 @@ namespace EnglishApiClient.Pages.Test
         public int DictionaryId { get; set; }
         public bool IsShowCheck { get; set; } = true;
         public bool IsDisabledAnswers { get; set; }
-        public string _answerForQuestion { get; set; } = "";
+
+        public SpellingAnswerModel SpellingModel = new SpellingAnswerModel();
+
         private TestParameters _parameters { get; set; } = new TestParameters();
         private ParamsForSpellingQuestion _paramsForTest { get; set; } = new ParamsForSpellingQuestion();
         private ParamsForCheck _paramsCheck { get; set; }
@@ -64,7 +66,7 @@ namespace EnglishApiClient.Pages.Test
             _parameters.CurrentQuestion = _paramsCheck.NextQuestion;
             await GetTest();
             _paramsCheck = null;
-            _answerForQuestion = "";
+            SpellingModel.AnswerForQuestion = "";
             IsDisabledAnswers = false;
             IsShowCheck = true;
         }
@@ -100,7 +102,7 @@ namespace EnglishApiClient.Pages.Test
             var answer = new ParamsForAnswer()
             {
                 Parameters = _parameters,
-                Answer = _answerForQuestion,
+                Answer = SpellingModel.AnswerForQuestion,
                 Question = _paramsForTest.WordName
             };
 

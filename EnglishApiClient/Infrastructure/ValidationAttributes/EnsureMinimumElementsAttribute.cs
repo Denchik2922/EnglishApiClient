@@ -1,7 +1,7 @@
 ﻿using System.Collections;
 using System.ComponentModel.DataAnnotations;
 
-namespace EnglishApiClient.Infrastructure
+namespace EnglishApiClient.Infrastructure.ValidationAttributes
 {
     public class EnsureMinimumElementsAttribute : ValidationAttribute
     {

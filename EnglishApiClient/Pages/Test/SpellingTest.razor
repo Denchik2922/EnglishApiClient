@@ -1,4 +1,6 @@
 ﻿@page "/spelling-test/{DictionaryId:int}"
+@using Microsoft.AspNetCore.Authorization
+@attribute [Authorize]
 
 <div class="test">
     <div class="score">
@@ -8,40 +10,47 @@
         <div class="question">
             <h5>@_paramsForTest.WordName</h5>
         </div>
-        <div class="answers">
-            <input class="form-control" style="@StyleForAnswer()" type="text" disabled="@IsDisabledAnswers" @bind="_answerForQuestion" />
-            @if(_paramsCheck != null && _paramsCheck.IsTrueAnswer == false){
-                <div class="alert alert-success" role="alert">
-                     Current answer - @_paramsCheck.TrueAnswer !
-                </div>
-            }
-        </div>
-        <div class="buttons">
-            @if(IsShowCheck && _answerForQuestion.Length >= 1)
-            {
-             <button type="button" class="btn btn-success" @onclick="() => CheckTest()" >
-                 Check
-             </button>
-            }
-            @if(_paramsCheck != null)
-            {
-                @if (_paramsCheck.HasNextQuestion)
-                {
-                    <button class="btn btn-primary" type="button" @onclick="() => NextQuestion()" >
-                        Next
-                    </button>
+        <EditForm Model="@SpellingModel" OnValidSubmit="@CheckTest">
+            <DataAnnotationsValidator />
+
+            <div class="answers">
+                 <InputText class="form-control" style="@StyleForAnswer()"
+                 type="text" disabled="@IsDisabledAnswers"
+                 @bind-Value="SpellingModel.AnswerForQuestion" />
+                 <ValidationMessage For="@(() => SpellingModel.AnswerForQuestion)" />
+
+                @if(_paramsCheck != null && _paramsCheck.IsTrueAnswer == false){
+                    <div class="alert alert-success" role="alert">
+                         Current answer - @_paramsCheck.TrueAnswer !
+                    </div>
                 }
-                else if (_paramsCheck.NextQuestion == _parameters.CurrentQuestion)
+            </div>
+            <div class="buttons">
+                @if(IsShowCheck && SpellingModel.AnswerForQuestion.Length >= 1)
                 {
-                   <button class="btn btn-danger" type="button" @onclick="() => FinishTest()" >
-                       Finish
-                   </button>
+                 <button type="submit" class="btn btn-success">
+                     Check
+                 </button>
                 }
+                @if(_paramsCheck != null)
+                {
+                    @if (_paramsCheck.HasNextQuestion)
+                    {
+                        <button class="btn btn-primary" type="button" @onclick="() => NextQuestion()" >
+                            Next
+                        </button>
+                    }
+                    else if (_paramsCheck.NextQuestion == _parameters.CurrentQuestion)
+                    {
+                       <button class="btn btn-danger" type="button" @onclick="() => FinishTest()" >
+                           Finish
+                       </button>
+                    }
                   
-            }
-            <p class="count">@_parameters.CurrentQuestion of @_parameters.CountQuestion </p>
-            
-        </div>
+                }
+                <p class="count">@_parameters.CurrentQuestion of @_parameters.CountQuestion </p>
+            </div>
+        </EditForm>
     </div>
 </div>
 

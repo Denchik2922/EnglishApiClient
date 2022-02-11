@@ -1,4 +1,4 @@
-﻿using EnglishApiClient.Infrastructure;
+﻿using EnglishApiClient.Infrastructure.ValidationAttributes;
 using System.ComponentModel.DataAnnotations;
 
 namespace EnglishApiClient.Dtos.Entity

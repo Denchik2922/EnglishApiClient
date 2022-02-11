@@ -1,6 +1,5 @@
 ﻿using EnglishApiClient.HttpServices.Interfaces;
 using Microsoft.AspNetCore.Components;
-using System.Net.Http.Headers;
 using Tewr.Blazor.FileReader;
 
 namespace EnglishApiClient.Components
@@ -27,19 +26,13 @@ namespace EnglishApiClient.Components
         {
             foreach (var file in await FileReaderService.CreateReference(_input).EnumerateFilesAsync())
             {
-                if (file != null)
+                if (file == null)
                 {
-                    var fileInfo = await file.ReadFileInfoAsync();
-                    using (var ms = await file.CreateMemoryStreamAsync(4 * 1024))
-                    {
-                        var content = new MultipartFormDataContent();
-                        content.Headers.ContentDisposition = new ContentDispositionHeaderValue("form-data");
-                        content.Add(new StreamContent(ms, Convert.ToInt32(ms.Length)), "image", fileInfo.Name);
-                        ImgUrl = await WordService.UploadWordImage(content);
-                        await OnChange.InvokeAsync(ImgUrl);
-                        ClearInputFile();
-                    }
+                    return;
                 }
+                ImgUrl = await WordService.UploadWordImage(file);
+                await OnChange.InvokeAsync(ImgUrl);
+                ClearInputFile();
             }
         }
         private void ClearInputFile()

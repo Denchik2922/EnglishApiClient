@@ -2,7 +2,9 @@
 using EnglishApiClient.HttpServices.Interfaces;
 using EnglishApiClient.Infrastructure.RequestFeatures;
 using Microsoft.AspNetCore.WebUtilities;
+using System.Net.Http.Headers;
 using System.Net.Http.Json;
+using Tewr.Blazor.FileReader;
 
 namespace EnglishApiClient.HttpServices
 {
@@ -31,18 +33,17 @@ namespace EnglishApiClient.HttpServices
             return await httpClient.GetFromJsonAsync<ICollection<WordPhoto>>($"{requestString}/word-pictures/{wordName}");
         }
 
-        public async Task<string> UploadWordImage(MultipartFormDataContent content)
+        public async Task<string> UploadWordImage(IFileReference file)
         {
-            var postResult = await httpClient.PostAsync("upload", content);
-            var postContent = await postResult.Content.ReadAsStringAsync();
-            if (String.IsNullOrEmpty(postContent))
+            var fileInfo = await file.ReadFileInfoAsync();
+            using (var ms = await file.CreateMemoryStreamAsync(4 * 1024))
             {
-                throw new ApplicationException(postContent);
-            }
-            else
-            {
+                var content = new MultipartFormDataContent();
+                content.Headers.ContentDisposition = new ContentDispositionHeaderValue("form-data");
+                content.Add(new StreamContent(ms, Convert.ToInt32(ms.Length)), "image", fileInfo.Name);
 
-                var imgUrl = Path.Combine(API_BASE_URL, postContent);
+                var response = await httpClient.PostAsync("upload", content);
+                var imgUrl = await response.Content.ReadAsStringAsync();
                 return imgUrl;
             }
         }
