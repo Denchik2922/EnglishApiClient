@@ -1,0 +1,34 @@
+﻿@page "/create-type"
+@using EnglishApiClient.Components
+@using Microsoft.AspNetCore.Authorization
+@attribute [Authorize(Roles = "Admin")]
+
+@if (_type==null)
+{
+    <LoadingIndicator/>
+}
+else
+{
+ <div class="row justify-content-md-center">
+    <div class="col-md-7 col-sm-12">
+   <h3>Create Tag</h3>
+        <div class="col">
+            <EditForm Model="_type" OnValidSubmit="AddType" class="card card-body bg-light">
+                <DataAnnotationsValidator />
+                <div class="form-group row">
+                    <div class="col-sm-12">
+                        <label for="name" class="form-label">Name</label>
+                        <InputText id="name" class="form-control" @bind-Value="_type.Name" />
+                        <ValidationMessage For="@(() => _type.Name)" />
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-3">
+                        <button class="btn btn-primary" type="submit">Add</button>
+                    </div>
+                  </div>
+            </EditForm>
+        </div>
+    </div>
+</div>   
+}

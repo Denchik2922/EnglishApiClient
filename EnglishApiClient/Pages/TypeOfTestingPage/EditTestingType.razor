@@ -1,0 +1,43 @@
+﻿@page "/edit-type/{TypeId:int}"
+@using EnglishApiClient.Components
+@using Microsoft.AspNetCore.Authorization
+@attribute [Authorize(Roles = "Admin")]
+
+@if (_type==null)
+{
+    <LoadingIndicator/>
+}
+else
+{
+    <div class="row justify-content-md-center">
+    <div class="col-md-7 col-sm-12">
+   <h3>Edit Tag</h3>
+        <div class="col">
+            <EditForm Model="_type" OnValidSubmit="TypeUpdate" class="card card-body bg-light">
+                <DataAnnotationsValidator />
+                <div class="form-group row">
+                    <div class="col-sm-12">
+                        <label for="name" class="form-label">Name</label>
+                        <InputText id="name" class="form-control" @bind-Value="_type.Name" />
+                        <ValidationMessage For="@(() => _type.Name)" />
+                    </div>
+                </div>
+                    <div class="type-func">
+                        <div class="func-block">
+                            <div>
+                                <button class="btn btn-primary" type="submit">Edit</button>
+                            </div>
+                            <div>
+                                <p>
+                                    <button type="button" @onclick="DeleteType" class="btn btn-danger">Delete</button>
+                                </p>
+                   
+                            </div>
+                        </div>
+                    </div>
+            </EditForm>
+        </div>
+    </div>
+</div>
+    
+}

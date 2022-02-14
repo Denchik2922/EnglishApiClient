@@ -32,8 +32,10 @@ else{
                                 <span class="oi oi-task"></span>
                           </span>
                           <ul class="dropdown-menu">
-                            <li><p class="dropdown-item" @onclick="@(() => _navigation.NavigateTo($"matching-test/{_dictionary.Id}"))" >Matching ( @MatchingTest %)</p></li>
-                            <li><p class="dropdown-item" @onclick="@(() => _navigation.NavigateTo($"spelling-test/{_dictionary.Id}"))">Spelling ( @SpellingTest %)</p></li>
+                            @foreach (var type in _testingTypes)
+                           {
+                              <li><p class="dropdown-item" @onclick="@(() => _navigation.NavigateTo($"{type.Name}/{_dictionary.Id}/{type.Id}"))" >@type.Name</p></li>  
+                           }
                           </ul>
                     </div>
                 @if (_dictionary.UserId.Contains(CurrentUser))
@@ -54,10 +56,10 @@ else{
                 }
                 
             </div>
-             <small>Count words: @_dictionary.Words.Count()</small>
+             <small>Count words: @CountWords</small>
         </div>
       </div>
-      <ListWords OnEditWord="RouteEditWord" DictionaryId="Id" />
+      <ListWords OnEditWord="RouteEditWord" EditCountWords="SetCountWords" DictionaryId="Id" />
     </main>
 }
 

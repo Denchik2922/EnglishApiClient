@@ -13,6 +13,10 @@ namespace EnglishApiClient.Pages.Test
     {
         [Parameter]
         public int DictionaryId { get; set; }
+
+        [Parameter]
+        public int TypeId { get; set; }
+
         public bool IsShowCheck { get; set; }
         public bool IsDisabledAnswers 
         { 
@@ -112,7 +116,9 @@ namespace EnglishApiClient.Pages.Test
             {
                 EnglishDictionaryId = _parameters.DictionaryId,
                 Score = _parameters.Score,
-                UserId = userId
+                UserId = userId,
+                Date = DateTime.Now,
+                TypeOfTestingId = TypeId
             };
 
             var result = await _matchingTestHttp.FinishTest(testResult);

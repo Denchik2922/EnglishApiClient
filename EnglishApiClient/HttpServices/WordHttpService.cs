@@ -10,8 +10,6 @@ namespace EnglishApiClient.HttpServices
 {
     public class WordHttpService : GenericHttpService<WordModel>, IWordHttpService
     {
-        private const string API_BASE_URL = "https://localhost:5001";
-
         public WordHttpService(HttpClient httpClient) : base(httpClient, "word") { }
 
         public async Task<PagingResponse<WordModel>> GetWordsForDictionary(int dictionaryId, PaginationParameters parameters)

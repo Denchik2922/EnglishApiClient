@@ -13,35 +13,10 @@ namespace EnglishApiClient.Pages.Dictionary
     {
         [Parameter]
         public int Id { get; set; }
-
+        public int CountWords { get; set; }
+        public ICollection<TypeOfTesting> _testingTypes;
         private string CurrentUser = "";
         private EnglishDictionary _dictionary;
-
-        private string SpellingTest
-        {
-            get
-            {
-                var score = _dictionary.SpellingTestUsers.FirstOrDefault(t => t.UserId == CurrentUser)?.Score;
-                if (score > 0)
-                {
-                    return score.ToString();
-                }
-                return "0";
-            }
-        }
-
-        private string MatchingTest
-        {
-            get
-            {
-                var score = _dictionary.MatchingTestUsers.FirstOrDefault(t => t.UserId == CurrentUser)?.Score;
-                if (score > 0)
-                {
-                    return score.ToString();
-                }
-                return "0";
-            }
-        }
 
         [Inject]
         private IJSRuntime _jsRuntime { get; set; }
@@ -49,6 +24,8 @@ namespace EnglishApiClient.Pages.Dictionary
         [Inject]
         private IToastService _toastService { get; set; }
 
+        [Inject]
+        private ITypeOfTestingHttpService _typeService { get; set; }
 
         [Inject]
         private AuthenticationStateProvider _authProvider { get; set; }
@@ -62,7 +39,7 @@ namespace EnglishApiClient.Pages.Dictionary
 
         private string IsDisabledTest()
         {
-            if (_dictionary.Words.Count() < 4)
+            if (CountWords < 4)
             {
                 return "disabled";
             }
@@ -76,6 +53,17 @@ namespace EnglishApiClient.Pages.Dictionary
         {
             await GetDictionary();
             await GetCurrentUser();
+            await GetTypeOfTesting();
+        }
+
+        private async Task GetTypeOfTesting()
+        {
+            _testingTypes = await _typeService.GetAllWithoutPage();
+        }
+
+        private void SetCountWords(int count)
+        {
+            CountWords = count;
         }
 
         private void RouteEditWord(int wordId)

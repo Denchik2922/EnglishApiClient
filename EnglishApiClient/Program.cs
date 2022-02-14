@@ -44,6 +44,7 @@ namespace EnglishApiClient
             builder.Services.AddScoped<IWordHttpService, WordHttpService>();
             builder.Services.AddScoped<IDictionaryHttpService, DictionaryHttpService>();
             builder.Services.AddScoped<IAuthService, AuthService>();
+            builder.Services.AddScoped<ITypeOfTestingHttpService, TypeOfTestingHttpService>();
             builder.Services.AddScoped<AuthenticationStateProvider, AuthStateProvider>();
 
 

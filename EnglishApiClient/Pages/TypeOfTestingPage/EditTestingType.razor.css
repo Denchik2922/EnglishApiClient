@@ -1,0 +1,13 @@
+﻿.func-block div {
+    display: inline-block;
+    margin-left: 10px;
+}
+
+.type-func {
+    text-align: end;
+}
+
+.type-func {
+    margin-right: 0;
+    margin-left: auto;
+}

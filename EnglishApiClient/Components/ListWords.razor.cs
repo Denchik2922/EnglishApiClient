@@ -11,6 +11,9 @@ namespace EnglishApiClient.Components
         [Parameter]
         public int DictionaryId { get; set; }
 
+        [Parameter]
+        public EventCallback<int> EditCountWords { get; set; }
+
         private ICollection<WordModel> Words;
         public MetaData MetaData { get; set; } = new MetaData();
         private PaginationParameters parameters = new PaginationParameters() { PageSize = 7 };
@@ -40,6 +43,7 @@ namespace EnglishApiClient.Components
             var pagingResponse = await _wordService.GetWordsForDictionary(DictionaryId, parameters);
             Words = pagingResponse.Items;
             MetaData = pagingResponse.MetaData;
+            await EditCountWords.InvokeAsync(Words.Count());
         }
 
         private async Task SearchChanged(string searchTerm)
