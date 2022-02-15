@@ -1,0 +1,29 @@
+﻿@page "/statistic/{DictionaryId:int}"
+@using EnglishApiClient.Components
+
+@if(results == null)
+{
+    <LoadingIndicator/>
+}
+else if(results.Count < 1)
+{
+    <div style="margin: 15px;" class="alert alert-warning" role="alert">
+                   You don't have statistic yet
+     </div>
+}
+else
+{
+    <div style="text-align:center;">
+        @foreach (var type in _typeOftesting)
+        {
+            <button style="margin:10px;" class="btn btn-primary" type="button" @onclick="() => GetChartSeriesForTest(type)">@type</button>
+        }
+    </div>
+    <div>
+        <MudChart ChartType="ChartType.Line" ChartSeries="@_TestResultData"
+                                             XAxisLabels="@XAxisLabels"
+                                             Width="100%" Height="350px"
+                                             ChartOptions="chartOptions">
+        </MudChart>
+    </div>
+}

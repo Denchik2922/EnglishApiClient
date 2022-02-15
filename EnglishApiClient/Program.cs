@@ -7,6 +7,7 @@ using EnglishApiClient.Infrastructure;
 using EnglishApiClient.Infrastructure.Helpers;
 using Microsoft.AspNetCore.Components.Authorization;
 using Microsoft.AspNetCore.Components.WebAssembly.Hosting;
+using MudBlazor.Services;
 using Tewr.Blazor.FileReader;
 using Toolbelt.Blazor.Extensions.DependencyInjection;
 
@@ -28,6 +29,7 @@ namespace EnglishApiClient
             builder.Services.AddHttpClientInterceptor();
             builder.Services.AddScoped<HttpInterceptorService>();
 
+            builder.Services.AddMudServices();
             builder.Services.AddBlazoredSessionStorage();
             builder.Services.AddBlazoredLocalStorage();
             builder.Services.AddBlazoredToast();
@@ -44,8 +46,11 @@ namespace EnglishApiClient
             builder.Services.AddScoped<IWordHttpService, WordHttpService>();
             builder.Services.AddScoped<IDictionaryHttpService, DictionaryHttpService>();
             builder.Services.AddScoped<IAuthService, AuthService>();
+            builder.Services.AddScoped<ITestResultHttpService, TestResultHttpService>();
             builder.Services.AddScoped<ITypeOfTestingHttpService, TypeOfTestingHttpService>();
+            builder.Services.AddScoped<IUserHttpService, UserHttpService>();
             builder.Services.AddScoped<AuthenticationStateProvider, AuthStateProvider>();
+
 
 
             await builder.Build().RunAsync();

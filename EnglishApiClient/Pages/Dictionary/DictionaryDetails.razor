@@ -24,6 +24,11 @@ else{
         </div>
         <div class="dictionary-func">
             <div class="func-block">
+                    <div>
+                         <p class="add-word" @onclick="@(() => _navigation.NavigateTo($"/statistic/{_dictionary.Id}"))">
+                             <span class="oi oi-bar-chart"></span>
+                         </p>
+                    </div>
                      <div>
                           <span title="The dictionary must contain at least 4 words." 
                                 class="start-test @IsDisabledTest()" 
@@ -45,12 +50,12 @@ else{
                              Add word <span title="Add new word" class="oi oi-plus"></span>
                          </p>
                     </div>
-               
+                    
                     <div>
                         <span data-bs-toggle="dropdown" aria-expanded="false" class="oi oi-menu"></span>
                           <ul class="dropdown-menu">
-                            <li><p class="dropdown-item" @onclick="@(() => _navigation.NavigateTo($"dictionary-update/{_dictionary.Id}"))" >Edit</p></li>
-                            <li><p class="dropdown-item" @onclick="DeleteDictionary">Delete</p></li>
+                            <li><p class="dropdown-item" @onclick="@(() => _navigation.NavigateTo($"dictionary-update/{_dictionary.Id}"))" >Edit dictionary</p></li>
+                            <li><p class="dropdown-item" @onclick="DeleteDictionary">Delete dictionary</p></li>
                           </ul>
                     </div>
                 }

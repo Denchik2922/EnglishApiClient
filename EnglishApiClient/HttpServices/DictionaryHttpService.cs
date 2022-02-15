@@ -1,5 +1,6 @@
 ﻿using EnglishApiClient.Dtos.Entity;
 using EnglishApiClient.HttpServices.Interfaces;
+using EnglishApiClient.Infrastructure.Helpers;
 using EnglishApiClient.Infrastructure.RequestFeatures;
 using Microsoft.AspNetCore.WebUtilities;
 using System.Net.Http.Json;
@@ -13,20 +14,20 @@ namespace EnglishApiClient.HttpServices
 
         public async Task<PagingResponse<EnglishDictionary>> GetPublicDictionaries(PaginationParameters parameters)
         {
-            var queryStringParam = GetQueryString(parameters);
+            var queryStringParam = CustomQueryHelper.GetQueryString(parameters);
 
             var response = await httpClient.GetAsync(QueryHelpers.AddQueryString($"{requestString}/public-dictionaries", queryStringParam));
             
-            return await GetPaginationResponse(response);
+            return await CustomQueryHelper.GetPaginationResponse<EnglishDictionary>(response);
         }
 
         public async Task<PagingResponse<EnglishDictionary>> GetPrivateDictionaries(PaginationParameters parameters)
         {
-            var queryStringParam = GetQueryString(parameters);
+            var queryStringParam = CustomQueryHelper.GetQueryString(parameters);
 
             var response = await httpClient.GetAsync(QueryHelpers.AddQueryString($"{requestString}/private-dictionaries", queryStringParam));
             
-            return await GetPaginationResponse(response);
+            return await CustomQueryHelper.GetPaginationResponse<EnglishDictionary>(response);
         }
     }
 }

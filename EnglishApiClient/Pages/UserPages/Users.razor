@@ -1,0 +1,53 @@
+﻿@page "/users"
+@using Microsoft.AspNetCore.Authorization
+@using EnglishApiClient.Components
+@inject NavigationManager NavigationManager
+@attribute [Authorize(Roles = "Admin")]
+
+@if (_users == null)
+{
+    <LoadingIndicator/>
+}
+else
+{
+    <h3>Users</h3>
+    <div class="users">
+        <div class="func-block">
+            <NavLink href="create-user">
+                 <p>Create user <span title="Add new user" class="oi oi-plus"></span></p>
+            </NavLink> 
+            <div class="row">
+                <div class="col-md-6">
+                    <SortForm SortTypes="_sortTypes" OnSortChanged="SortChanged" />
+                </div>
+                <div class="col-md-6">
+                    <SearchForm OnSearchChanged="SearchChanged" />
+                </div>
+            </div>
+        </div>
+        <table class="table table-hover">
+            <thead>
+                <tr>
+                    <th>Id</th>
+                    <th>Name</th>
+                    <th>Email</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var user in _users)
+                {
+                    <tr @onclick="@(()=>NavigationManager.NavigateTo($"/edit-user/{user.Id}"))">
+                        <td>@user.Id</td>
+                        <td>@user.UserName</td>
+                        <td>@user.Email</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+    <div class="row">
+         <div class="col">
+             <Pagination MetaData="MetaData" Spread="2" SelectedPage="SelectedPage" />
+         </div>
+    </div>
+}

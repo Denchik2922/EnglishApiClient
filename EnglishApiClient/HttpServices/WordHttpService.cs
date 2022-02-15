@@ -1,5 +1,6 @@
 ﻿using EnglishApiClient.Dtos.Entity;
 using EnglishApiClient.HttpServices.Interfaces;
+using EnglishApiClient.Infrastructure.Helpers;
 using EnglishApiClient.Infrastructure.RequestFeatures;
 using Microsoft.AspNetCore.WebUtilities;
 using System.Net.Http.Headers;
@@ -14,11 +15,11 @@ namespace EnglishApiClient.HttpServices
 
         public async Task<PagingResponse<WordModel>> GetWordsForDictionary(int dictionaryId, PaginationParameters parameters)
         {
-            var queryStringParam = GetQueryString(parameters);
+            var queryStringParam = CustomQueryHelper.GetQueryString(parameters);
 
             var response = await httpClient.GetAsync(QueryHelpers.AddQueryString($"{requestString}/dictionary-words/{dictionaryId}", queryStringParam));
 
-            return await GetPaginationResponse(response);
+            return await CustomQueryHelper.GetPaginationResponse<WordModel>(response);
         }
 
         public async Task<WordInformation> GenerateWordInformation(string wordName)
