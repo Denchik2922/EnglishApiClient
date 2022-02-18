@@ -2,7 +2,7 @@
 @using Microsoft.AspNetCore.Authorization
 @using EnglishApiClient.Components
 @inject NavigationManager NavigationManager
-@attribute [Authorize(Roles = "Admin")]
+@attribute [Authorize(Roles = "SuperAdmin")]
 
 @if (_users == null)
 {
@@ -31,6 +31,7 @@ else
                     <th>Id</th>
                     <th>Name</th>
                     <th>Email</th>
+                    <th>Roles</th>
                 </tr>
             </thead>
             <tbody>
@@ -40,6 +41,13 @@ else
                         <td>@user.Id</td>
                         <td>@user.UserName</td>
                         <td>@user.Email</td>
+                        <td>@foreach (var role in user.Roles)
+                            {
+                                <p>
+                                    @role
+                                </p>
+                            }
+                        </td>
                     </tr>
                 }
             </tbody>

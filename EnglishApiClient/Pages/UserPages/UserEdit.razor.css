@@ -1,0 +1,10 @@
+﻿.func-block div {
+    display: inline-block;
+    margin-left: 10px;
+}
+
+.user-func {
+    text-align: end;
+    margin-right: 0;
+    margin-left: auto;
+}
