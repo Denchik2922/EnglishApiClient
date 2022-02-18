@@ -46,6 +46,7 @@
                         @context.User.Identity.Name
                     </div>
                     <NavLink class="btn btn-sm btn-info" @onclick="() => LogoutUser()">Log out</NavLink>
+                    <NavLink class="btn btn-sm btn-info" href="change-password">Change Password</NavLink>
                 </Authorized>
                 <NotAuthorized>
                     <NavLink class="btn btn-sm btn-info" href="login">Log in</NavLink>

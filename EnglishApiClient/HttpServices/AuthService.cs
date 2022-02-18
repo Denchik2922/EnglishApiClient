@@ -31,6 +31,12 @@ namespace EnglishApiClient.HttpServices
             return response.IsSuccessStatusCode;
         }
 
+        public async Task<bool> ChangePassword(ChangePasswordModel passwordModel)
+        {
+            var response = await _httpClient.PostAsJsonAsync("auth/changePassword", passwordModel);
+            return response.IsSuccessStatusCode;
+        }
+
         public async Task<bool> LoginGoogle(ExternalAuthModel externalAuthModel)
         {
             var response = await _httpClient.PostAsJsonAsync("auth/external-login", externalAuthModel);

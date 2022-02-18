@@ -2,13 +2,9 @@
 
 namespace EnglishApiClient.Dtos.Auth
 {
-    public class ChangePasswordModel
+    public class SetPasswordModel
     {
         public string UserId { get; set; }
-
-        [Required(ErrorMessage = "Old password is required")]
-        [DataType(DataType.Password)]
-        public string OldPassword { get; set; }
 
         [Required(ErrorMessage = "New password is required")]
         [DataType(DataType.Password)]

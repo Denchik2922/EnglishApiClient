@@ -4,6 +4,7 @@ namespace EnglishApiClient.HttpServices.Interfaces
 {
     public interface IAuthService
     {
+        Task<bool> ChangePassword(ChangePasswordModel passwordModel);
         Task<bool> Login(LoginModel loginModel);
         Task<bool> LoginGoogle(ExternalAuthModel externalAuthModel);
         Task Logout();

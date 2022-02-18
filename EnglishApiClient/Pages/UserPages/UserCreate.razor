@@ -1,19 +1,19 @@
-﻿@page "/edit-user/{UserId:guid}"
+﻿@page "/create-user"
 @using EnglishApiClient.Components
 @using Microsoft.AspNetCore.Authorization
 @attribute [Authorize(Roles = "SuperAdmin")]
 
-@if (_user==null)
+@if (_roles==null)
 {
     <LoadingIndicator/>
 }
 else
 {
-<div class="row justify-content-md-center">
+ <div class="row justify-content-md-center">
     <div class="col-md-7 col-sm-12">
-    <h3>Edit User</h3>
+    <h3>Create User</h3>
         <div class="col">
-            <EditForm Model="_user" OnValidSubmit="EditUser" class="card card-body bg-light">
+            <EditForm Model="_user" OnValidSubmit="AddUser" class="card card-body bg-light">
                 <DataAnnotationsValidator />
                 <div class="form-group row">
                     <div class="col-sm-12">
@@ -35,7 +35,7 @@ else
                         <div>
                             @foreach (var role in _roles)
                             {
-                                <input type="checkbox" id="@role.Name" name="role" @attributes="ChangeRole(role.Name)" @onchange="() => SetOrRemoveRole(role.Name)">
+                                <input type="checkbox" id="@role.Name" name="role" @onchange="() => SetOrRemoveRole(role.Name)">
                                 <label for="@role.Name">@role.Name</label><br>
                             }
                         </div>
@@ -43,30 +43,27 @@ else
                         
                     </div>
                 </div>
+                <div class="form-group row">
+                    <div class="col-sm-12">
+                        <label for="password" class="form-label">Password</label>
+                        <InputText id="password" type="password" class="form-control" @bind-Value="_user.Password" />
+                        <ValidationMessage For="@(() => _user.Password)" />
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <div class="col-sm-12">
+                        <label for="conf-password" class="form-label">Confirm Password</label>
+                        <InputText id="conf-password" type="password" class="form-control" @bind-Value="_user.ConfirmPassword" />
+                        <ValidationMessage For="@(() => _user.ConfirmPassword)" />
+                    </div>
+                </div>
                 <div class="row">
-                    <div class="user-func">
-                        <div class="func-block">
-                            <div>
-                                <button class="btn btn-primary" type="submit">Edit</button>
-                            </div>
-                            <div>
-                                <p>
-                                    <button @onclick="@(()=> _navigation.NavigateTo($"/change-user-password/{_user.Id}"))"
-                                        class="btn btn-primary" type="button">Set password</button>
-                                </p>
-                   
-                            </div>
-                            <div>
-                                <p>
-                                    <button type="button" @onclick="DeleteUser" class="btn btn-danger">Delete</button>
-                                </p>                  
-                            </div>
-                        </div>
+                    <div class="col-3">
+                        <button class="btn btn-primary" type="submit">Add</button>
                     </div>
                   </div>
             </EditForm>
         </div>
     </div>
 </div>   
-    
 }
