@@ -20,32 +20,59 @@ else if(Words.Count() < 1)
 else
 {
     <div class="words">
+        <div class="accordion" id="accordionPanelsStayOpenExample">
         @foreach(var word in Words)
         {
-            <div class="word-block shadow-sm">
-                <div class="d-flex text-muted">
-                    @if (word.PictureUrl != null)
-                    {
-                        <img class="word-img" src="@word.PictureUrl" alt="" width="40" height="40">
-                    }
+                  <div class="accordion-item">
+                      <div class="word-block shadow-sm">
+                        <div class="d-flex text-muted">
+                            @if (word.PictureUrl != null)
+                            {
+                                <img class="word-img" src="@word.PictureUrl" alt="" width="40" height="40">
+                            }
 
-                    <p @onclick="() => OnEditWord.InvokeAsync(word.Id)" class="word-p">
-                        <strong class="d-block text-gray-dark">@word.Name [@word.Transcription]</strong>
-                        @foreach(var translate in word.Translates)
-                        {
-                            <span class="badge rounded-pill text-dark bg-warning translates">@translate.Name</span>
-                        }
-                    </p>
+                            <p class="word-p">
+                                <strong class="d-block text-gray-dark">
+                                    @word.Name [@word.Transcription]
+                                @if(word.AudioUrl != null){
+                                    <span @onclick="() => PlaySound(word.Id)" id="soundButton" class="oi oi-volume-high"></span>
+                                    <audio id="sound-@word.Id" src="@word.AudioUrl" />
+                                }
+                                </strong>
+                                @foreach(var translate in word.Translates)
+                                {
+                                    <span class="badge rounded-pill text-dark bg-warning translates">@translate.Name</span>
+                                }
+                            </p>
 
-                    @if(word.AudioUrl != null){
-                        <div class="word-audio">
-                            <span @onclick="() => PlaySound(word.Id)" id="soundButton" class="oi oi-volume-high"></span>
-                            <audio id="sound-@word.Id" src="@word.AudioUrl" />
+                            <span data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-@word.Name" aria-expanded="true" aria-controls="panelsStayOpen-@word.Name" class="oi oi-chevron-bottom"></span>
+                            @if (IsCurrentUser)
+                            {
+                                <span data-bs-toggle="dropdown" aria-expanded="false" class="oi oi-ellipses"></span>
+                                <ul class="dropdown-menu">
+                                    <li><p class="dropdown-item" @onclick="@(() => _navigation.NavigateTo($"edit-word/{word.Id}"))" >Edit word</p></li>
+                                </ul>
+                            }
                         </div>
-                    }
-                </div>
-            </div>
+                    </div>
+                    <div id="panelsStayOpen-@word.Name" class="accordion-collapse collapse" aria-labelledby="panelsStayOpen-@word.Name">
+                      <div class="accordion-body">
+                          <p>
+                              Examples:
+                          </p>
+                          <ol>
+                              @foreach (var example in word.WordExamples)
+                              {
+                               <li>
+                                   @example.Name
+                               </li>   
+                              }
+                          </ol>
+                      </div>
+                    </div>
+                  </div>
         }
+        </div>
     </div>
     <div class="row">
         <div class="col">

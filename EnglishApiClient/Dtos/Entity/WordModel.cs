@@ -14,6 +14,11 @@ namespace EnglishApiClient.Dtos.Entity
         [Required]
         [EnsureMinimumElements(1, ErrorMessage = "At least one translation is required")]
         public List<TranslatedWord> Translates { get; set; } = new List<TranslatedWord>();
+
+        [Required]
+        [EnsureMinimumElements(1, ErrorMessage = "At least one examples is required")]
+        public List<ExampleWord> WordExamples { get; set; } = new List<ExampleWord>();
+
         public int EnglishDictionaryId { get; set; }
 
         [Required(ErrorMessage = "Transcription is required")]
