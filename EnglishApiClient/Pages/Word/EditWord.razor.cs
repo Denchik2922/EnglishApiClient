@@ -1,6 +1,7 @@
 ﻿using Blazored.Toast.Services;
 using EnglishApiClient.Dtos.Entity;
 using EnglishApiClient.HttpServices.Interfaces;
+using EnglishApiClient.Infrastructure.Helpers;
 using Microsoft.AspNetCore.Components;
 using Microsoft.JSInterop;
 
@@ -13,6 +14,8 @@ namespace EnglishApiClient.Pages.Word
         private WordModel _word { get; set; }
 
         private string _newTranslate = "";
+        private string _newExample = "";
+
         private ICollection<WordPhoto> pictures = new List<WordPhoto>();
 
         [Inject]
@@ -36,27 +39,37 @@ namespace EnglishApiClient.Pages.Word
         {
             if (_newTranslate.Length > 1)
             {
-                var translatedWord = _word.Translates.FirstOrDefault(t => t.Name.ToLower() == _newTranslate.ToLower());
-                if (translatedWord == null && !String.IsNullOrEmpty(_newTranslate))
+                if (ListHelper.AddEntityInList(_word.Translates, _newTranslate))
                 {
-                    _word.Translates.Add(new TranslatedWord() { Name = _newTranslate });
                     _newTranslate = "";
                 }
             }
         }
 
-        private void SelectPicture(string picture)
+        public void AddExample()
         {
-            _word.PictureUrl = picture;
+            if (_newExample.Length > 1)
+            {
+                if (ListHelper.AddEntityInList<ExampleWord>(_word.WordExamples, _newExample))
+                {
+                    _newExample = "";
+                }
+            }
         }
 
         public void RemoveTranslate(string translate)
         {
-            var translatedWord = _word.Translates.FirstOrDefault(t => t.Name.ToLower() == translate.ToLower());
-            if (translatedWord != null)
-            {
-                _word.Translates.RemoveAll(x => x.Name == translate);
-            }
+            ListHelper.RemoveEntityFromList(_word.Translates, translate);
+        }
+
+        public void RemoveExample(string example)
+        {
+            ListHelper.RemoveEntityFromList(_word.WordExamples, example);
+        }
+
+        private void SelectPicture(string picture)
+        {
+            _word.PictureUrl = picture;
         }
 
         private async Task GetWord()

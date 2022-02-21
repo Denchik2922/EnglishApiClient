@@ -43,7 +43,7 @@ else{
                            }
                           </ul>
                     </div>
-                @if (_dictionary.UserId.Contains(CurrentUser))
+                @if (IsCurrentUser)
                 {
                     <div>
                          <p class="add-word" @onclick="@(() => _navigation.NavigateTo($"add-word/{_dictionary.Id}"))">
@@ -64,7 +64,7 @@ else{
              <small>Count words: @CountWords</small>
         </div>
       </div>
-      <ListWords OnEditWord="RouteEditWord" EditCountWords="SetCountWords" DictionaryId="Id" />
+      <ListWords IsCurrentUser="IsCurrentUser" EditCountWords="SetCountWords" DictionaryId="Id" />
     </main>
 }
 

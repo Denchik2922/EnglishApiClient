@@ -42,11 +42,18 @@
             <div class="d-flex">
             <AuthorizeView>
                 <Authorized>
-                    <div class="username">
-                        @context.User.Identity.Name
-                    </div>
-                    <NavLink class="btn btn-sm btn-info" @onclick="() => LogoutUser()">Log out</NavLink>
-                    <NavLink class="btn btn-sm btn-info" href="change-password">Change Password</NavLink>
+                    <ul class="navbar-nav">
+                    <li class="nav-item dropdown">
+                      <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            @context.User.Identity.Name
+                      </a>
+                      <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                        <li><NavLink class="dropdown-item" href="change-password">Change Password</NavLink></li>
+                        <li><hr class="dropdown-divider"></li>
+                       <li><p class="dropdown-item" @onclick="() => LogoutUser()">Log out</p></li>
+                      </ul>
+                    </li>
+                    </ul>
                 </Authorized>
                 <NotAuthorized>
                     <NavLink class="btn btn-sm btn-info" href="login">Log in</NavLink>

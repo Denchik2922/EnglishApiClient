@@ -19,9 +19,28 @@
     margin-bottom: auto;
 }
 
+.accordion-item {
+    margin: 10px 0px 10px 0px;
+}
+
+.oi {
+    cursor: pointer;
+}
+
+.oi:hover{
+   color: #28a745;
+}
+
+.oi-chevron-bottom {
+    margin: auto 15px auto auto;
+}
+
+.oi-ellipses {
+    margin: auto 0px auto 0px;
+}
+
 .word-block {
     padding: 15px;
-    margin: 10px 0px 10px 0px;
 }
 
 .word-p{

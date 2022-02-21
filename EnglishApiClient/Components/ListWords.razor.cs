@@ -12,6 +12,9 @@ namespace EnglishApiClient.Components
         public int DictionaryId { get; set; }
 
         [Parameter]
+        public bool IsCurrentUser { get; set; }
+
+        [Parameter]
         public EventCallback<int> EditCountWords { get; set; }
 
         private ICollection<WordModel> Words;
@@ -25,13 +28,13 @@ namespace EnglishApiClient.Components
         };
 
         [Inject]
+        private NavigationManager _navigation { get; set; }
+
+        [Inject]
         private IWordHttpService _wordService { get; set; }
 
         [Inject]
         private IJSRuntime _jsRuntime { get; set; }
-
-        [Parameter]
-        public EventCallback<int> OnEditWord { get; set; }
 
         protected override async Task OnInitializedAsync()
         {

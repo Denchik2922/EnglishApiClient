@@ -36,6 +36,12 @@ namespace EnglishApiClient.Pages.Dictionary
         [Inject]
         private IDictionaryHttpService _dictionaryService { get; set; }
 
+        private bool IsCurrentUser
+        {
+            get {
+                return _dictionary.UserId.Contains(CurrentUser);
+            }
+        }
 
         private string IsDisabledTest()
         {
@@ -64,14 +70,6 @@ namespace EnglishApiClient.Pages.Dictionary
         private void SetCountWords(int count)
         {
             CountWords = count;
-        }
-
-        private void RouteEditWord(int wordId)
-        {
-            if (_dictionary.UserId.Contains(CurrentUser))
-            {
-                _navigation.NavigateTo($"edit-word/{wordId}");
-            }
         }
 
         private async Task GetCurrentUser()
