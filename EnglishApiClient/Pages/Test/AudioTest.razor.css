@@ -1,0 +1,46 @@
+﻿.test {
+    border: 1px solid #d1d1cf;
+    padding: 20px;
+    border-radius: 7px;
+    max-width: 800px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.score {
+    text-align: end;
+}
+
+.answers {
+    margin: 20px 0px 20px 0px;
+}
+
+.alert-success {
+    margin-top: 10px;
+}
+
+.question {
+    text-align: center;
+}
+
+.count {
+    display: inline-block;
+}
+
+.buttons button {
+    display: inline-block;
+    margin-right: 10px;
+}
+
+.buttons {
+    text-align: end;
+}
+
+.oi-volume-high {
+    font-size: 35px;
+    cursor: pointer;
+}
+
+.oi-volume-high:hover {
+    color:black;
+}
