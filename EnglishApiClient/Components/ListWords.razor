@@ -34,7 +34,7 @@ else
                             <p class="word-p">
                                 <strong class="d-block text-gray-dark">
                                     @word.Name [@word.Transcription]
-                                @if(word.AudioUrl != null){
+                                @if(!String.IsNullOrEmpty(word.AudioUrl)){
                                     <span @onclick="() => PlaySound(word.Id)" id="soundButton" class="oi oi-volume-high"></span>
                                     <audio id="sound-@word.Id" src="@word.AudioUrl" />
                                 }

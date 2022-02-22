@@ -40,6 +40,7 @@ namespace EnglishApiClient
 
             builder.Services.AddScoped<IGoogleOAuthService, GoogleOAuthService>();
 
+            builder.Services.AddScoped<IAudioTestHttpService, AudioTestHttpService>();
             builder.Services.AddScoped<ISpellingTestHttpService, SpellingTestHttpService>();
             builder.Services.AddScoped<IMatchingTestHttpService, MatchingTestHttpService>();
             builder.Services.AddScoped<ITagHttpService, TagHttpService>();

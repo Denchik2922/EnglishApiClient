@@ -1,4 +1,4 @@
-﻿@page "/Spelling/{DictionaryId:int}/{TypeId:int}"
+﻿@page "/Audio/{DictionaryId:int}/{TypeId:int}"
 @using Microsoft.AspNetCore.Authorization
 @attribute [Authorize]
 
@@ -8,7 +8,8 @@
     </div>
     <div class="row">
         <div class="question">
-            <h5>@_paramsForTest.WordName</h5>
+            <span @onclick="() => PlaySound()" id="soundButton" class="oi oi-volume-high"></span>
+            <audio id="sound-test" src="@_paramsForTest.AudioUrl" />
         </div>
         <EditForm Model="@SpellingModel" OnValidSubmit="@CheckTest">
             <DataAnnotationsValidator />
@@ -17,7 +18,7 @@
                  <InputText class="form-control" style="@StyleForAnswer()"
                  placeholder="Enter translate for word"
                  type="text" disabled="@IsDisabledAnswers"
-                 @bind-Value="SpellingModel.AnswerForQuestion" />
+                 @bind-Value="SpellingModel.AnswerForQuestion"/>
                  <ValidationMessage For="@(() => SpellingModel.AnswerForQuestion)" />
 
                 @if(_paramsCheck != null && _paramsCheck.IsTrueAnswer == false){
@@ -54,4 +55,3 @@
         </EditForm>
     </div>
 </div>
-
