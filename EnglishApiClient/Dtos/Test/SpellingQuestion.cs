@@ -1,8 +1,8 @@
 ﻿namespace EnglishApiClient.Dtos.Test
 {
-    public class ParamsForAudioQuestion
+    public class SpellingQuestion
     {
         public TestParameters Parameters { get; set; }
-        public string AudioUrl { get; set; }
+        public string WordName { get; set; }
     }
 }

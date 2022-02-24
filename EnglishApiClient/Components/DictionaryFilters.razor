@@ -1,19 +1,10 @@
-﻿<input type="checkbox" id="hmt" class="hidden-menu-ticker">
-<div class="hidden-menu">
-    <div class="filter-item">
-        <form class="filter-item d-flex">
-            <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search"
-             @bind-value="@SearchParam.SearchTerm" @bind-value:event="oninput" @onblur="SearchChanged" @onkeyup="SearchChanged">
-        </form>
-    </div>
-    @if(Tags == null)
+﻿    @if(Tags == null)
     {
         <p>Loading...</p>
     }
     else
     {
          <div class="filter-item">
-            <p>Tags</p>
             @foreach (var tag in Tags)
             {
                 <span @onclick="() => SetOrRemoveTag(tag.Name)" class="badge rounded-pill tag @StyleTag(tag.Name)">
@@ -22,5 +13,4 @@
             }
         </div>
     }
-</div>
 

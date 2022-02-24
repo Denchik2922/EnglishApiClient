@@ -2,7 +2,7 @@
 
 namespace EnglishApiClient.HttpServices.Interfaces
 {
-    public interface IMatchingTestHttpService : IBaseTestHttpService<MatchingQuestion>
+    public interface IMultipleMatchingTestHttpService : IBaseTestHttpService<MultipleMatchingQuestion>
     {
     }
 }

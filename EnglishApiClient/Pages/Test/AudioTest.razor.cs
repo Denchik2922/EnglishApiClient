@@ -23,7 +23,7 @@ namespace EnglishApiClient.Pages.Test
         public SpellingAnswerModel SpellingModel = new SpellingAnswerModel();
 
         private TestParameters _parameters { get; set; } = new TestParameters();
-        private ParamsForAudioQuestion _paramsForTest { get; set; } = new ParamsForAudioQuestion();
+        private AudioQuestion _paramsForTest { get; set; } = new AudioQuestion();
         private ParamsForCheck _paramsCheck { get; set; }
 
         [Inject]
@@ -113,7 +113,7 @@ namespace EnglishApiClient.Pages.Test
 
         private async Task CheckTest()
         {
-            var answer = new ParamsForAnswer()
+            var answer = new ParamsFoAnswer()
             {
                 Parameters = _parameters,
                 Answer = SpellingModel.AnswerForQuestion,

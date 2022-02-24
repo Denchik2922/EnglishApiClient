@@ -3,7 +3,7 @@ using EnglishApiClient.Dtos.Test;
 using EnglishApiClient.HttpServices.Interfaces;
 using System.Net.Http.Json;
 
-namespace EnglishApiClient.HttpServices
+namespace EnglishApiClient.HttpServices.TestingHttpService
 {
     public abstract class BaseTestHttpService<T> : IBaseTestHttpService<T> where T : class
     {
@@ -26,7 +26,7 @@ namespace EnglishApiClient.HttpServices
             return await response.Content.ReadFromJsonAsync<T>();
         }
 
-        public async Task<ParamsForCheck> CheckQuestion(ParamsForAnswer parameters)
+        public async Task<ParamsForCheck> CheckQuestion(ParamsFoAnswer parameters)
         {
             var response = await httpClient.PostAsJsonAsync($"{requestString}/check-answer", parameters);
             return await response.Content.ReadFromJsonAsync<ParamsForCheck>();

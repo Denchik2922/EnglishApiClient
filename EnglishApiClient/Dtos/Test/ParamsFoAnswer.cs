@@ -1,6 +1,6 @@
 ﻿namespace EnglishApiClient.Dtos.Test
 {
-    public class ParamsForAnswer
+    public class ParamsFoAnswer
     {
         public TestParameters Parameters { get; set; }
         public string Question { get; set; }

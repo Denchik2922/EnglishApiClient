@@ -2,7 +2,10 @@ using Blazored.LocalStorage;
 using Blazored.SessionStorage;
 using Blazored.Toast;
 using EnglishApiClient.HttpServices;
+using EnglishApiClient.HttpServices.AuthHttpServices;
+using EnglishApiClient.HttpServices.EntityHttpService;
 using EnglishApiClient.HttpServices.Interfaces;
+using EnglishApiClient.HttpServices.TestingHttpService;
 using EnglishApiClient.Infrastructure;
 using EnglishApiClient.Infrastructure.Helpers;
 using Microsoft.AspNetCore.Components.Authorization;
@@ -39,17 +42,20 @@ namespace EnglishApiClient
             builder.Services.AddScoped<RefreshTokenHelper>();
 
             builder.Services.AddScoped<IGoogleOAuthService, GoogleOAuthService>();
+            builder.Services.AddScoped<IAuthService, AuthService>();
 
+            builder.Services.AddScoped<IMultipleMatchingTestHttpService, MultipleMatchingTestHttpService>();
             builder.Services.AddScoped<IAudioTestHttpService, AudioTestHttpService>();
             builder.Services.AddScoped<ISpellingTestHttpService, SpellingTestHttpService>();
             builder.Services.AddScoped<IMatchingTestHttpService, MatchingTestHttpService>();
+
             builder.Services.AddScoped<ITagHttpService, TagHttpService>();
             builder.Services.AddScoped<IWordHttpService, WordHttpService>();
             builder.Services.AddScoped<IDictionaryHttpService, DictionaryHttpService>();
-            builder.Services.AddScoped<IAuthService, AuthService>();
             builder.Services.AddScoped<ITestResultHttpService, TestResultHttpService>();
             builder.Services.AddScoped<ITypeOfTestingHttpService, TypeOfTestingHttpService>();
             builder.Services.AddScoped<IUserHttpService, UserHttpService>();
+
             builder.Services.AddScoped<AuthenticationStateProvider, AuthStateProvider>();
 
 

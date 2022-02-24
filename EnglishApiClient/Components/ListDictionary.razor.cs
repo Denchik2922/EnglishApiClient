@@ -44,10 +44,17 @@ namespace EnglishApiClient.Components
             MetaData = pagingResponse.MetaData;
         }
 
-        private async Task SearchChanged(SearchParameters searchParameters)
+        private async Task SearchChanged(string searchTerm)
         {
             parameters.PageNumber = 1;
-            parameters.SearchParameters = searchParameters;
+            parameters.SearchParameters.SearchTerm = searchTerm;
+            await GetDictionaries();
+        }
+
+        private async Task TagsChanged(ICollection<string> searchTags)
+        {
+            parameters.PageNumber = 1;
+            parameters.SearchParameters.SearchTags = searchTags;
             await GetDictionaries();
         }
 

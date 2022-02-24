@@ -3,7 +3,7 @@ using EnglishApiClient.HttpServices.Interfaces;
 using EnglishApiClient.Infrastructure.Helpers;
 using Microsoft.AspNetCore.WebUtilities;
 
-namespace EnglishApiClient.HttpServices
+namespace EnglishApiClient.HttpServices.AuthHttpServices
 {
     public class GoogleOAuthService : IGoogleOAuthService
     {

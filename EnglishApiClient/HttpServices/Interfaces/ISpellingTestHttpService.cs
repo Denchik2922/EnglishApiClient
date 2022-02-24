@@ -2,7 +2,7 @@
 
 namespace EnglishApiClient.HttpServices.Interfaces
 {
-    public interface ISpellingTestHttpService : IBaseTestHttpService<ParamsForSpellingQuestion>
+    public interface ISpellingTestHttpService : IBaseTestHttpService<SpellingQuestion>
     {
     }
 }

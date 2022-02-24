@@ -2,7 +2,7 @@
 
 namespace EnglishApiClient.HttpServices.Interfaces
 {
-    public interface IAudioTestHttpService : IBaseTestHttpService<ParamsForAudioQuestion>
+    public interface IAudioTestHttpService : IBaseTestHttpService<AudioQuestion>
     {
     }
 }

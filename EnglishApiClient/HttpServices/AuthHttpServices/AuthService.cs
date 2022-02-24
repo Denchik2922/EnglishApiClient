@@ -8,7 +8,7 @@ using Microsoft.AspNetCore.Components.Authorization;
 using System.Net.Http.Headers;
 using System.Net.Http.Json;
 
-namespace EnglishApiClient.HttpServices
+namespace EnglishApiClient.HttpServices.AuthHttpServices
 {
     public class AuthService : IAuthService
     {

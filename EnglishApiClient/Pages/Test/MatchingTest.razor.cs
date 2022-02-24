@@ -27,7 +27,7 @@ namespace EnglishApiClient.Pages.Test
 
         public string UserAnswer { get; set; }
         private TestParameters _parameters { get; set; } = new TestParameters();
-        private ParamsForMatchingQuestion _paramsForTest { get; set; } = new ParamsForMatchingQuestion();
+        private MatchingQuestion _paramsForTest { get; set; } = new MatchingQuestion();
         private ParamsForCheck _paramsCheck { get; set; }
 
         [Inject]
@@ -76,7 +76,6 @@ namespace EnglishApiClient.Pages.Test
             {
                 return "";
             }
-
         }
 
         public void SetAnswer(string answer)
@@ -132,7 +131,7 @@ namespace EnglishApiClient.Pages.Test
 
         private async Task CheckTest()
         {
-            var answer = new ParamsForAnswer()
+            var answer = new ParamsFoAnswer()
             {
                 Parameters = _parameters,
                 Answer = UserAnswer,

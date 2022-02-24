@@ -2,7 +2,7 @@
 using EnglishApiClient.HttpServices.Interfaces;
 using System.Net.Http.Json;
 
-namespace EnglishApiClient.HttpServices
+namespace EnglishApiClient.HttpServices.EntityHttpService
 {
     public class TestResultHttpService : ITestResultHttpService
     {

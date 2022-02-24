@@ -6,7 +6,7 @@ using Microsoft.AspNetCore.WebUtilities;
 using System.Net.Http.Json;
 using System.Text.Json;
 
-namespace EnglishApiClient.HttpServices
+namespace EnglishApiClient.HttpServices.EntityHttpService
 {
     public class DictionaryHttpService : GenericHttpService<EnglishDictionary>, IDictionaryHttpService
     {

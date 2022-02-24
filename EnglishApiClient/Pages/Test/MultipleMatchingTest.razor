@@ -1,0 +1,47 @@
+﻿@page "/MultipeMatching/{DictionaryId:int}/{TypeId:int}"
+@using Microsoft.AspNetCore.Authorization
+@attribute [Authorize]
+
+<div class="test">
+    <div class="score">
+       <p>Score: @_parameters.Score %</p>
+    </div>
+    <div class="row">
+        <div class="col-6 names">
+            @foreach(var name in _paramsForTest.WordNames)
+            {
+                <div @onclick="@(async () => await SetWordName(name))" style="@StyleForInput(name)" class="name" >
+                    @name
+                </div>
+            }
+        </div>
+        <div class="col-6 translates">
+            @foreach(var translate in _paramsForTest.Translates)
+            {
+                <div @onclick="@(async () => await SetTranslate(translate))" style="@StyleForInput(translate)" class="translate">
+                    @translate
+                </div>
+            }
+        </div>
+        <div class="buttons">
+            @if(_paramsCheck != null)
+            {
+                @if (_paramsCheck.HasNextQuestion && IsFinishedPartOfTest)
+                {
+                    <button class="btn btn-primary" type="button" @onclick="() => NextQuestion()" >
+                        Next
+                    </button>
+                }
+                else if (_paramsCheck.NextQuestion == _parameters.CurrentQuestion)
+                {
+                   <button class="btn btn-danger" type="button" @onclick="() => FinishTest()" >
+                       Finish
+                   </button>
+                }
+            }
+
+            <p class="count">@_parameters.CurrentQuestion of @_parameters.CountQuestion </p>
+            
+        </div>
+    </div>
+</div>

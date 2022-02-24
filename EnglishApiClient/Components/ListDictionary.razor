@@ -5,18 +5,22 @@
 }
 else
 {
-    <div>
-        <SortForm SortTypes="_sortTypes" OnSortChanged="SortChanged" />
-
-        <div class="d-md-none d-lg-none" style="float: right;"> 
-            <div>
-                <label class="btn-menu" for="hmt">
-                    <p> Filters <span class="oi oi-magnifying-glass"></span></p> 
-                </label>
+    <div class="func-block">
+            <div class="row">
+                <div class="col-md-6">
+                    <SortForm SortTypes="_sortTypes" OnSortChanged="SortChanged" />
+                </div>
+                <div class="col-md-6">
+                    <SearchForm OnSearchChanged="SearchChanged" />
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-12">
+                    <DictionaryFilters OnTagsChanged="TagsChanged" />
+                </div>
             </div>
         </div>
-    </div>
-    <div class="col-md-7 col-sm-12">
+    <div>
         <div class="dictionaries">
             @if (Dictionaries.Count() <= 0){
                 <div style="margin: 15px;" class="alert alert-warning" role="alert">
@@ -50,8 +54,5 @@ else
                 <Pagination MetaData="MetaData" Spread="2" SelectedPage="SelectedPage" />
             </div>
         </div>
-    </div>
-    <div class="col-md-5">
-        <DictionaryFilters OnSearchChanged="SearchChanged" />
     </div>
 }

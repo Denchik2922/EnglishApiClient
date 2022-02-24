@@ -1,6 +1,5 @@
 ﻿using EnglishApiClient.Dtos.Entity;
 using EnglishApiClient.HttpServices.Interfaces;
-using EnglishApiClient.Infrastructure.RequestFeatures;
 using Microsoft.AspNetCore.Components;
 
 namespace EnglishApiClient.Components
@@ -8,10 +7,11 @@ namespace EnglishApiClient.Components
     public partial class DictionaryFilters
     {
         private Timer _timer;
-        public SearchParameters SearchParam { get; set; } = new SearchParameters();
 
         [Parameter]
-        public EventCallback<SearchParameters> OnSearchChanged { get; set; }
+        public EventCallback<ICollection<string>> OnTagsChanged { get; set; }
+
+        public ICollection<string> SelectedTags { get; set; } = new List<string>();
         public ICollection<Tag> Tags { get; set; }
 
         [Inject]
@@ -24,7 +24,7 @@ namespace EnglishApiClient.Components
 
         private string StyleTag(string tagName)
         {
-            if (SearchParam.SearchTags.Any(t => t == tagName))
+            if (SelectedTags.Any(t => t == tagName))
             {
                 return "btn-warning text-dark";
 
@@ -37,13 +37,13 @@ namespace EnglishApiClient.Components
 
         private void SetOrRemoveTag(string tagName)
         {
-            if (SearchParam.SearchTags.Any(t => t == tagName))
+            if (SelectedTags.Any(t => t == tagName))
             {
-                SearchParam.SearchTags.Remove(tagName);
+                SelectedTags.Remove(tagName);
             }
             else
             {
-                SearchParam.SearchTags.Add(tagName);
+                SelectedTags.Add(tagName);
             }
             SearchChanged();
         }
@@ -54,9 +54,10 @@ namespace EnglishApiClient.Components
                 _timer.Dispose();
             _timer = new Timer(OnTimerElapsed, null, 800, 0);
         }
+
         private void OnTimerElapsed(object sender)
         {
-            OnSearchChanged.InvokeAsync(SearchParam);
+            OnTagsChanged.InvokeAsync(SelectedTags);
             _timer.Dispose();
         }
 
