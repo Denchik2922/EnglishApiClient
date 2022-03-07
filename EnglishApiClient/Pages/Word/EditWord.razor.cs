@@ -16,7 +16,7 @@ namespace EnglishApiClient.Pages.Word
         private string _newTranslate = "";
         private string _newExample = "";
 
-        private ICollection<WordPhoto> pictures = new List<WordPhoto>();
+        private ICollection<WordPhoto> pictures { get; set; }
 
         [Inject]
         private IToastService _toastService { get; set; }
@@ -79,7 +79,15 @@ namespace EnglishApiClient.Pages.Word
 
         private async Task GetWordPictures()
         {
-            pictures = await _wordService.GetWordPictures(_word.Name);
+            try
+            {
+                pictures = await _wordService.GetWordPictures(_word.Name);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex);
+                pictures = new List<WordPhoto>();
+            }
         }
 
         private async Task PlaySound()

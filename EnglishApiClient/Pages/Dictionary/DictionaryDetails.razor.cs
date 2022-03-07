@@ -13,7 +13,8 @@ namespace EnglishApiClient.Pages.Dictionary
     {
         [Parameter]
         public int Id { get; set; }
-        public int CountWords { get; set; }
+        public int UnlearnedWords { get; set; }
+
         public ICollection<TypeOfTesting> _testingTypes;
         private string CurrentUser = "";
         private EnglishDictionary _dictionary;
@@ -45,7 +46,7 @@ namespace EnglishApiClient.Pages.Dictionary
 
         private string IsDisabledTest()
         {
-            if (CountWords < 4)
+            if (UnlearnedWords < 4)
             {
                 return "disabled";
             }
@@ -69,7 +70,7 @@ namespace EnglishApiClient.Pages.Dictionary
 
         private void SetCountWords(int count)
         {
-            CountWords = count;
+            UnlearnedWords = count;
         }
 
         private async Task GetCurrentUser()

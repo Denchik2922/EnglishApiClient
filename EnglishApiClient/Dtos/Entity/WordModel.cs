@@ -11,6 +11,8 @@ namespace EnglishApiClient.Dtos.Entity
         [MinLength(1)]
         public string Name { get; set; }
 
+        public LearnedWord LearnedWord { get; set; } =new LearnedWord();
+
         [Required]
         [EnsureMinimumElements(1, ErrorMessage = "At least one translation is required")]
         public List<TranslatedWord> Translates { get; set; } = new List<TranslatedWord>();

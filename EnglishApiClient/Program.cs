@@ -3,7 +3,7 @@ using Blazored.SessionStorage;
 using Blazored.Toast;
 using EnglishApiClient.HttpServices;
 using EnglishApiClient.HttpServices.AuthHttpServices;
-using EnglishApiClient.HttpServices.EntityHttpService;
+using EnglishApiClient.HttpServices.EntityHttpServices;
 using EnglishApiClient.HttpServices.Interfaces;
 using EnglishApiClient.HttpServices.TestingHttpService;
 using EnglishApiClient.Infrastructure;
@@ -50,6 +50,7 @@ namespace EnglishApiClient
             builder.Services.AddScoped<IMatchingTestHttpService, MatchingTestHttpService>();
 
             builder.Services.AddScoped<ITagHttpService, TagHttpService>();
+            builder.Services.AddScoped<ILearnedWordHttpService, LearnedWordHttpService>();
             builder.Services.AddScoped<IWordHttpService, WordHttpService>();
             builder.Services.AddScoped<IDictionaryHttpService, DictionaryHttpService>();
             builder.Services.AddScoped<ITestResultHttpService, TestResultHttpService>();

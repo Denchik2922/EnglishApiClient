@@ -34,10 +34,20 @@ namespace EnglishApiClient.Components
         private IWordHttpService _wordService { get; set; }
 
         [Inject]
+        private ILearnedWordHttpService _learnedWordService { get; set; }
+
+        [Inject]
         private IJSRuntime _jsRuntime { get; set; }
 
         protected override async Task OnInitializedAsync()
         {
+            await GetWords();
+        }
+
+        private async Task SetLearnedWord(LearnedWord learnedWord)
+        {
+            learnedWord.IsLearned = !learnedWord.IsLearned;
+            await _learnedWordService.SetLearned(learnedWord);
             await GetWords();
         }
 
@@ -46,7 +56,9 @@ namespace EnglishApiClient.Components
             var pagingResponse = await _wordService.GetWordsForDictionary(DictionaryId, parameters);
             Words = pagingResponse.Items;
             MetaData = pagingResponse.MetaData;
-            await EditCountWords.InvokeAsync(Words.Count());
+
+            var unlearnedWords = Words.Count(w => w.LearnedWord.IsLearned == false);
+            await EditCountWords.InvokeAsync(unlearnedWords);
         }
 
         private async Task SearchChanged(string searchTerm)
@@ -58,7 +70,6 @@ namespace EnglishApiClient.Components
 
         private async Task SortChanged(string orderBy)
         {
-            Console.WriteLine(orderBy);
             parameters.OrderBy = orderBy;
             await GetWords();
         }

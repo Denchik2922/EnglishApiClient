@@ -1,7 +1,7 @@
 ﻿@page "/statistic/{DictionaryId:int}"
 @using EnglishApiClient.Components
 
-@if(results == null)
+@if(results == null || learnedWords == null)
 {
     <LoadingIndicator/>
 }
@@ -13,6 +13,11 @@ else if(results.Count < 1)
 }
 else
 {
+    <div class="learned-word">
+        <p>
+            Learned word in dictionary: @CountLearnedWords of @learnedWords.Count()
+        </p>
+    </div>
     <div style="text-align:center;">
         @foreach (var type in _typeOftesting)
         {

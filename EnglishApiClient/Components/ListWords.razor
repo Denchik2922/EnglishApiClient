@@ -45,6 +45,13 @@ else
                                 }
                             </p>
 
+                            
+                                <label style="margin:auto 0px auto auto;" for="learned-@word.Name">Learned</label>
+                                 <input style="margin:auto 0px auto 5px;" id="learned-@word.Name" type="checkbox" 
+                                                                          @onchange="async () => await SetLearnedWord(word.LearnedWord)"
+                                                                          checked="@(word.LearnedWord.IsLearned ? "checked" : null)" />
+                           
+                           
                             <span data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-@word.Name" aria-expanded="true" aria-controls="panelsStayOpen-@word.Name" class="oi oi-chevron-bottom"></span>
                             @if (IsCurrentUser)
                             {

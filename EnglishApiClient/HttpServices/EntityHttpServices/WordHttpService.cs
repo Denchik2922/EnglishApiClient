@@ -7,7 +7,7 @@ using System.Net.Http.Headers;
 using System.Net.Http.Json;
 using Tewr.Blazor.FileReader;
 
-namespace EnglishApiClient.HttpServices.EntityHttpService
+namespace EnglishApiClient.HttpServices.EntityHttpServices
 {
     public class WordHttpService : GenericHttpService<WordModel>, IWordHttpService
     {

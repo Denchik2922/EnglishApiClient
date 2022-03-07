@@ -5,7 +5,7 @@ using Microsoft.AspNetCore.WebUtilities;
 using System.Net.Http.Json;
 using System.Text.Json;
 
-namespace EnglishApiClient.HttpServices.EntityHttpService
+namespace EnglishApiClient.HttpServices.EntityHttpServices
 {
         public abstract class GenericHttpService<T> : IGenericHttpService<T> where T : class
         {

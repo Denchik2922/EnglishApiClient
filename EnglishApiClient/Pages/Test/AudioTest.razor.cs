@@ -65,11 +65,13 @@ namespace EnglishApiClient.Pages.Test
             
             if(_parameters.CountQuestion < 1)
             {
-                _toastService.ShowInfo("Sorry but you don`t have any words for this test!");
                 await JSRuntime.InvokeVoidAsync("history.back");
+                _toastService.ShowInfo("Sorry but you don`t have any words for this test!");
             }
-
-            await GetTest();
+            else
+            {
+                await GetTest();
+            }
         }
 
         private async Task NextQuestion()

@@ -3,6 +3,11 @@
     cursor: pointer;
 }
 
+.learned-block{
+    display:inline-block;
+    margin:auto 0px auto auto;
+}
+
 .words {
     min-height: 550px;
     margin-bottom: 30px;
@@ -32,7 +37,7 @@
 }
 
 .oi-chevron-bottom {
-    margin: auto 15px auto auto;
+    margin: auto 15px auto 15px;
 }
 
 .oi-ellipses {

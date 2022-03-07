@@ -2,7 +2,7 @@
 using EnglishApiClient.HttpServices.Interfaces;
 using System.Net.Http.Json;
 
-namespace EnglishApiClient.HttpServices.EntityHttpService
+namespace EnglishApiClient.HttpServices.EntityHttpServices
 {
     public class TagHttpService : GenericHttpService<Tag>, ITagHttpService
     {

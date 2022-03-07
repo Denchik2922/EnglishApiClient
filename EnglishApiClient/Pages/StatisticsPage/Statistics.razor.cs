@@ -13,6 +13,8 @@ namespace EnglishApiClient.Pages.StatisticsPage
 
         public ICollection<TestResultForStatistic> results;
 
+        public ICollection<LearnedWord> learnedWords;
+
         public ChartOptions chartOptions = new ChartOptions();
 
         public string[] XAxisLabels;
@@ -21,17 +23,34 @@ namespace EnglishApiClient.Pages.StatisticsPage
 
         public List<string> _typeOftesting;
 
+        public string CountLearnedWords
+        {
+            get
+            {
+                return learnedWords.Where(l => l.IsLearned).Count().ToString();
+            }
+        }
+
         [Inject]
         private ITestResultHttpService _testResultService { get; set; }
+
+        [Inject]
+        private ILearnedWordHttpService _learnedWordService { get; set; }
 
         protected override async Task OnInitializedAsync()
         {
             await GetTestResult();
+            await GetLearnedWord();
             GetTypeOftesting();
             if (_typeOftesting.Count > 0)
             {
                 GetChartSeriesForTest(_typeOftesting.First());
             } 
+        }
+
+        public async Task GetLearnedWord()
+        {
+            learnedWords = await _learnedWordService.GetAllByDictionaryId(DictionaryId);
         }
 
         public void GetTypeOftesting()
