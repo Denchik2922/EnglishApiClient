@@ -37,7 +37,7 @@
 }
 
 .oi-chevron-bottom {
-    margin: auto 15px auto 15px;
+    margin: auto 15px auto 0px;
 }
 
 .oi-ellipses {
@@ -50,4 +50,10 @@
 
 .word-p{
     margin:0;
+}
+
+.progress {
+    width: 70px;
+    min-width:70px;
+    margin: auto 10px auto auto;
 }

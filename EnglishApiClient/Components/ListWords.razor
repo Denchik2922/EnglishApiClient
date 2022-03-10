@@ -45,21 +45,22 @@ else
                                 }
                             </p>
 
-                            
-                                <label style="margin:auto 0px auto auto;" for="learned-@word.Name">Learned</label>
-                                 <input style="margin:auto 0px auto 5px;" id="learned-@word.Name" type="checkbox" 
-                                                                          @onchange="async () => await SetLearnedWord(word.LearnedWord)"
-                                                                          checked="@(word.LearnedWord.IsLearned ? "checked" : null)" />
-                           
-                           
+                            <div title="Word was learned" class="progress">
+                                <div class="progress-bar bg-success" role="progressbar" style="width: @GetPercent(word.LearnedWord.CountTrueAnswers)%"></div>
+                            </div>
+
                             <span data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-@word.Name" aria-expanded="true" aria-controls="panelsStayOpen-@word.Name" class="oi oi-chevron-bottom"></span>
-                            @if (IsCurrentUser)
-                            {
                                 <span data-bs-toggle="dropdown" aria-expanded="false" class="oi oi-ellipses"></span>
                                 <ul class="dropdown-menu">
-                                    <li><p class="dropdown-item" @onclick="@(() => _navigation.NavigateTo($"edit-word/{word.Id}"))" >Edit word</p></li>
+                                    @if (IsCurrentUser)
+                                    {
+                                        <li><p class="dropdown-item" @onclick="@(() => _navigation.NavigateTo($"edit-word/{word.Id}"))">Edit word</p></li>
+                                    }
+                                    <li><label class="dropdown-item" for="learned-@word.Name">Learned <input id="learned-@word.Name" type="checkbox" 
+                                                                          @onchange="async () => await SetLearnedWord(word.LearnedWord)"
+                                                                          checked="@(word.LearnedWord.IsLearned ? "checked" : null)" /></label>
+                                 </li>
                                 </ul>
-                            }
                         </div>
                     </div>
                     <div id="panelsStayOpen-@word.Name" class="accordion-collapse collapse" aria-labelledby="panelsStayOpen-@word.Name">

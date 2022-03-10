@@ -23,5 +23,11 @@ namespace EnglishApiClient.HttpServices.EntityHttpServices
             var response = await _httpClient.GetAsync($"learnedword/{dictionaryId}");
             return await response.Content.ReadFromJsonAsync<ICollection<LearnedWord>>();
         }
+
+        public async Task<ICollection<LearnedWord>> GetAllForUser(int dictionaryId)
+        {
+            var response = await _httpClient.GetAsync($"learnedword/all/{dictionaryId}");
+            return await response.Content.ReadFromJsonAsync<ICollection<LearnedWord>>();
+        }
     }
 }

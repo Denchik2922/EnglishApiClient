@@ -27,6 +27,12 @@ namespace EnglishApiClient.Components
             {"Name DESC", "name desc" }
         };
 
+        private string GetPercent(int num)
+        {
+            double score = ((double)num / 10) * 100;
+            return Math.Round(score, 0).ToString();
+        }
+
         [Inject]
         private NavigationManager _navigation { get; set; }
 
@@ -51,14 +57,19 @@ namespace EnglishApiClient.Components
             await GetWords();
         }
 
+        private async Task GetNotLearnedWords()
+        {
+           var notLearnedWords = await _learnedWordService.GetAllForUser(DictionaryId);
+            var unlearnedWords = notLearnedWords.Count(l => l.IsLearned == false);
+            await EditCountWords.InvokeAsync(unlearnedWords);
+        }
+
         private async Task GetWords()
         {
             var pagingResponse = await _wordService.GetWordsForDictionary(DictionaryId, parameters);
             Words = pagingResponse.Items;
             MetaData = pagingResponse.MetaData;
-
-            var unlearnedWords = Words.Count(w => w.LearnedWord.IsLearned == false);
-            await EditCountWords.InvokeAsync(unlearnedWords);
+            await GetNotLearnedWords();
         }
 
         private async Task SearchChanged(string searchTerm)
